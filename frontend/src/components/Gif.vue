@@ -1,7 +1,7 @@
 <template>
     <div class="gifRoot">
-        <img src="url" alt="image place">
-    </div >
+        <img :src="url" alt="image place"> 
+    </div>
 </template>
 
 <script>

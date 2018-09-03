@@ -8,3 +8,4 @@ export const getSearchRes = info =>
     .set("Access-Control-Allow-Origin", "*")
     .send({ info })
     .then(res => res.body)
+    .then()

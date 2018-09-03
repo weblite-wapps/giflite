@@ -37,11 +37,11 @@ export default {
   },
   methods: {
     init() {
-      getSearchRes().then(res => {
-        if (res) {
-          this.fillAddresses(res)
-        }
-      })
+      // getSearchRes("").then(res => {
+      //   if (res) {
+      //     this.fillAddresses(res)
+      //   }
+      // })
     },
     fillAddresses(info) {
       this.gifUrls = info.map(x => x)
@@ -54,6 +54,7 @@ export default {
     send(info) {
       getSearchRes(info).then(res => {
         if (res) {
+          // console.log(res)
           this.fillAddresses(res)
         }
       })
@@ -64,7 +65,7 @@ export default {
 
 <style>
 #app {
-  width: 350px;
+  width: 300px;
   height: 100%;
 }
 </style>
