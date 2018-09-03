@@ -1,26 +1,61 @@
 <template>
   <div id="app">
-    <input  v-model="search" type="text">
-    <button @click="send(search)">click</button>
+    <div class="container">
+      <Header :send="send"/>
+      <Gifs :gifurls="gifUrls"/>
+    </div>
   </div>
 </template>
 
 <script>
-import { getSearchRes, requests } from "./helper/functions/handleRequests.js"
+import webliteHandler from "./helper/functions/weblite.api"
+import { getSearchRes } from "./helper/functions/handleRequests.js"
+import Header from "./components/Header"
+import Gifs from "./components/Gifs"
+
+const { W } = window
 
 export default {
   name: "app",
+  userName: "",
+  userId: "",
+  wisId: "",
+
   data: function() {
     return {
-      search: "",
+      gifUrls: [],
     }
   },
-  components: {},
+  components: {
+    Header,
+    Gifs,
+  },
 
+  created() {
+    W && webliteHandler(this)
+    !W && this.init()
+  },
   methods: {
+    init() {
+      getSearchRes().then(res => {
+        if (res) {
+          this.fillAddresses(res)
+        }
+      })
+    },
+    fillAddresses(info) {
+      this.gifUrls = info.map(x => x)
+      console.log("ccc")
+      console.log(typeof this.gifUrls)
+      console.log(this.gifUrls)
+      console.log(this.gifUrls[0])
+      console.log("bbb")
+    },
     send(info) {
       getSearchRes(info).then(res => {
-        console.log(res)
+        if (res) {
+          this.fillAddresses(res)
+        }
       })
     },
   },
@@ -28,12 +63,8 @@ export default {
 </script>
 
 <style>
-/* #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
+#app {
+  width: 350px;
+  height: 100%;
+}
 </style>
