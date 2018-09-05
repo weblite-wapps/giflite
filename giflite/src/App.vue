@@ -19,7 +19,6 @@ export default {
   name: "app",
   userName: "",
   userId: "",
-  wisId: "",
 
   data: function() {
     return {
@@ -33,15 +32,16 @@ export default {
 
   created() {
     W && webliteHandler(this)
-    !W && this.init()
+    // !W &&
+    this.init()
   },
   methods: {
     init() {
-      // getSearchRes("").then(res => {
-      //   if (res) {
-      //     this.fillAddresses(res)
-      //   }
-      // })
+      getSearchRes().then(res => {
+        if (res) {
+          this.fillAddresses(res)
+        }
+      })
     },
     fillAddresses(info) {
       this.gifUrls = info.map(x => x)
@@ -67,5 +67,8 @@ export default {
 #app {
   width: 300px;
   height: 100%;
+  overflow: auto;
+  background-color: #14222f;
+  border: 5px solid black;
 }
 </style>

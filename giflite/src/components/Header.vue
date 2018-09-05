@@ -1,8 +1,9 @@
 <template>
-    <div class="Header">
+    <div class="header">
         <div>
             <input  v-model="search" type="text">
             <button @click="send(search)">click</button>
+
         </div>
     </div>
 </template>
@@ -25,5 +26,10 @@ method: {
 </script>
 
 
-<style>
+<style scoped>
+.header {
+  padding: 15px 15% 15px 15%;
+  height: 6%;
+  background: #14222f;
+}
 </style>

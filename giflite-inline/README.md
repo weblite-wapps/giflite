@@ -1,4 +1,4 @@
-# frontend
+# giflite-inline
 
 ## Project setup
 

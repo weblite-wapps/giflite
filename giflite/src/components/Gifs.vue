@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="conatainer"> 
+      
         <Gif
             v-for="item in gifurls"
             :key="item"
@@ -26,5 +27,9 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+.conatainer {
+  display: flex;
+  flex-wrap: wrap;
+}
 </style>

@@ -16,5 +16,8 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+.gifRoot {
+  padding-top: 0.5%;
+}
 </style>
