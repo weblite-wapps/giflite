@@ -1,10 +1,12 @@
 <template>
     <div class="conatainer"> 
-      
         <Gif
             v-for="item in gifurls"
-            :key="item"
+            :key="item[0]"
             :url="item"
+            :Send="Send"
+            :Like="like"
+
         />
     </div>
     
@@ -16,9 +18,11 @@ export default {
   name: "Gifs",
   props: {
     gifurls: {
-      Type: Array,
+      Type: Object,
       required: true,
     },
+    like: Function,
+    Send: Function,
   },
   components: {
     Gif,

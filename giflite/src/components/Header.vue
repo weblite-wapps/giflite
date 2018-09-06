@@ -1,8 +1,8 @@
 <template>
     <div class="header">
         <div>
-            <input  v-model="search" type="text">
-            <button @click="send(search)">click</button>
+            <input  v-model="searchText" type="text">
+            <button @click="search(searchText)">search</button>
 
         </div>
     </div>
@@ -13,11 +13,11 @@ export default {
   name: "Header",
   data: function() {
     return {
-      search: "",
+      searchText: "",
     }
   },
   props: {
-    send: Function,
+    search: Function,
   },
 }
 

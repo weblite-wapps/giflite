@@ -8,4 +8,10 @@ export const getSearchRes = info =>
     .set("Access-Control-Allow-Origin", "*")
     .send({ info })
     .then(res => res.body)
-    .then()
+
+export const addToFav = info =>
+  request
+    .post(`${config.server}/addToFav`)
+    .set("Access-Control-Allow-Origin", "*")
+    .send({ ...info })
+    .then(res => res.body)
