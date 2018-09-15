@@ -21,8 +21,8 @@ export default {
       Type: Object,
       required: true,
     },
-    like: Function,
     Send: Function,
+    like: Function,
   },
   components: {
     Gif,

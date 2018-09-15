@@ -13,5 +13,23 @@ exports.connect = name => {
   })
 }
 
-exports.addGif = (userId, wisId, urlSmallSize, urlBigSize) =>
-  new models.Giflite({ userId, wisId, urlSmallSize, urlBigSize }).save()
+exports.addGif = (urlSmallSize, urlBigSize, userId, wisId) =>
+  new models.Giflite({
+    userId,
+    wisId,
+    urlSmallSize,
+    urlBigSize,
+  }).save()
+
+exports.getAllGifs = userId => models.Giflite.find({ userId }).exec()
+
+exports.getSingleGif = wisId => models.Giflite.find({ wisId }).exec()
+
+exports.updategif = (wisid, userid, urlsmall, urlbig) => {
+  const query = { userId: userid, urlSmallSize: urlsmall, urlBigSize: urlbig }
+  models.Giflite.findOneAndUpdate(
+    query,
+    { wisId: wisid },
+    { upsert: true },
+  ).exec()
+}

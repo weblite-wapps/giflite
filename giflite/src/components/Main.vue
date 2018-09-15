@@ -1,0 +1,38 @@
+<template>
+    <div>
+    <Header :search="search"/>
+      <Gifs 
+        :gifurls="searchGifsUrls"
+        :Send="SendToChat"
+        :like="AddToFavourite" 
+      />
+    <button @click="changeState">go To favourites</button>
+    </div>
+</template>
+<script>
+import Header from "./Header"
+import Gifs from "./Gifs"
+
+export default {
+  name: "Main",
+  props: {
+    search: Function,
+    searchGifsUrls: Array,
+    SendToChat: Function,
+    AddToFavourite: Function,
+  },
+  components: {
+    Header,
+    Gifs,
+  },
+  methods: {
+    changeState() {
+      this.$emit("state", "favouritesPage")
+    },
+  },
+}
+</script>
+
+
+<style>
+</style>

@@ -7,7 +7,6 @@ const blogSchema = new Schema({
   wisId: String,
   urlSmallSize: String,
   urlBigSize: String,
-  //   gifid: String,
 })
 
 exports.Giflite = mongoose.model("giflite_db", blogSchema)

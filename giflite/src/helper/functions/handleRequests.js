@@ -13,5 +13,12 @@ export const addToFav = info =>
   request
     .post(`${config.server}/addToFav`)
     .set("Access-Control-Allow-Origin", "*")
-    .send({ ...info })
+    .send({ info })
+    .then(res => res.body)
+
+/// inja WisId va to app.vue userId hast
+export const getAllFavourites = userId =>
+  request
+    .get(`${config.server}/load/all/${userId}`)
+    .set("Access-Control-Allow-Origin", "*")
     .then(res => res.body)

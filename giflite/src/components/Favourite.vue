@@ -2,12 +2,11 @@
     <div class="card">
         <div class="card-content">
           <img 
-            :src="url[0]"   
+            :src="url.urlSmallSize"   
             alt="image place"
             :class="{hidden: !canShow, isShowing: canShow}"
           >
         </div>
-        <button v-on:click="Like( url.concat(wisId) )">like</button>
         <button v-on:click="Send">Send</button>
         <!-- <button v-on:click="changeShow">Show</button> -->
     </div>
@@ -15,19 +14,15 @@
 
 <script>
 export default {
-  name: "Gif",
+  name: "Favourite",
   data() {
     return {
-      wisId: "giflite2",
-      canShow: {
-        Boolean,
-        default: false,
-      },
+      canShow: Boolean,
+      default: false,
     }
   },
   props: {
-    url: Array,
-    Like: Function,
+    url: Object,
     Send: Function,
   },
   methods: {

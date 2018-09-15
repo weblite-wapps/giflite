@@ -8,13 +8,13 @@ const router = express.Router()
 
 router.use(bodyParser.json())
 router.post("/search", (req, res) => {
-  console.log("hello", req.body.info)
-  console.log("hello", typeof req.body.info)
+  // console.log("hello", req.body.info)
+  // console.log("hello", typeof req.body.info)
   // console.log("hello", req.body.info.length)
   request(
     `http://api.giphy.com/v1/gifs/search?q=${
       req.body.info
-    }&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=20`,
+    }&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=5`,
     (error, response, body) => {
       const parsedBody = JSON.parse(body)
       // console.log(parsedBody.data) // Print the error if one occurred
@@ -29,9 +29,9 @@ router.post("/search", (req, res) => {
         R.path(["images", "fixed_height", "url"], x),
       )
       const urls = R.zip(smallSizeUrls, bigSizeUrls)
-      console.log("salam: ", urls.length)
-      console.log("salam: ", urls)
-      console.log("salam: ", typeof urls)
+      // console.log("salam: ", urls.length)
+      // console.log("urls: ", urls)
+      // console.log("salam: ", typeof urls)
       // .map(x, R.prop("url",R.prop("downsized", R.prop("images", x)),))
       res.send(urls)
     },
@@ -41,10 +41,45 @@ router.post("/search", (req, res) => {
 })
 
 router.post("/addToFav", (req, res) => {
-  console.log("req: ", req.body)
+  // console.log("req.body: ", req.body)
+  // console.log("req.body.info: ", req.body.info)
+  // console.log("req: ", req.body.info[1])
+  // console.log("req: ", req.body.info[2])
+  // console.log("req: ", req.body.info.url[1])
+  // console.log("req: ", req.body.info.url[2])
+  // console.log("req: ", req.body.info.url[3])
+
+  database.updategif(
+    req.body.info[3],
+    req.body.info[2],
+    req.body.info[0],
+    req.body.info[1],
+  )
+  // .addGif(
+  //   req.body.info.url[0],
+  //   req.body.info.url[1],
+  //   req.body.info.url[2],
+  //   req.body.info.wisId,
+  // )
+  // .then(console.log("added to db"))
+  // .catch(console.log)
+})
+
+router.get("/load/all/:userId", ({ params: { userId } }, res) => {
+  console.log("getAllFavs userId", userId)
+  // console.log("req.params: ", wisId)
   database
-    .addGif(req.body.userId, req.body.wisId, req.body.info[0], req.body.info[1])
-    .then(console.log("added to db"))
+    .getAllGifs(userId)
+    .then(response => res.send(response))
+    .catch(console.log)
+})
+
+router.get("/load/single/:wisId", ({ params: { wisId } }, res) => {
+  // console.log("load single file")
+  // console.log("req.params: ", userId)
+  database
+    .getSingleGif(wisId)
+    .then(response => res.send(response))
     .catch(console.log)
 })
 
