@@ -1,26 +1,28 @@
 <template>
-    <div>
-        <Favourite
-            v-for="item in favouriteList"
-            :key="item.urlSmallSize"
-            :url="item"
-            :Send="SendToChat"
+  <div>
+    <Gif
+      v-for="item in favouriteList"
+      :key="item[0]"
+      :url="item"
+      :Send="SendToChat"
+      :Like="like"
+    />
 
-        />
+
     <button @click="changeState">go To Main</button>
         
-    </div>    
+  </div>
 </template>
 
-
 <script>
-import Favourite from "./Favourite"
+import Gif from "./Gif"
 export default {
   name: "Favourites",
   props: {
     showFavourites: Function,
     favouriteList: Array,
     SendToChat: Function,
+    like: Function,
   },
   methods: {
     init() {
@@ -35,11 +37,10 @@ export default {
     this.init()
   },
   components: {
-    Favourite,
+    Gif,
   },
 }
 </script>
 
-
-<style>
+<style scoped>
 </style>

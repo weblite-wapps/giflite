@@ -1,12 +1,23 @@
-const mongoose = require("mongoose")
+const likeMongoose = require("mongoose")
+const SentMongoose = require("mongoose")
 
-const Schema = mongoose.Schema
+const LikeSchema = likeMongoose.Schema
+const SentSchema = SentMongoose.Schema
 
-const blogSchema = new Schema({
+const blogSchema = new LikeSchema({
   userId: String,
   wisId: String,
   urlSmallSize: String,
   urlBigSize: String,
 })
 
-exports.Giflite = mongoose.model("giflite_db", blogSchema)
+const BlogSchema = new SentSchema({
+  wisId: String,
+  urlBigSize: String,
+})
+
+exports.LikedGifliteMessages = likeMongoose.model(
+  "giflite_liked_db",
+  blogSchema,
+)
+exports.SentGifliteMessages = SentMongoose.model("giflite_sent_db", BlogSchema)

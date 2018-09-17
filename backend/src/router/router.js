@@ -8,27 +8,34 @@ const router = express.Router()
 
 router.use(bodyParser.json())
 router.post("/search", (req, res) => {
-  // console.log("hello", req.body.info)
+  console.log("hello", req.body.info)
   // console.log("hello", typeof req.body.info)
   // console.log("hello", req.body.info.length)
   request(
     `http://api.giphy.com/v1/gifs/search?q=${
       req.body.info
-    }&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=5`,
+    }&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=25`,
     (error, response, body) => {
       const parsedBody = JSON.parse(body)
-      // console.log(parsedBody.data) // Print the error if one occurred
-      // console.log("statusCode:", response && response.statusCode) // Print the response status code if a response was received
-      // console.log("parsedBody: ", parsedBody)
       const paresdBodyData = R.prop("data", parsedBody)
-      // console.log("paresdBodyData: ", paresdBodyData)
-      const smallSizeUrls = paresdBodyData.map(x =>
-        R.path(["images", "fixed_width_small", "url"], x),
+      console.log("paresdBodyData: ", paresdBodyData[0].images)
+      const urls = paresdBodyData.map(
+        R.applySpec({
+          smallUrl: R.path(["images", "fixed_height_small", "url"]),
+          bigUrl: R.path(["images", "fixed_height", "url"]),
+          width: R.path(["images", "fixed_height_small", "width"]),
+        }),
       )
-      const bigSizeUrls = paresdBodyData.map(x =>
-        R.path(["images", "fixed_height", "url"], x),
-      )
-      const urls = R.zip(smallSizeUrls, bigSizeUrls)
+
+      // const widths = paresdBodyData.map(x =>
+      //   R.path(["images", "fixed_height_small", "width"], x),
+      // )
+      // console.log("widths ", widths)
+
+      // const bigSizeUrls = paresdBodyData.map(x =>
+      //   R.path(["images", "fixed_height", "url"], x),
+      // )
+      // const urls = R.zip(smallSizeUrls, bigSizeUrls)
       // console.log("salam: ", urls.length)
       // console.log("urls: ", urls)
       // console.log("salam: ", typeof urls)
@@ -56,10 +63,10 @@ router.post("/addToFav", (req, res) => {
     req.body.info[1],
   )
   // .addGif(
-  //   req.body.info.url[0],
-  //   req.body.info.url[1],
-  //   req.body.info.url[2],
-  //   req.body.info.wisId,
+  //   req.body.info[3],
+  //   req.body.info[2],
+  //   req.body.info[0],
+  //   req.body.info[1],
   // )
   // .then(console.log("added to db"))
   // .catch(console.log)

@@ -9,25 +9,27 @@ exports.connect = name => {
   const db = mongoose.connection
   db.on("error", console.log)
   db.once("open", () => {
-    console.log("connected to giflite database ")
+    console.log(`connected to  database ${name} `)
   })
 }
 
-exports.addGif = (urlSmallSize, urlBigSize, userId, wisId) =>
-  new models.Giflite({
+exports.addGif = (wisId, userId, urlSmallSize, urlBigSize) =>
+  new models.LikedGifliteMessages({
     userId,
     wisId,
     urlSmallSize,
     urlBigSize,
   }).save()
 
-exports.getAllGifs = userId => models.Giflite.find({ userId }).exec()
+exports.getAllGifs = userId =>
+  models.LikedGifliteMessages.find({ userId }).exec()
 
-exports.getSingleGif = wisId => models.Giflite.find({ wisId }).exec()
+exports.getSingleGif = wisId =>
+  models.LikedGifliteMessages.find({ wisId }).exec()
 
 exports.updategif = (wisid, userid, urlsmall, urlbig) => {
   const query = { userId: userid, urlSmallSize: urlsmall, urlBigSize: urlbig }
-  models.Giflite.findOneAndUpdate(
+  models.LikedGifliteMessages.findOneAndUpdate(
     query,
     { wisId: wisid },
     { upsert: true },

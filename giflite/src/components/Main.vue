@@ -6,7 +6,7 @@
         :Send="SendToChat"
         :like="AddToFavourite" 
       />
-    <button @click="changeState">go To favourites</button>
+    <button @click="changeState">go To</button>
     </div>
 </template>
 <script>

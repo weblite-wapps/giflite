@@ -14,6 +14,7 @@
         :showFavourites="showFavourites"
         :SendToChat="SendToChat"
         :favouriteList="favouriteList"
+        :like="AddToFavourite"
         @state="changeState"
       />
     </div>
@@ -57,20 +58,22 @@ export default {
   methods: {
     init() {
       getSearchRes().then(res => {
-        // console.log("res[0]: ", res[0])
+        console.log("res: ", res)
         // console.log("typeof res[0]: ", typeof res[0])
-        if (res) {
-          this.fillAddresses(res)
-        }
+        // if (res) {
+        //   this.fillAddresses(res)
+        // }
       })
     },
     fillAddresses(info) {
       // console.log("info: ", info)
 
       this.searchGifsUrls = info.map(x => x.concat(this.userId))
+      console.log("search res: ", this.searchGifsUrls)
+      console.log("search res: ", this.searchGifsUrls[0])
+      console.log("type search res: ", typeof this.searchGifsUrls)
 
       // console.log("info  2  : ", this.searchGifsUrls)
-
       // console.log("ccc")
       // console.log("aaaa", info[0])
       // console.log(this.searchGifsUrls)
@@ -97,31 +100,34 @@ export default {
     // },
     AddToFavourite(info) {
       addToFav(info)
-      console.log("added to favourite")
+      // console.log("added to favourite")
       // send to db a message and save
     },
     showFavourites() {
       getAllFavourites(this.userId).then(res => {
-        console.log("user for getting favs: ", this.userId)
+        // console.log("user for getting favs: ", this.userId)
 
         if (res) {
-          console.log("res for favs: ", res)
+          // console.log("res for favs: ", res)
 
           ////// Baadan Ramda ro pak kon && W.R
           this.favouriteList = R.map(
-            ({ userId, wisId, urlSmallSize, urlBigSize }) => ({
-              userId,
-              wisId,
+            ({ userId, wisId, urlSmallSize, urlBigSize }) => [
               urlSmallSize,
               urlBigSize,
-            }),
+              userId,
+              wisId,
+            ],
             res,
           )
+          // console.log("liked res: ", this.favouriteList)
+          // console.log("liked res: ", this.favouriteList[0])
+          // console.log("type liked res: ", typeof this.favouriteList)
         }
       })
     },
     changeState(event) {
-      console.log(`go to state ${event}`)
+      // console.log(`go to state ${event}`)
       this.state = event
       this.init
     },
@@ -131,10 +137,11 @@ export default {
 
 <style>
 #app {
-  width: 300px;
+  width: 350px;
   height: 100%;
   overflow: auto;
-  /* background-color: #14222f; */
-  border: 5px solid black;
+  background-color: #5f5b5b;
+  /* #eaeaea */
+  /* border: 5px solid black; */
 }
 </style>

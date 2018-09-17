@@ -27,13 +27,27 @@ export default {
   components: {
     Gif,
   },
+  updated() {
+    // console.log("aaa", this.gifurls)
+    // const info = this.gifurls.map(x => x[0])
+    // console.log("bbb ", info)
+    // countRates(this.gifurls)
+  },
+  methods: {
+    // countRates(info) {
+    //   const rateResults = find(info)
+    // },
+  },
 }
 </script>
 
 
 <style scoped>
 .conatainer {
+  /* height: 600px; */
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  /* align-content: flex-start; */
 }
 </style>

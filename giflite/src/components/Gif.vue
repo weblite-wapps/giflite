@@ -1,28 +1,31 @@
 <template>
-    <div class="card">
-        <div class="card-content">
+    <div class="container">
+        <div class="card-content gif">
           <img 
             :src="url[0]"   
             alt="image place"
             :class="{hidden: !canShow, isShowing: canShow}"
           >
         </div>
-        <button v-on:click="Like( url.concat(wisId) )">like</button>
-        <button v-on:click="Send">Send</button>
-        <!-- <button v-on:click="changeShow">Show</button> -->
+        <!-- <div class="gif-img-container">
+          <img  class="img img-1" v-on:click="Like( url.concat(wisId) )"  alt="image place">
+          <img  class="img img-2" v-on:click="Send" src="./../assets/send.png" alt="image place">
+          <img  
+            class="img"
+            v-on:click="changeShow"
+            :class="{ img_3 : canShow ,  img_3_disabled: !canShow }"
+             src="./../assets/on.png" alt="image place">
+        </div> -->
     </div>
-</template>
 
+</template>
 <script>
 export default {
   name: "Gif",
   data() {
     return {
       wisId: "giflite2",
-      canShow: {
-        Boolean,
-        default: false,
-      },
+      canShow: true,
     }
   },
   props: {
@@ -32,13 +35,60 @@ export default {
   },
   methods: {
     changeShow() {
-      // must stop and play again
+      console.log("show is changing")
+      this.canShow = !this.canShow
     },
   },
 }
 </script>
 <style scoped>
-.card {
-  padding-top: 0.5%;
+.container {
+  display: flex;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  align-items: center;
+  /* flex-grow: 1; */
+  /* padding-top: 0.5%; */
+}
+
+.gif-img-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.img {
+  /* margin-top: 2px; */
+  /* margin-left: 2px; */
+  height: 10px;
+  width: 10px;
+  /* border-radius: 2px; */
+
+  /* background: black; */
+}
+
+.img-1 {
+  /* margin-top: 5px; */
+  /* background-color: black; */
+  content: url("./../assets/like.png");
+}
+
+.img-2 {
+  /* margin-top: 10px; */
+}
+
+.img_3 {
+  /* margin-top: 10px; */
+  content: url("./../assets/on.png");
+}
+.img_3_disabled {
+  /* margin-top: 10px; */
+  content: url("./../assets/off.png");
+}
+
+.hidden {
+}
+.isShowing {
+  /* height: 40px; */
+  /* width: 100px; */
 }
 </style>
