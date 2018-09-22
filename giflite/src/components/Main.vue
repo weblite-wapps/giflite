@@ -25,6 +25,12 @@ export default {
     Header,
     Gifs,
   },
+  created() {
+    // console.log(" Main is created")
+  },
+  updated() {
+    // console.log(" Main is updated")
+  },
   methods: {
     changeState() {
       this.$emit("state", "favouritesPage")

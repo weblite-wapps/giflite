@@ -4,7 +4,7 @@
       <Main
         v-if="state === 'mainPage' "
         :search="search"
-        :searchGifsUrls="searchGifsUrls"
+        :searchGifsUrls="searchedGifs"
         :SendToChat="SendToChat"
         :AddToFavourite="AddToFavourite"
         @state="changeState"
@@ -13,7 +13,7 @@
         v-if="state === 'favouritesPage'"
         :showFavourites="showFavourites"
         :SendToChat="SendToChat"
-        :favouriteList="favouriteList"
+        :favouriteList="favouriteGifs"
         :like="AddToFavourite"
         @state="changeState"
       />
@@ -37,8 +37,10 @@ export default {
 
   data() {
     return {
-      searchGifsUrls: [],
-      favouriteList: [],
+      searchedGifs: [],
+      favouriteGifs: [],
+      // favouriteGifsUrls: [],
+      // gifSId: [],
       // wisId: (W && W.wisId) || "1",
       userName: "",
       userId: "javadId",
@@ -58,39 +60,35 @@ export default {
   methods: {
     init() {
       getSearchRes().then(res => {
-        console.log("res: ", res)
+        // console.log("res: ", res)
+        // this.searchedGifs = res
         // console.log("typeof res[0]: ", typeof res[0])
-        // if (res) {
-        //   this.fillAddresses(res)
-        // }
-      })
-    },
-    fillAddresses(info) {
-      // console.log("info: ", info)
-
-      this.searchGifsUrls = info.map(x => x.concat(this.userId))
-      console.log("search res: ", this.searchGifsUrls)
-      console.log("search res: ", this.searchGifsUrls[0])
-      console.log("type search res: ", typeof this.searchGifsUrls)
-
-      // console.log("info  2  : ", this.searchGifsUrls)
-      // console.log("ccc")
-      // console.log("aaaa", info[0])
-      // console.log(this.searchGifsUrls)
-      // console.log(typeof info)
-      // console.log(info)
-      // console.log(this.searchGifsUrls[0])
-      // console.log("bbb")
-    },
-    search(info) {
-      getSearchRes(info).then(res => {
         if (res) {
           this.fillAddresses(res)
         }
       })
     },
+
+    search(info) {
+      getSearchRes(info).then(res => {
+        if (res) {
+          // console.log("res: ", res)
+
+          this.fillAddresses(res)
+        }
+      })
+    },
+    fillAddresses(info) {
+      // console.log("info: ", info)
+      info.forEach(x => {
+        x.userId = this.userId
+      })
+      this.searchedGifs = info
+      // console.log("search res: ", this.searchGifsUrls)
+    },
+
     SendToChat(info) {
-      console.log("gif is sent to inline")
+      console.log(info, "gif is sent to inline")
       //   W.sendMessageToCurrentChat("wapp", {
       //     wappId: "",
       //     customize: { urlSmallSize },
@@ -99,8 +97,13 @@ export default {
     // send message to inline
     // },
     AddToFavourite(info) {
-      addToFav(info)
-      // console.log("added to favourite")
+      addToFav(info).then(res => {
+        if (res) {
+          console.log(res)
+        }
+      })
+
+      console.log("added to favourite")
       // send to db a message and save
     },
     showFavourites() {
@@ -108,23 +111,14 @@ export default {
         // console.log("user for getting favs: ", this.userId)
 
         if (res) {
-          // console.log("res for favs: ", res)
-
+          console.log("res for favs: ", res)
+          this.favouriteGifs = res
           ////// Baadan Ramda ro pak kon && W.R
-          this.favouriteList = R.map(
-            ({ userId, wisId, urlSmallSize, urlBigSize }) => [
-              urlSmallSize,
-              urlBigSize,
-              userId,
-              wisId,
-            ],
-            res,
-          )
-          // console.log("liked res: ", this.favouriteList)
-          // console.log("liked res: ", this.favouriteList[0])
-          // console.log("type liked res: ", typeof this.favouriteList)
         }
       })
+      // console.log("liked res: ", this.favouriteList)
+      // console.log("liked res: ", this.favouriteList[0])
+      // console.log("type liked res: ", typeof this.favouriteList)
     },
     changeState(event) {
       // console.log(`go to state ${event}`)

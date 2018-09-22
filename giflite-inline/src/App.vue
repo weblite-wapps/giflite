@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <Gif
-        :url="urlBigSize"
+        :url="url"
         :Like="AddToFavourites"
       />
   </div>
@@ -9,9 +9,10 @@
 
 <script>
 import Gif from "./components/Gif"
-import { addToFav, getSingleGifData } from "./helper/requestHandler"
+import { addToFav, getSingleGifData, SaveToDb } from "./helper/requestHandler"
 const { W } = window
 export default {
+  name: "App",
   data() {
     return {
       // wisId: (W && W.wisId) || "1",
@@ -20,8 +21,8 @@ export default {
       //??
       //?
       //////////
-      urlSmallSize: "https://media1.giphy.com/media/lUgQ43SWw0EQ8/100w.gif",
-      urlBigSize: "",
+      url: {},
+      gifId: "7lD9Gz5FxpRCg",
       userId: "javadId",
     }
   },
@@ -31,30 +32,29 @@ export default {
   created() {
     this.init()
   },
+  updated() {
+    SaveToDb({ gifId: this.gifId, wisId: this.wisId }).then(res =>
+      console.log("res ", res),
+    )
+  },
 
   methods: {
     init() {
-      getSingleGifData(this.wisId).then(res => {
+      getSingleGifData(this.gifId).then(res => {
         if (res) {
-          console.log("res: ", res)
-
-          this.urlSmallSize = res[0].urlSmallSize
-          this.urlBigSize = res[0].urlBigSize
-          this.userId = res[0].userId
-          this.wisId = res[0].wisId
+          this.url = res
         }
-        // console.log("res ", res)
       })
     },
-    AddToFavourites(info) {
-      console.log("this.urlSmallSize: ", this.urlSmallSize)
-      console.log("this.urlBigSize: ", this.urlBigSize)
-      console.log(this.userId)
-      console.log(this.wisId)
 
-      const url = [this.urlSmallSize, this.urlBigSize, this.userId, this.wisId]
-      addToFav(url)
-      console.log(" added To Fav ")
+    AddToFavourites(info) {
+      // console.log("this.urlSmallSize: ", this.urlSmallSize)
+      // console.log("this.urlBigSize: ", this.urlBigSize)
+      // console.log(this.userId)
+      // console.log(this.wisId)
+      // const url = [this.urlSmallSize, this.urlBigSize, this.userId, this.wisId]
+      // addToFav(url)
+      // console.log(" added To Fav ")
     },
   },
 }

@@ -5,15 +5,14 @@ const LikeSchema = likeMongoose.Schema
 const SentSchema = SentMongoose.Schema
 
 const blogSchema = new LikeSchema({
+  gifId: String,
   userId: String,
   wisId: String,
-  urlSmallSize: String,
-  urlBigSize: String,
 })
 
 const BlogSchema = new SentSchema({
   wisId: String,
-  urlBigSize: String,
+  gifId: String,
 })
 
 exports.LikedGifliteMessages = likeMongoose.model(

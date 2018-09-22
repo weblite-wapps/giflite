@@ -21,17 +21,37 @@ exports.addGif = (wisId, userId, urlSmallSize, urlBigSize) =>
     urlBigSize,
   }).save()
 
-exports.getAllGifs = userId =>
+exports.getAllLikedGifs = userId =>
   models.LikedGifliteMessages.find({ userId }).exec()
 
 exports.getSingleGif = wisId =>
   models.LikedGifliteMessages.find({ wisId }).exec()
 
-exports.updategif = (wisid, userid, urlsmall, urlbig) => {
-  const query = { userId: userid, urlSmallSize: urlsmall, urlBigSize: urlbig }
+exports.updateLikedGif = (gifid, userid, wisid) => {
+  const query = {
+    gifId: gifid,
+    userId: userid,
+  }
   models.LikedGifliteMessages.findOneAndUpdate(
     query,
     { wisId: wisid },
     { upsert: true },
   ).exec()
 }
+
+exports.updateSentGif = async (gifId, wisId) => {
+  const res = await models.SentGifliteMessages.find({ gifId })
+  return res
+  // console.log("mod ", mod)
+
+  // const query = {
+  //   gifId,
+  // }
+  // models.SentGifliteMessages.findOneAndUpdate(
+  //   query,
+  //   { wisId },
+  //   { upsert: true },
+  // ).exec()
+}
+
+// exports.addSentGif = {Big}

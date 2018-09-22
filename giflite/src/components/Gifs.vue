@@ -2,17 +2,16 @@
     <div class="conatainer"> 
         <Gif
             v-for="item in gifurls"
-            :key="item[0]"
+            :key="item.smallUrl"
             :url="item"
             :Send="Send"
             :Like="like"
-
         />
     </div>
-    
 </template>
 
 <script>
+const R = require("ramda")
 import Gif from "./Gif"
 export default {
   name: "Gifs",
@@ -28,15 +27,12 @@ export default {
     Gif,
   },
   updated() {
-    // console.log("aaa", this.gifurls)
-    // const info = this.gifurls.map(x => x[0])
-    // console.log("bbb ", info)
-    // countRates(this.gifurls)
+    // console.log("gifs updated ", this.gifurls)
+    const info = this.gifurls.map(x => parseInt(x.width))
+    // console.log(info)
   },
   methods: {
-    // countRates(info) {
-    //   const rateResults = find(info)
-    // },
+    CalScale(info) {},
   },
 }
 </script>

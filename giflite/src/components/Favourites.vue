@@ -2,7 +2,7 @@
   <div>
     <Gif
       v-for="item in favouriteList"
-      :key="item[0]"
+      :key="item.smallUrl"
       :url="item"
       :Send="SendToChat"
       :Like="like"

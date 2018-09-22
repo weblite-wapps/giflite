@@ -19,6 +19,6 @@ export const addToFav = info =>
 /// inja WisId va to app.vue userId hast
 export const getAllFavourites = userId =>
   request
-    .get(`${config.server}/load/all/${userId}`)
+    .get(`${config.server}/load/favs/all/${userId}`)
     .set("Access-Control-Allow-Origin", "*")
     .then(res => res.body)

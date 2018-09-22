@@ -2,20 +2,20 @@
     <div class="container">
         <div class="card-content gif">
           <img 
-            :src="url[0]"   
+            :src="gifurl"   
             alt="image place"
-            :class="{hidden: !canShow, isShowing: canShow}"
+            :class="{hidden: !play, isShowing: play}"
           >
         </div>
-        <!-- <div class="gif-img-container">
-          <img  class="img img-1" v-on:click="Like( url.concat(wisId) )"  alt="image place">
-          <img  class="img img-2" v-on:click="Send" src="./../assets/send.png" alt="image place">
+        <div class="gif-img-container">
+          <img  class="img img-1" v-on:click="Like( {gifId: url.gifId, userId: url.userId ,wisId: wisId} )"  alt="image place">
+          <img  class="img img-2" v-on:click="Send(url.wisId? url.wisId: wisId)" src="./../assets/send.png" alt="image place">
           <img  
             class="img"
             v-on:click="changeShow"
-            :class="{ img_3 : canShow ,  img_3_disabled: !canShow }"
+            :class="{ img_3 : play ,  img_3_disabled: !play }"
              src="./../assets/on.png" alt="image place">
-        </div> -->
+        </div>
     </div>
 
 </template>
@@ -24,20 +24,30 @@ export default {
   name: "Gif",
   data() {
     return {
-      wisId: "giflite2",
-      canShow: true,
+      wisId: "wisId 3",
+      play: false,
+      gifurl: "",
     }
   },
   props: {
-    url: Array,
+    url: Object,
     Like: Function,
     Send: Function,
   },
   methods: {
     changeShow() {
       console.log("show is changing")
-      this.canShow = !this.canShow
+      this.play = !this.play
+      this.gifurl = this.play ? this.url.smallUrl : this.url.smallImage
     },
+  },
+  created() {
+    // console.log("url ", this.url)
+    this.gifurl = this.url.smallImage
+  },
+  updated() {
+    // this.gifurl = url.smallImage
+    // console.log("gif is updated")
   },
 }
 </script>

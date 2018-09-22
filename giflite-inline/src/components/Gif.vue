@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="url" alt="img place">
+    <img :src="url.bigUrl" alt="image place">
     <button v-on:click="Like">Like</button>
   </div>
 </template>
@@ -9,9 +9,10 @@
 export default {
   name: "Gif",
   props: {
-    url: String,
+    url: Object,
     Like: Function,
   },
+  created() {},
 }
 </script>
 
