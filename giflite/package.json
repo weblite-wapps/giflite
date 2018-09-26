@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "debounce": "^1.2.0",
     "gifffer": "^1.5.1",
     "ramda": "^0.25.0",
     "superagent": "^3.8.3",

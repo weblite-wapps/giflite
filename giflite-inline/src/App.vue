@@ -3,11 +3,13 @@
       <Gif
         :url="url"
         :Like="AddToFavourites"
+        :calScale="calScale"
       />
   </div>
 </template>
 
 <script>
+const R = require("ramda")
 import Gif from "./components/Gif"
 import { addToFav, getSingleGifData, SaveToDb } from "./helper/requestHandler"
 const { W } = window
@@ -16,13 +18,13 @@ export default {
   data() {
     return {
       // wisId: (W && W.wisId) || "1",
-      wisId: "giflite2",
+      wisId: "inline wisId",
       /// bara WisId kodoom doroste  ? balaie ya weblite.api
       //??
       //?
       //////////
       url: {},
-      gifId: "7lD9Gz5FxpRCg",
+      gifId: "ylyUQmZkAhf2nnF1ba",
       userId: "javadId",
     }
   },
@@ -33,6 +35,7 @@ export default {
     this.init()
   },
   updated() {
+    console.log("updated")
     SaveToDb({ gifId: this.gifId, wisId: this.wisId }).then(res =>
       console.log("res ", res),
     )
@@ -47,14 +50,21 @@ export default {
       })
     },
 
-    AddToFavourites(info) {
-      // console.log("this.urlSmallSize: ", this.urlSmallSize)
-      // console.log("this.urlBigSize: ", this.urlBigSize)
-      // console.log(this.userId)
-      // console.log(this.wisId)
-      // const url = [this.urlSmallSize, this.urlBigSize, this.userId, this.wisId]
-      // addToFav(url)
-      // console.log(" added To Fav ")
+    AddToFavourites() {
+      const info = { gifId: this.gifId, userId: this.userId, wisId: this.wisId }
+      addToFav(info).then(res => {
+        if (res) {
+          console.log("res ", res)
+        }
+      })
+    },
+    calScale(info) {
+      console.log("cal info  ", info)
+
+      return info.x < info.y
+        ? 350 / info.y
+        : info.y < info.x ? 350 / info.x : 350 / info.x
+      // console.log("scale ", scale)
     },
   },
 }
@@ -62,5 +72,6 @@ export default {
 
 <style>
 #app {
+  width: 350px;
 }
 </style>

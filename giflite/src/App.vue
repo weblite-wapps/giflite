@@ -1,12 +1,18 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <div class="container">
+      <Header 
+        :search="search"
+        @state="changeState"
+    />
       <Main
         v-if="state === 'mainPage' "
         :search="search"
+        :ShowTrend="ShowTrend"
         :searchGifsUrls="searchedGifs"
         :SendToChat="SendToChat"
         :AddToFavourite="AddToFavourite"
+        :calscale="calScale"
         @state="changeState"
       />
       <Favourites
@@ -15,8 +21,12 @@
         :SendToChat="SendToChat"
         :favouriteList="favouriteGifs"
         :like="AddToFavourite"
+        :calscale="calScale"
         @state="changeState"
       />
+      <div  class="footer">
+          <img class="footer-img"  src=".\assets\Poweredby_100px-White_VertText.png" alt="footerGif">
+      </div>
     </div>
   </div>
 </template>
@@ -24,12 +34,14 @@
 <script>
 import webliteHandler from "./helper/functions/weblite.api"
 import {
+  getTrendRes,
   getSearchRes,
   addToFav,
   getAllFavourites,
 } from "./helper/functions/handleRequests.js"
 import Main from "./components/Main"
 import Favourites from "./components/Favourites"
+import Header from "./components/Header"
 const { W } = window
 const R = require("ramda")
 export default {
@@ -39,9 +51,6 @@ export default {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      // favouriteGifsUrls: [],
-      // gifSId: [],
-      // wisId: (W && W.wisId) || "1",
       userName: "",
       userId: "javadId",
       state: "mainPage",
@@ -50,6 +59,7 @@ export default {
   components: {
     Main,
     Favourites,
+    Header,
   },
 
   created() {
@@ -59,10 +69,7 @@ export default {
   },
   methods: {
     init() {
-      getSearchRes().then(res => {
-        // console.log("res: ", res)
-        // this.searchedGifs = res
-        // console.log("typeof res[0]: ", typeof res[0])
+      getTrendRes().then(res => {
         if (res) {
           this.fillAddresses(res)
         }
@@ -72,26 +79,22 @@ export default {
     search(info) {
       getSearchRes(info).then(res => {
         if (res) {
-          // console.log("res: ", res)
-
           this.fillAddresses(res)
         }
       })
     },
     fillAddresses(info) {
-      // console.log("info: ", info)
       info.forEach(x => {
         x.userId = this.userId
       })
       this.searchedGifs = info
-      // console.log("search res: ", this.searchGifsUrls)
     },
 
     SendToChat(info) {
       console.log(info, "gif is sent to inline")
       //   W.sendMessageToCurrentChat("wapp", {
       //     wappId: "",
-      //     customize: { urlSmallSize },
+      //     customize: { gifId },
       // })
     },
     // send message to inline
@@ -108,22 +111,38 @@ export default {
     },
     showFavourites() {
       getAllFavourites(this.userId).then(res => {
-        // console.log("user for getting favs: ", this.userId)
-
         if (res) {
-          console.log("res for favs: ", res)
           this.favouriteGifs = res
-          ////// Baadan Ramda ro pak kon && W.R
         }
       })
-      // console.log("liked res: ", this.favouriteList)
-      // console.log("liked res: ", this.favouriteList[0])
-      // console.log("type liked res: ", typeof this.favouriteList)
     },
     changeState(event) {
-      // console.log(`go to state ${event}`)
       this.state = event
       this.init
+    },
+    calScale(info) {
+      return R.compose(
+        ({ array, sum, count }) =>
+          count ? R.concat(array, R.repeat(330 / sum, count)) : array,
+        R.reduce(
+          (acc, size) =>
+            acc.sum + size > 330
+              ? {
+                  array: R.concat(
+                    acc.array,
+                    R.repeat(330 / acc.sum, acc.count),
+                  ),
+                  sum: size,
+                  count: 1,
+                }
+              : { ...acc, sum: acc.sum + size, count: acc.count + 1 },
+          { array: [], sum: 0, count: 0 },
+        ),
+      )(info)
+      // console.log("cal scale is called")
+    },
+    ShowTrend() {
+      this.init()
     },
   },
 }
@@ -131,11 +150,21 @@ export default {
 
 <style>
 #app {
+  /* border: 1px black solid; */
+
   width: 350px;
-  height: 100%;
-  overflow: auto;
+  height: 100vh;
+  overflow-y: scroll;
   background-color: #5f5b5b;
   /* #eaeaea */
   /* border: 5px solid black; */
+}
+.footer {
+  /* width: 300px; */
+  justify-content: center;
+}
+.footer-img {
+  margin-left: 34%;
+  /* width: 40%; */
 }
 </style>

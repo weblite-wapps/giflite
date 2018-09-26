@@ -20,4 +20,4 @@ export const SaveToDb = info =>
     .post(`${config.server}/SaveSentGif`)
     .set("Access-Control-Allow-Origin", "*")
     .send({ info })
-    .then(res => res)
+    .then(res => res.text)

@@ -2,11 +2,16 @@ import request from "superagent"
 
 import config from "../../config"
 
+export const getTrendRes = () =>
+  request
+    .get(`${config.server}/trend`)
+    .set("Access-Control-Allow-Origin", "*")
+    .then(res => res.body)
+
 export const getSearchRes = info =>
   request
-    .post(`${config.server}/search`)
+    .get(`${config.server}/search/${info}`)
     .set("Access-Control-Allow-Origin", "*")
-    .send({ info })
     .then(res => res.body)
 
 export const addToFav = info =>

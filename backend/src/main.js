@@ -6,14 +6,14 @@ const bodyParser = require("body-parser")
 const path = require("path")
 const fs = require("fs")
 const router = require("./router/router.js")
-const likeDatabase = require("./db/dbhandler")
+const Database = require("./db/dbhandler")
 const sentDatabase = require("./db/dbhandler")
 
 const app = express()
 
 app.use(cors({ origin: "*" }))
-likeDatabase.connect("giflite_liked_db")
-sentDatabase.connect("giflite_sent_db")
+Database.connect("giflite_liked_db")
+// sentDatabase.connect("giflite_sent_db")
 app.use(bodyParser.json())
 app.use("/", router)
 

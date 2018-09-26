@@ -1,35 +1,40 @@
 <template>
-    <div>
-    <Header :search="search"/>
-      <Gifs 
+    <div >
+      <Gifs
         :gifurls="searchGifsUrls"
         :Send="SendToChat"
-        :like="AddToFavourite" 
+        :like="AddToFavourite"
+        :calscale="calscale" 
       />
-    <button @click="changeState">go To</button>
+    <!-- <button @click="changeState">To Fav</button> -->
     </div>
 </template>
 <script>
-import Header from "./Header"
 import Gifs from "./Gifs"
 
 export default {
   name: "Main",
   props: {
-    search: Function,
+    ShowTrend: Function,
+    calscale: Function,
+    // search: Function,
     searchGifsUrls: Array,
     SendToChat: Function,
     AddToFavourite: Function,
   },
+  computed: {},
   components: {
-    Header,
     Gifs,
   },
   created() {
+    this.ShowTrend()
     // console.log(" Main is created")
   },
   updated() {
     // console.log(" Main is updated")
+  },
+  mounted() {
+    // console.log(" Main is mounted")
   },
   methods: {
     changeState() {

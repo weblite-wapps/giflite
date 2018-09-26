@@ -1,11 +1,12 @@
 <template>
-    <div class="conatainer"> 
+    <div v-if="ratios" class="app"> 
         <Gif
-            v-for="item in gifurls"
-            :key="item.smallUrl"
-            :url="item"
-            :Send="Send"
-            :Like="like"
+          v-for="(item, index) in gifurls"
+          :key="item.gifId" 
+          :url="item"
+          :Send="Send"
+          :Like="like"
+          :scale="ratios[index]"
         />
     </div>
 </template>
@@ -17,33 +18,63 @@ export default {
   name: "Gifs",
   props: {
     gifurls: {
-      Type: Object,
+      Type: Array,
       required: true,
     },
     Send: Function,
     like: Function,
+    calscale: Function,
+  },
+  data() {
+    return {
+      ratios: {},
+    }
   },
   components: {
     Gif,
   },
-  updated() {
-    // console.log("gifs updated ", this.gifurls)
-    const info = this.gifurls.map(x => parseInt(x.width))
-    // console.log(info)
+  created() {
+    // console.log("created gifurls", this.gifurls)
+  },
+  watch: {
+    gifurls() {
+      // const u = this.gifurls.map(x => x.smallUrl)
+      // console.log("urls ", u)
+      // console.log("lolo 1")
+
+      const info = this.gifurls.map(x => parseInt(x.width))
+      // console.log("info1: ", info)
+      // console.log("lolo 2")
+
+      this.ratios = this.calscale(info)
+      // console.log("lolo 3")
+
+      // console.log("info2: ", info)
+      // console.log("ratios ", this.ratios.array)
+    },
   },
   methods: {
-    CalScale(info) {},
+    ////////////////////////
+    //////////////////////
   },
 }
 </script>
 
 
 <style scoped>
-.conatainer {
-  /* height: 600px; */
+html,
+body,
+.app {
+  height: 100%;
+  margin: 0;
+}
+.app {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* align-content: flex-start; */
+  /* align-items: center; */
+}
+.wrapper {
+  /* flex: auto; */
 }
 </style>
