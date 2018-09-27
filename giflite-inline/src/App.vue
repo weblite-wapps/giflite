@@ -17,15 +17,10 @@ export default {
   name: "App",
   data() {
     return {
-      // wisId: (W && W.wisId) || "1",
-      wisId: "inline wisId",
-      /// bara WisId kodoom doroste  ? balaie ya weblite.api
-      //??
-      //?
-      //////////
+      wisId: W && W.wisId,
       url: {},
-      gifId: "ylyUQmZkAhf2nnF1ba",
-      userId: "javadId",
+      gifId: "",
+      userId: "",
     }
   },
   components: {
@@ -35,10 +30,7 @@ export default {
     this.init()
   },
   updated() {
-    console.log("updated")
-    SaveToDb({ gifId: this.gifId, wisId: this.wisId }).then(res =>
-      console.log("res ", res),
-    )
+    SaveToDb({ gifId: this.gifId, wisId: this.wisId })
   },
 
   methods: {
@@ -49,22 +41,14 @@ export default {
         }
       })
     },
-
     AddToFavourites() {
       const info = { gifId: this.gifId, userId: this.userId, wisId: this.wisId }
-      addToFav(info).then(res => {
-        if (res) {
-          console.log("res ", res)
-        }
-      })
+      addToFav(info)
     },
     calScale(info) {
-      console.log("cal info  ", info)
-
       return info.x < info.y
         ? 350 / info.y
         : info.y < info.x ? 350 / info.x : 350 / info.x
-      // console.log("scale ", scale)
     },
   },
 }

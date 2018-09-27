@@ -2,35 +2,25 @@
     <div class="container">
         <div class="card">
             <img
-              src="./../assets/tack-save-button.png"  
-              class="btn-2" 
-              v-on:click="Like( {gifId: url.gifId, userId: url.userId ,wisId: wisId} )"  
+              src="./../assets/tack-save-button5.png"  
+              class="btn btn-2" 
+              @click="Like({ gifId: url.gifId, userId: url.userId, wisId: wisId })"  
               alt="image place"
             >
             <img  
-              class="btn-1" 
-              v-on:click="Send(url.gifId)" 
-              src="./../assets/send-button.png" 
+              class="btn btn-1" 
+              @click="Send(url.wisId)" 
+              src="./../assets/send-button5.png" 
               alt="image place"
             >
             <img 
               :src="gifurl"   
               alt="image place"
               :style="style"
-              v-on:click="changeShow"
-              :class="{ isShowing : play ,  hidden: !play }"
+              @click="changeShow"
+              :class="{ isShowing: play, hidden: !play }"
             >
-            
         </div>
-        <!-- <div class="gif-img-container">
-          <img  class="img img-1" v-on:click="Like( {gifId: url.gifId, userId: url.userId ,wisId: wisId} )"  alt="image place">
-          <img  class="img img-2" v-on:click="Send(url.wisId? url.wisId: wisId)" src="./../assets/send.png" alt="image place">
-          <img  
-            class="img"
-            v-on:click="changeShow"
-            :class="{ img_3 : play ,  img_3_disabled: !play }"
-             src="./../assets/on.png" alt="image place">
-        </div> -->
     </div>
 
 </template>
@@ -39,15 +29,13 @@ export default {
   name: "Gif",
   data() {
     return {
-      wisId: "wisId 3",
+      wisId: "gif wisId",
       play: false,
       gifurl: "",
     }
   },
   computed: {
     style() {
-      // console.log("width main: " + parseInt(this.url.width))
-      // console.log("width counted: " + this.scale * parseInt(this.url.width))
       return "width: " + this.scale * parseInt(this.url.width) + "px"
     },
   },
@@ -65,17 +53,7 @@ export default {
     },
   },
   created() {
-    // console.log("url ", this.url)
     this.gifurl = this.url.smallImage
-  },
-  updated() {
-    // this.gifurl = url.smallImage
-    // console.log("gif is updated")
-  },
-  watch: {
-    url() {
-      // console.log("url ", this.url)
-    },
   },
 }
 </script>
@@ -90,7 +68,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* border: 0.5px solid black; */
 }
 
 .btn-1 {
@@ -98,16 +75,23 @@ export default {
   box-sizing: content-box;
   bottom: 5px;
   left: 5px;
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
+  opacity: 1;
 }
 .btn-2 {
   position: absolute;
   box-sizing: content-box;
   bottom: 5px;
   left: 35px;
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
+}
+
+.btn {
+  background-color: #2b303b;
+  border: 4px solid #2b303b;
+  border-radius: 100px;
 }
 
 .hidden {

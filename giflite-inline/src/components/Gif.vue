@@ -1,10 +1,23 @@
 <template>
   <div class="card">
     <div class="containter">
-      <img class="save-btn" src=".\..\assets\download-button.png" alt="save place">
-      <img :style="style" class="gif" :src="url.bigUrl" alt="image place">
+    <div class="save">
+      <div class="img_overlay"></div>
+      <img 
+        src="./../assets/tack-save-button5.png"
+        v-on:click="Like"
+        class="save-btn"
+        alt="save place"
+      >
     </div>
-    <!-- <button v-on:click="Like">Like</button> -->
+      <img 
+        :style="style" 
+        v-on:click="changeShow" 
+        class="gif" 
+        :src="gifurl" 
+        alt="image place"
+      >
+    </div>
   </div>
 </template>
 
@@ -12,6 +25,12 @@
 const R = require("ramda")
 export default {
   name: "Gif",
+  data() {
+    return {
+      gifurl: "",
+      play: false,
+    }
+  },
   props: {
     url: Object,
     Like: Function,
@@ -20,11 +39,20 @@ export default {
   computed: {
     style() {
       const rate = this.calScale({ x: this.url.width, y: this.url.height })
-      // console.log("rate ", rate)
-      // console.log("width: ", rate * this.url.width)
       return "width: " + rate * this.url.width + "px;"
 
       // return
+    },
+  },
+  watch: {
+    url() {
+      this.gifurl = this.url.bigImage
+    },
+  },
+  methods: {
+    changeShow() {
+      this.play = !this.play
+      this.gifurl = this.play ? this.url.bigUrl : this.url.bigImage
     },
   },
 }
@@ -43,31 +71,20 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  /* align-content: center; */
-  /* margin-left: 100px; */
   position: relative;
   background-color: black;
 }
 .save-btn {
+  background-color: #2b303b;
   position: absolute;
   box-sizing: content-box;
-  bottom: 0;
-  left: 0;
-  /* right: 0px; */
-  /* width: 350px;  */
-  /* height: 100px; */
-  /* width: 100px; */
-  /* top: 100px; */
-  /* left: 200px; */
-  /* right: 50px; */
+  bottom: 1px;
+  left: 2px;
+  border: 5px solid #2b303b;
+  border-radius: 8px;
 }
+
 .gif {
-  /* margin: auto; */
   box-sizing: content-box;
-  /* width: 100%; */
-  /* margin-top: 50%; */
-  /* margin-bottom: 50%; */
-  /* position: absolute; */
 }
 </style>

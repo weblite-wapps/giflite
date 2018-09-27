@@ -13,7 +13,6 @@ const app = express()
 
 app.use(cors({ origin: "*" }))
 Database.connect("giflite_liked_db")
-// sentDatabase.connect("giflite_sent_db")
 app.use(bodyParser.json())
 app.use("/", router)
 

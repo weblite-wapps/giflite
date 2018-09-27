@@ -9,11 +9,9 @@ const router = express.Router()
 
 router.use(bodyParser.json())
 router.get("/search/:info", ({ params: { info } }, res) => {
-  console.log("search title: ", info)
   const options = {
     uri: `http://api.giphy.com/v1/gifs/search?q=${info}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
   }
-
   rp(options)
     .then(repos => {
       const parsedBody = JSON.parse(repos)
@@ -26,8 +24,6 @@ router.get("/search/:info", ({ params: { info } }, res) => {
           width: R.path(["images", "fixed_height_small", "width"]),
         }),
       )
-      console.log("searchUrls: ", urls)
-
       res.send(urls)
     })
     .catch(console.log)
@@ -40,18 +36,14 @@ router.post("/addToFav", (req, res) => {
       req.body.info.userId,
       req.body.info.wisId,
     )
-    .then(() => res.send("added to Fav dab"))
+    .then(() => res.send("added to Favourites"))
     .catch(console.log)
 })
 
 router.get("/load/favs/all/:userId", ({ params: { userId } }, res) => {
-  // console.log("getAllFavs userId", userId)
-  // console.log("req: ", req)
   database.getAllLikedGifs(userId).then(response => {
     const r = response
-    // console.log("response ", response)
     const Ids = response.map(x => x.gifId)
-    console.log("Ids ", Ids)
     const options = {
       uri: `http://api.giphy.com/v1/gifs?ids=${Ids}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
     }
@@ -59,9 +51,7 @@ router.get("/load/favs/all/:userId", ({ params: { userId } }, res) => {
       rp(options)
         .then(repos => {
           const parsedBody = JSON.parse(repos)
-          // console.log("parsedBody: ", parsedBody)
           const paresdBodyData = R.prop("data", parsedBody)
-          // console.log("paresdBodyData: ", paresdBodyData)
           const urls = paresdBodyData.map(
             R.applySpec({
               gifId: R.path(["id"]),
@@ -74,7 +64,6 @@ router.get("/load/favs/all/:userId", ({ params: { userId } }, res) => {
                 R.find(R.propEq("gifId", R.path(["id"], gifObj)))(r).wisId,
             }),
           )
-          // console.log("urls ", urls)
           res.send(urls)
         })
         .catch(console.log, () => {
@@ -87,38 +76,25 @@ router.get("/load/favs/all/:userId", ({ params: { userId } }, res) => {
 })
 
 router.get("/load/single/:gifId", ({ params: { gifId } }, res) => {
-  request(
-    `http://api.giphy.com/v1/gifs/${gifId}?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
-    (error, response, body) => {
-      const parsedBody = JSON.parse(body)
-      // console.log("parsedBody: ", parsedBody)
+  const options = {
+    uri: `http://api.giphy.com/v1/gifs/${gifId}?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
+  }
+  rp(options)
+    .then(repos => {
+      const parsedBody = JSON.parse(repos)
       const paresdBodyData = R.prop("data", parsedBody)
-      // console.log("paresdBodyData: ", paresdBodyData)
       const urls = {}
-
-      // urls.gifId = paresdBodyData.id
       urls.bigUrl = paresdBodyData.images.fixed_height.url
       urls.bigImage = paresdBodyData.images.fixed_height_still.url
       urls.width = paresdBodyData.images.fixed_height.width
       urls.height = paresdBodyData.images.fixed_height.height
-      // const urls = R.applySpec({
-      //   gifId: R.path(["id"], paresdBodyData),
-      //   bigUrl: R.path(["images", "fixed_height", "url"], paresdBodyData),
-      //   bigImage: R.path(
-      //     ["images", "fixed_height_still", "url"],
-      //     paresdBodyData,
-      //   ),
-      // })
-      // maximum call stack size exceed
-      console.log("single url ", urls)
+      console.log("single urls ", urls)
       res.send(urls)
-    },
-  )
+    })
+    .catch(console.log)
 })
 
 router.post("/SaveSentGif", ({ body: { info } }, res) => {
-  console.log("req.body ", info)
-
   database
     .updateSentGif(info.gifId, info.wisId)
     .then(() => res.send("saved in sent db"))
@@ -126,7 +102,6 @@ router.post("/SaveSentGif", ({ body: { info } }, res) => {
 })
 
 router.get("/trend", (req, res) => {
-  console.log("we are in trend")
   const options = {
     uri: `http://api.giphy.com/v1/gifs/trending?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
   }
@@ -142,8 +117,6 @@ router.get("/trend", (req, res) => {
           width: R.path(["images", "fixed_height_small", "width"]),
         }),
       )
-      // console.log("urls ", urls)
-
       res.send(urls)
     })
     .catch(console.log)

@@ -1,17 +1,16 @@
 <template>
     <div class="header">
       <div class="box">
-          <div class="container-1">
-              <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-              <!-- <input  v-on:change="onChange" v-model="searchText" type="text"> -->
-              <span class="icon"><i class="fa fa-search"></i></span>
-              <input  autofocus v-on:input="changeWithDebounce" v-model="searchText" type="search" id="search" placeholder="Search..." />
-              
-
-          </div>
+        <div class="container-1">
+          <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+          <span class="icon"><i class="fa fa-search"></i></span>
+          <input  autofocus @input="changeWithDebounce" v-model="searchText" type="search" id="search" placeholder="Search..." />
+        </div>
+        <div class="container-2">
+          <span><img @click="goToFav" class="saved_btn" src="./../assets/save3.png" alt=""></span>  
+        </div>
       </div>
     </div>
-    
 </template>
 
 <script>
@@ -26,39 +25,29 @@ export default {
   },
   props: {
     search: Function,
+    ShowTrend: Function,
   },
-  mounted() {
-    // console.log("is mounted")
+  created() {
+    this.ShowTrend()
   },
   methods: {
     onChange() {
-      console.log("on Change is called")
-
-      if (this.searchText.trim()) {
-        console.log("searchText", this.searchText.trim())
-
-        this.$emit("state", "mainPage")
-        this.search(this.searchText.trim())
-      } else {
-        console.log("go to fav state")
-
-        this.$emit("state", "favouritesPage")
-      }
+      this.$emit("state", "mainPage")
+      this.search(this.searchText.trim())
+    },
+    goToFav() {
+      this.$emit("state", "favouritesPage")
     },
   },
 }
 </script>
 
-
 <style scoped>
 .header {
   background: #2b303b;
-  /* height: 500px; */
 }
 
 .box {
-  /* margin: 100px auto; */
-  /* width: 300px; */
   height: 50px;
 }
 
@@ -105,22 +94,15 @@ export default {
   position: absolute;
   top: 50%;
   margin-left: 17px;
-  margin-top: 17px;
+  margin-top: 15px;
   z-index: 1;
   color: #4f5b66;
 }
-/* .container-1 input#search:hover, */
 .container-1 input#search:focus,
 .container-1 input#search:active {
   outline: none;
-  /* background: #ffffff; */
 }
 
-/* -webkit-transition: background 0.55s ease;
--moz-transition: background 0.55s ease;
--ms-transition: background 0.55s ease;
--o-transition: background 0.55s ease;
-transition: background 0.55s ease; */
 .container-1 input#search {
   width: 300px;
   height: 50px;
@@ -138,6 +120,10 @@ transition: background 0.55s ease; */
   -ms-transition: background 0.55s ease;
   -o-transition: background 0.55s ease;
   transition: background 0.55s ease;
+}
+
+.saved_btn {
+  margin-top: 13px;
 }
 </style>
 

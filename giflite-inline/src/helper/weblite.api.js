@@ -3,11 +3,9 @@ const { W } = window
 
 export default vueRoot => {
   /* Load Data */
-  // get user
-  W.loadData().then(({ user: { id }, customize: { wisId } }) => {
+  W.loadData().then(({ user: { id }, customize: { gifId } }) => {
     vueRoot.userId = id
-    // vueRoot.url = urlSmallSize
-    vueRoot.wisId = wisId
+    vueRoot.gifId = gifId
     vueRoot.init()
     W.start()
   })

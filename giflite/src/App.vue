@@ -3,12 +3,12 @@
     <div class="container">
       <Header 
         :search="search"
+        :ShowTrend="ShowTrend"
         @state="changeState"
     />
       <Main
         v-if="state === 'mainPage' "
         :search="search"
-        :ShowTrend="ShowTrend"
         :searchGifsUrls="searchedGifs"
         :SendToChat="SendToChat"
         :AddToFavourite="AddToFavourite"
@@ -77,11 +77,15 @@ export default {
     },
 
     search(info) {
-      getSearchRes(info).then(res => {
-        if (res) {
-          this.fillAddresses(res)
-        }
-      })
+      if (info !== "") {
+        getSearchRes(info).then(res => {
+          if (res) {
+            this.fillAddresses(res)
+          }
+        })
+      } else {
+        this.init()
+      }
     },
     fillAddresses(info) {
       info.forEach(x => {
@@ -92,22 +96,14 @@ export default {
 
     SendToChat(info) {
       console.log(info, "gif is sent to inline")
-      //   W.sendMessageToCurrentChat("wapp", {
-      //     wappId: "",
-      //     customize: { gifId },
+      // W.sendMessageToCurrentChat("wapp", {
+      //   wappId: "",
+      //   wisId: info,
+      //   customize: { gifId },
       // })
     },
-    // send message to inline
-    // },
     AddToFavourite(info) {
-      addToFav(info).then(res => {
-        if (res) {
-          console.log(res)
-        }
-      })
-
-      console.log("added to favourite")
-      // send to db a message and save
+      addToFav(info)
     },
     showFavourites() {
       getAllFavourites(this.userId).then(res => {
@@ -117,8 +113,9 @@ export default {
       })
     },
     changeState(event) {
-      this.state = event
-      this.init
+      if (this.state !== event) {
+        this.state = event
+      }
     },
     calScale(info) {
       return R.compose(
@@ -139,7 +136,6 @@ export default {
           { array: [], sum: 0, count: 0 },
         ),
       )(info)
-      // console.log("cal scale is called")
     },
     ShowTrend() {
       this.init()
@@ -150,21 +146,17 @@ export default {
 
 <style>
 #app {
-  /* border: 1px black solid; */
-
   width: 350px;
   height: 100vh;
   overflow-y: scroll;
   background-color: #5f5b5b;
-  /* #eaeaea */
-  /* border: 5px solid black; */
+  border: 5px solid #2b303b;
+  bottom: 20px;
 }
 .footer {
-  /* width: 300px; */
   justify-content: center;
 }
 .footer-img {
   margin-left: 34%;
-  /* width: 40%; */
 }
 </style>

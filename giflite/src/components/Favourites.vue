@@ -8,9 +8,6 @@
       :Like="like"
       :scale="ratios[index]"
     />
-
-    <!-- <button @click="changeState">go To Main</button> -->
-        
   </div>
 </template>
 
@@ -32,7 +29,6 @@ export default {
   },
   methods: {
     init() {
-      //   console.log("Fav page is created")
       this.showFavourites()
     },
     changeState(event) {
@@ -48,10 +44,7 @@ export default {
   watch: {
     favouriteList() {
       const info = this.favouriteList.map(x => parseInt(x.width))
-      // console.log("info", info)
-
       this.ratios = this.calscale(info)
-      // console.log("ratios ", this.ratios)
     },
   },
 }
