@@ -3,7 +3,8 @@
         <div class="card">
             <img
               src="./../assets/tack-save-button5.png"  
-              class="btn btn-2" 
+              class="btn btn-2"
+              :style="LikeMustBeOrNot" 
               @click="Like({ gifId: url.gifId, userId: url.userId, wisId: wisId })"  
               alt="image place"
             >
@@ -16,7 +17,7 @@
             <img 
               :src="gifurl"   
               alt="image place"
-              :style="style"
+              :style="widthStyle"
               @click="changeShow"
               :class="{ isShowing: play, hidden: !play }"
             >
@@ -35,8 +36,13 @@ export default {
     }
   },
   computed: {
-    style() {
+    widthStyle() {
       return "width: " + this.scale * parseInt(this.url.width) + "px"
+    },
+    LikeMustBeOrNot() {
+      if (this.url.wisId) {
+        return "display: none;"
+      }
     },
   },
   props: {
@@ -47,7 +53,6 @@ export default {
   },
   methods: {
     changeShow() {
-      console.log("show is changing")
       this.play = !this.play
       this.gifurl = this.play ? this.url.smallUrl : this.url.smallImage
     },

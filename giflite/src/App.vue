@@ -65,7 +65,7 @@ export default {
   created() {
     W && webliteHandler(this)
     // !W &&
-    this.init()
+    // this.init()
   },
   methods: {
     init() {
@@ -96,11 +96,11 @@ export default {
 
     SendToChat(info) {
       console.log(info, "gif is sent to inline")
-      // W.sendMessageToCurrentChat("wapp", {
-      //   wappId: "",
-      //   wisId: info,
-      //   customize: { gifId },
-      // })
+      W.sendMessageToCurrentChat("wapp", {
+        wappId: "",
+        wisId: info,
+        customize: { gifId },
+      })
     },
     AddToFavourite(info) {
       addToFav(info)
