@@ -7,7 +7,6 @@ const path = require("path")
 const fs = require("fs")
 const router = require("./router/router.js")
 const Database = require("./db/dbhandler")
-const sentDatabase = require("./db/dbhandler")
 
 const app = express()
 

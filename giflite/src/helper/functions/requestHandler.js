@@ -2,13 +2,13 @@ import request from "superagent"
 
 import config from "../../config"
 
-export const getTrendRes = () =>
+export const getTrendGifs = () =>
   request
     .get(`${config.server}/trend`)
     .set("Access-Control-Allow-Origin", "*")
     .then(res => res.body)
 
-export const getSearchRes = info =>
+export const getSearchGifs = info =>
   request
     .get(`${config.server}/search/${info}`)
     .set("Access-Control-Allow-Origin", "*")

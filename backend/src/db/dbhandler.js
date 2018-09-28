@@ -13,19 +13,9 @@ exports.connect = name => {
   })
 }
 
-// exports.addGif = (wisId, userId, urlSmallSize, urlBigSize) =>
-//   new models.LikedGifliteMessages({
-//     userId,
-//     wisId,
-//     urlSmallSize,
-//     urlBigSize,
-//   }).save()
+exports.getAllLikedGifs = userId => models.LikedGifliteMessages.find({ userId })
 
-exports.getAllLikedGifs = userId =>
-  models.LikedGifliteMessages.find({ userId }).exec()
-
-exports.getSingleGif = wisId =>
-  models.LikedGifliteMessages.find({ wisId }).exec()
+exports.getSingleGif = wisId => models.LikedGifliteMessages.find({ wisId })
 
 exports.updateLikedGif = (gifId, userId, wisId) =>
   models.LikedGifliteMessages.findOneAndUpdate(
@@ -35,12 +25,9 @@ exports.updateLikedGif = (gifId, userId, wisId) =>
   ).exec()
 
 exports.updateSentGif = (gifId, wisId) =>
-  models.SentGifliteMessages.find({ gifId }, (err, docs) => {
-    // console.log("docs ", docs)
-
-    if (docs.length) {
-      console.log("gif has already been saved in sent Db")
-    } else {
+  models.SentGifliteMessages.find({ gifId }).then(docs => {
+    // console.log("docs ", docs.length)
+    if (!docs.length) {
       new models.SentGifliteMessages({
         gifId,
         wisId,

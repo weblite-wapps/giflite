@@ -1,15 +1,15 @@
 <template>
   <div class="card">
     <div class="containter">
-    <div class="save">
-      <div class="img_overlay"></div>
-      <img 
-        src="./../assets/tack-save-button5.png"
-        v-on:click="Like"
-        class="save-btn"
-        alt="save place"
-      >
-    </div>
+      <div class="save">
+        <div class="img_overlay"/>
+        <img 
+          src="./../assets/tack-save-button5.png"
+          v-on:click="Like"
+          class="save-btn"
+          alt="save place"
+        >
+      </div>
       <img 
         :style="style" 
         v-on:click="changeShow" 
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { calculateScales } from "./../helper/helperFunctions"
 const R = require("ramda")
 export default {
   name: "Gif",
@@ -34,14 +35,12 @@ export default {
   props: {
     url: Object,
     Like: Function,
-    calScale: Function,
   },
   computed: {
     style() {
-      const rate = this.calScale({ x: this.url.width, y: this.url.height })
-      return "width: " + rate * this.url.width + "px;"
-
-      // return
+      const { width, height, ...info } = this.url
+      const rate = calculateScales({ x: width, y: height })
+      return "width: " + rate * width + "px;"
     },
   },
   watch: {

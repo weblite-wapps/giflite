@@ -2,16 +2,16 @@ const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema
 
-const blogSchema = new Schema({
+const likeSchema = new Schema({
   gifId: String,
   userId: String,
   wisId: String,
 })
 
-const BlogSchema = new Schema({
+const sendSchema = new Schema({
   wisId: String,
   gifId: String,
 })
 
-exports.LikedGifliteMessages = mongoose.model("giflite_liked_db", blogSchema)
-exports.SentGifliteMessages = mongoose.model("giflite_sent_db", BlogSchema)
+exports.LikedGifliteMessages = mongoose.model("giflite_liked_dc", likeSchema)
+exports.SentGifliteMessages = mongoose.model("giflite_sent_dc", sendSchema)

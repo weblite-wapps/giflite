@@ -3,11 +3,37 @@
       <div class="box">
         <div class="container-1">
           <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-          <span class="icon"><i class="fa fa-search"></i></span>
-          <input  autofocus @input="changeWithDebounce" v-model="searchText" type="search" id="search" placeholder="Search..." />
+          <span class="icon">
+            <i class="fa fa-search"/>
+          </span>
+          <input  
+            autofocus 
+            @input="changeWithDebounce" 
+            v-model="searchText" 
+            type="search" 
+            id="search" 
+            placeholder="Search..." 
+          />
         </div>
         <div class="container-2">
-          <span><img @click="goToFav" class="saved_btn" src="./../assets/save3.png" alt=""></span>  
+          <span>
+            <img 
+              @click="changeState" 
+              :style="saveBtn" 
+              class="headerBtn" 
+              src="./../assets/save3.png" 
+              alt=""
+            >
+          </span>  
+          <span>
+            <img 
+              @click="changeState" 
+              :style="homeBtn" 
+              class="headerBtn" 
+              src="./../assets/home-icon-silhouette.png" 
+              alt=""
+            >
+          </span>  
         </div>
       </div>
     </div>
@@ -17,7 +43,7 @@
 import debounce from "debounce"
 export default {
   name: "Header",
-  data: function() {
+  data() {
     return {
       searchText: "",
       changeWithDebounce: debounce(this.onChange, 1000),
@@ -26,17 +52,34 @@ export default {
   props: {
     search: Function,
     ShowTrend: Function,
+    state: String,
   },
   created() {
     this.ShowTrend()
   },
   methods: {
     onChange() {
-      this.$emit("state", "mainPage")
+      this.$emit("tostate", "mainPage")
       this.search(this.searchText.trim())
     },
-    goToFav() {
-      this.$emit("state", "favouritesPage")
+    changeState() {
+      if (this.state === "mainPage") {
+        this.$emit("tostate", "favouritesPage")
+      } else {
+        this.$emit("tostate", "mainPage")
+      }
+    },
+  },
+  computed: {
+    saveBtn() {
+      if (this.state === "favouritesPage") {
+        return "display: none"
+      }
+    },
+    homeBtn() {
+      if (this.state === "mainPage") {
+        return "display: none"
+      }
     },
   },
 }
@@ -122,7 +165,7 @@ export default {
   transition: background 0.55s ease;
 }
 
-.saved_btn {
+.headerBtn {
   margin-top: 13px;
 }
 </style>

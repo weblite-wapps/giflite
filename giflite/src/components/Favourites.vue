@@ -13,6 +13,7 @@
 
 <script>
 import Gif from "./Gif"
+import { calculateScale } from "./../helper/functions/helperFunctions"
 export default {
   name: "Favourites",
   data() {
@@ -21,30 +22,26 @@ export default {
     }
   },
   props: {
-    calscale: Function,
     showFavourites: Function,
     favouriteList: Array,
     SendToChat: Function,
     like: Function,
   },
   methods: {
-    init() {
-      this.showFavourites()
-    },
     changeState(event) {
       this.$emit("state", "mainPage")
     },
   },
   created() {
-    this.init()
+    this.showFavourites()
   },
   components: {
     Gif,
   },
   watch: {
     favouriteList() {
-      const info = this.favouriteList.map(x => parseInt(x.width))
-      this.ratios = this.calscale(info)
+      const widths = this.favouriteList.map(gifObj => parseInt(gifObj.width))
+      this.ratios = calculateScale(widths)
     },
   },
 }

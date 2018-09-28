@@ -1,19 +1,19 @@
 <template>
-  <div id="app" >
+  <div id="app">
     <div class="container">
-      <Header 
+      <Header
+        :state="state" 
         :search="search"
         :ShowTrend="ShowTrend"
-        @state="changeState"
-    />
+        @tostate="changeState"
+      />
       <Main
-        v-if="state === 'mainPage' "
+        v-if="state === 'mainPage'"
         :search="search"
         :searchGifsUrls="searchedGifs"
         :SendToChat="SendToChat"
         :AddToFavourite="AddToFavourite"
-        :calscale="calScale"
-        @state="changeState"
+        @tostate="changeState"
       />
       <Favourites
         v-if="state === 'favouritesPage'"
@@ -21,11 +21,10 @@
         :SendToChat="SendToChat"
         :favouriteList="favouriteGifs"
         :like="AddToFavourite"
-        :calscale="calScale"
-        @state="changeState"
+        @tostate="changeState"
       />
-      <div  class="footer">
-          <img class="footer-img"  src=".\assets\Poweredby_100px-White_VertText.png" alt="footerGif">
+      <div class="footer">
+        <img class="footer-img" src=".\assets\Poweredby_100px-White_VertText.png" alt="footerGif">
       </div>
     </div>
   </div>
@@ -34,11 +33,11 @@
 <script>
 import webliteHandler from "./helper/functions/weblite.api"
 import {
-  getTrendRes,
-  getSearchRes,
+  getTrendGifs,
+  getSearchGifs,
   addToFav,
   getAllFavourites,
-} from "./helper/functions/handleRequests.js"
+} from "./helper/functions/requestHandler.js"
 import Main from "./components/Main"
 import Favourites from "./components/Favourites"
 import Header from "./components/Header"
@@ -64,42 +63,37 @@ export default {
 
   created() {
     W && webliteHandler(this)
-    // !W &&
-    // this.init()
   },
   methods: {
-    init() {
-      getTrendRes().then(res => {
-        if (res) {
-          this.fillAddresses(res)
-        }
+    ShowTrend() {
+      getTrendGifs().then(res => {
+        if (res) this.fillGifUrlAddresses(res)
       })
     },
-
     search(info) {
-      if (info !== "") {
-        getSearchRes(info).then(res => {
-          if (res) {
-            this.fillAddresses(res)
-          }
+      if (info) {
+        getSearchGifs(info).then(res => {
+          if (res) this.fillGifUrlAddresses(res)
         })
-      } else {
-        this.init()
-      }
+      } else this.ShowTrend()
     },
-    fillAddresses(info) {
+    fillGifUrlAddresses(info) {
+      console.log("info in fill ", info)
+
       info.forEach(x => {
         x.userId = this.userId
       })
+      console.log("searchedGifs ", this.searchedGifs)
       this.searchedGifs = info
     },
 
     SendToChat(info) {
-      console.log(info, "gif is sent to inline")
+      const { id, wisId } = info
+
       W.sendMessageToCurrentChat("wapp", {
         wappId: "",
-        wisId: info,
-        customize: { gifId },
+        wisId: wisId,
+        customize: { id },
       })
     },
     AddToFavourite(info) {
@@ -107,38 +101,11 @@ export default {
     },
     showFavourites() {
       getAllFavourites(this.userId).then(res => {
-        if (res) {
-          this.favouriteGifs = res
-        }
+        if (res) this.favouriteGifs = res
       })
     },
     changeState(event) {
-      if (this.state !== event) {
-        this.state = event
-      }
-    },
-    calScale(info) {
-      return R.compose(
-        ({ array, sum, count }) =>
-          count ? R.concat(array, R.repeat(330 / sum, count)) : array,
-        R.reduce(
-          (acc, size) =>
-            acc.sum + size > 330
-              ? {
-                  array: R.concat(
-                    acc.array,
-                    R.repeat(330 / acc.sum, acc.count),
-                  ),
-                  sum: size,
-                  count: 1,
-                }
-              : { ...acc, sum: acc.sum + size, count: acc.count + 1 },
-          { array: [], sum: 0, count: 0 },
-        ),
-      )(info)
-    },
-    ShowTrend() {
-      this.init()
+      if (this.state !== event) this.state = event
     },
   },
 }

@@ -17,7 +17,7 @@ export const addToFav = info =>
 
 export const SaveToDb = info =>
   request
-    .post(`${config.server}/SaveSentGif`)
+    .post(`${config.server}/saveSentGif`)
     .set("Access-Control-Allow-Origin", "*")
     .send({ info })
     .then(res => res.text)

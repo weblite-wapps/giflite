@@ -2,20 +2,20 @@
     <div class="container">
         <div class="card">
             <img
+              v-if="!url.wisId"              
               src="./../assets/tack-save-button5.png"  
               class="btn btn-2"
-              :style="LikeMustBeOrNot" 
-              @click="Like({ gifId: url.gifId, userId: url.userId, wisId: wisId })"  
+              @click="Like({ gifId: url.gifId, userId: url.userId, wisId })"  
               alt="image place"
             >
             <img  
               class="btn btn-1" 
-              @click="Send(url.wisId)" 
+              @click="Send( {id: url.gifId, wisId: url.wisId ? url.wisId: ' ' })" 
               src="./../assets/send-button5.png" 
               alt="image place"
             >
             <img 
-              :src="gifurl"   
+              :src="imgTagUrl"   
               alt="image place"
               :style="widthStyle"
               @click="changeShow"
@@ -30,19 +30,17 @@ export default {
   name: "Gif",
   data() {
     return {
-      wisId: "gif wisId",
+      wisId: " ",
       play: false,
-      gifurl: "",
     }
   },
   computed: {
     widthStyle() {
       return "width: " + this.scale * parseInt(this.url.width) + "px"
     },
-    LikeMustBeOrNot() {
-      if (this.url.wisId) {
-        return "display: none;"
-      }
+    imgTagUrl() {
+      if (this.play) return this.url.smallUrl
+      else return this.url.smallImage
     },
   },
   props: {
@@ -56,9 +54,6 @@ export default {
       this.play = !this.play
       this.gifurl = this.play ? this.url.smallUrl : this.url.smallImage
     },
-  },
-  created() {
-    this.gifurl = this.url.smallImage
   },
 }
 </script>

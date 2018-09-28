@@ -14,6 +14,7 @@
 <script>
 const R = require("ramda")
 import Gif from "./Gif"
+import { calculateScale } from "./../helper/functions/helperFunctions"
 export default {
   name: "Gifs",
   props: {
@@ -23,7 +24,6 @@ export default {
     },
     Send: Function,
     like: Function,
-    calscale: Function,
   },
   data() {
     return {
@@ -33,11 +33,15 @@ export default {
   components: {
     Gif,
   },
+  mounted() {
+    const info = this.gifurls.map(gifObj => parseInt(gifObj.width))
+    this.ratios = calculateScale(info)
+  },
 
   watch: {
     gifurls() {
-      const info = this.gifurls.map(x => parseInt(x.width))
-      this.ratios = this.calscale(info)
+      const widths = this.gifurls.map(gifObj => parseInt(gifObj.width))
+      this.ratios = calculateScale(widths)
     },
   },
 }

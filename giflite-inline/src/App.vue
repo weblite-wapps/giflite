@@ -1,10 +1,9 @@
 <template>
   <div id="app">
-      <Gif
-        :url="url"
-        :Like="AddToFavourites"
-        :calScale="calScale"
-      />
+    <Gif
+      :url="url"
+      :Like="AddToFavourites"
+    />
   </div>
 </template>
 
@@ -18,9 +17,10 @@ export default {
   data() {
     return {
       wisId: W && W.wisId,
+      wisId: "22",
       url: {},
-      gifId: "",
-      userId: "",
+      gifId: "YWaKbAQz1xXGX9ipPB",
+      userId: "javadId",
     }
   },
   components: {
@@ -36,19 +36,12 @@ export default {
   methods: {
     init() {
       getSingleGifData(this.gifId).then(res => {
-        if (res) {
-          this.url = res
-        }
+        if (res) this.url = res
       })
     },
     AddToFavourites() {
       const info = { gifId: this.gifId, userId: this.userId, wisId: this.wisId }
       addToFav(info)
-    },
-    calScale(info) {
-      return info.x < info.y
-        ? 350 / info.y
-        : info.y < info.x ? 350 / info.x : 350 / info.x
     },
   },
 }
