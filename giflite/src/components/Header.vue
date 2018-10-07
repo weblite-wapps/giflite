@@ -42,12 +42,9 @@ export default {
   
   props: {
     search: Function,
-    ShowTrend: Function,
     state: String,
   },
-
-  created() { this.ShowTrend() },
-
+  
   methods: {
     debounceInput: debounce(function ({ target: { value } }) {
       this.$emit("changeState", "main")

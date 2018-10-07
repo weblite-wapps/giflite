@@ -4,26 +4,23 @@
       <Header
         :state="state" 
         :search="search"
-        :ShowTrend="ShowTrend"
         @changeState="changeState"
       />
 
       <Main
         v-if="state === 'main'"
         :search="search"
-        :searchGifsUrls="searchedGifs"
+        :gifs="searchedGifs"
         :SendToChat="SendToChat"
         :AddToFavourite="AddToFavourite"
-        @tostate="changeState"
       />
 
       <Favourites
         v-if="state === 'favourites'"
-        :showFavourites="showFavourites"
+        :getFavourites="getFavourites"
         :SendToChat="SendToChat"
-        :favouriteList="favouriteGifs"
-        :like="AddToFavourite"
-        @tostate="changeState"
+        :gifs="favouriteGifs"
+        :AddToFavourite="AddToFavourite"
       />
     </div>
   </div>
@@ -62,14 +59,17 @@ export default {
     Header,
   },
 
-  created() { W && webliteHandler(this) },
+  created() {
+    this.getTrends()
+    W && webliteHandler(this)
+  },
 
   methods: {
-    ShowTrend() { getTrendGifs().then(this.addUserIdToInfo.bind(this)) },
+    getTrends() { getTrendGifs().then(this.addUserIdToInfo.bind(this)) },
 
     search(query) {
       if (query) getSearchGifs(query).then(this.addUserIdToInfo.bind(this))
-      else this.ShowTrend()
+      else this.getTrends()
     },
 
     addUserIdToInfo(infos) {
@@ -86,7 +86,7 @@ export default {
 
     AddToFavourite(info) { addToFav(info) },
 
-    showFavourites() {
+    getFavourites() {
       getAllFavourites(this.userId).then(favouriteGifs => { this.favouriteGifs = favouriteGifs })
     },
 

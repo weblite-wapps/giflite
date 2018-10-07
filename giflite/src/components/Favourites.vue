@@ -1,11 +1,11 @@
 <template>
-  <div class="container" v-if=" ratios">
+  <div class="container">
     <Gif
-      v-for="(item, index) in favouriteList"
+      v-for="(item, index) in gifs"
       :key="item.smallUrl"
       :url="item"
       :Send="SendToChat"
-      :Like="like"
+      :like="AddToFavourite"
       :scale="ratios[index]"
     />
   </div>
@@ -14,33 +14,32 @@
 <script>
 import Gif from "./Gif"
 import { calculateScale } from "./../helper/functions/helperFunctions"
+
 export default {
   name: "Favourites",
+
   data() {
     return {
       ratios: [],
     }
   },
+
   props: {
-    showFavourites: Function,
-    favouriteList: Array,
+    getFavourites: Function,
+    gifs: Array,
     SendToChat: Function,
-    like: Function,
+    AddToFavourite: Function,
   },
-  methods: {
-    changeState(event) {
-      this.$emit("state", "mainPage")
-    },
-  },
-  created() {
-    this.showFavourites()
-  },
+  
   components: {
     Gif,
   },
+
+  created() { this.getFavourites() },
+
   watch: {
-    favouriteList() {
-      const widths = this.favouriteList.map(gifObj => parseInt(gifObj.width))
+    gifs() {
+      const widths = this.gifs.map(({ width }) => parseInt(width))
       this.ratios = calculateScale(widths)
     },
   },

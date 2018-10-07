@@ -1,59 +1,57 @@
 <template>
-    <div class="container">
-        <div class="card">
-            <img
-              v-if="!url.wisId"              
-              src="./../assets/tack-save-button5.png"  
-              class="btn btn-2"
-              @click="Like({ gifId: url.gifId, userId: url.userId, wisId })"  
-              alt="image place"
-            >
-            <img  
-              class="btn btn-1" 
-              @click="Send( {id: url.gifId, wisId: url.wisId ? url.wisId: ' ' })" 
-              src="./../assets/send-button5.png" 
-              alt="image place"
-            >
-            <img 
-              :src="imgTagUrl"   
-              alt="image place"
-              :style="widthStyle"
-              @click="changeShow"
-              :class="{ isShowing: play, hidden: !play }"
-            >
-        </div>
+  <div class="container">
+    <div class="card">
+      <!-- TODO: icon -->
+      <img
+        v-if="!url.wisId"              
+        src="./../assets/tack-save-button5.png"  
+        class="btn btn-2"
+        @click="like({ gifId: url.gifId, userId: url.userId, wisId: url.wisId ? url.wisId: ' ' })"  
+        alt="image place"
+      >
+      <img  
+        class="btn btn-1"
+        @click="Send( {id: url.gifId, wisId: url.wisId ? url.wisId: ' ' })" 
+        src="./../assets/send-button5.png" 
+        alt="image place"
+      >
+      <img 
+        :src="imgTagUrl"   
+        alt="image place"
+        :style="widthStyle"
+        @click="toggleShow"
+        :class="{ isShowing: play, hidden: !play }"
+      >
     </div>
-
+  </div>
 </template>
 <script>
 export default {
   name: "Gif",
-  data() {
-    return {
-      wisId: " ",
-      play: false,
-    }
-  },
-  computed: {
-    widthStyle() {
-      return "width: " + this.scale * parseInt(this.url.width) + "px"
-    },
-    imgTagUrl() {
-      if (this.play) return this.url.smallUrl
-      else return this.url.smallImage
-    },
-  },
+
   props: {
     url: Object,
-    Like: Function,
+    like: Function,
     Send: Function,
     scale: Number,
   },
-  methods: {
-    changeShow() {
-      this.play = !this.play
-      this.gifurl = this.play ? this.url.smallUrl : this.url.smallImage
+
+  data() {
+    return {
+      play: false,
+    }
+  },
+
+  computed: {
+    widthStyle() {
+      return `width: ${this.scale * parseInt(this.url.width)}px`
     },
+
+    imgTagUrl() { return this.url[this.play ? 'smallUrl' : 'smallImage'] },
+  },
+
+  methods: {
+    toggleShow() { this.play = !this.play },
   },
 }
 </script>
