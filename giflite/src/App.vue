@@ -5,20 +5,20 @@
         :state="state" 
         :search="search"
         :ShowTrend="ShowTrend"
-        @tostate="changeState"
+        @changeState="changeState"
       />
-      
+
       <Main
-        v-if="state === 'mainPage'"
+        v-if="state === 'main'"
         :search="search"
         :searchGifsUrls="searchedGifs"
         :SendToChat="SendToChat"
         :AddToFavourite="AddToFavourite"
         @tostate="changeState"
       />
-      
+
       <Favourites
-        v-if="state === 'favouritesPage'"
+        v-if="state === 'favourites'"
         :showFavourites="showFavourites"
         :SendToChat="SendToChat"
         :favouriteList="favouriteGifs"
@@ -52,7 +52,7 @@ export default {
       searchedGifs: [],
       favouriteGifs: [],
       userId: "javadId",
-      state: "mainPage",
+      state: "main",
     }
   },
 
@@ -87,7 +87,7 @@ export default {
     AddToFavourite(info) { addToFav(info) },
 
     showFavourites() {
-      getAllFavourites(this.userId).then(this.favouriteGifs.bind(this))
+      getAllFavourites(this.userId).then(favouriteGifs => { this.favouriteGifs = favouriteGifs })
     },
 
     changeState(event) { this.state = event },

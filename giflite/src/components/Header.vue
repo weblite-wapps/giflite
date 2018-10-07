@@ -2,38 +2,33 @@
     <div class="header">
       <div class="box">
         <div class="container-1">
-          <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
           <span class="icon">
             <i class="fa fa-search"/>
           </span>
+          
           <input  
             autofocus 
-            @input="changeWithDebounce" 
-            v-model="searchText" 
+            @input="debounceInput" 
             type="search" 
-            id="search" 
             placeholder="Search..." 
           />
         </div>
         <div class="container-2">
-          <span>
-            <img 
-              @click="changeState" 
-              :style="saveBtn" 
-              class="headerBtn" 
-              src="./../assets/save3.png" 
-              alt=""
-            >
-          </span>  
-          <span>
-            <img 
-              @click="changeState" 
-              :style="homeBtn" 
-              class="headerBtn" 
-              src="./../assets/home-icon-silhouette.png" 
-              alt=""
-            >
-          </span>  
+          <!-- TODO: use font-awesome -->
+          <img 
+            v-if="state === 'main'"
+            @click="changeState" 
+            class="headerBtn" 
+            src="./../assets/save3.png" 
+            alt=""
+          >
+          <img
+            v-if="state === 'favourites'"
+            @click="changeState" 
+            class="headerBtn" 
+            src="./../assets/home-icon-silhouette.png" 
+            alt=""
+          >
         </div>
       </div>
     </div>
@@ -41,45 +36,27 @@
 
 <script>
 import debounce from "debounce"
+
 export default {
   name: "Header",
-  data() {
-    return {
-      searchText: "",
-      changeWithDebounce: debounce(this.onChange, 1000),
-    }
-  },
+  
   props: {
     search: Function,
     ShowTrend: Function,
     state: String,
   },
-  created() {
-    this.ShowTrend()
-  },
+
+  created() { this.ShowTrend() },
+
   methods: {
-    onChange() {
-      this.$emit("tostate", "mainPage")
-      this.search(this.searchText.trim())
-    },
+    debounceInput: debounce(function ({ target: { value } }) {
+      this.$emit("changeState", "main")
+      this.search(value.trim())
+    }, 1000),
+
     changeState() {
-      if (this.state === "mainPage") {
-        this.$emit("tostate", "favouritesPage")
-      } else {
-        this.$emit("tostate", "mainPage")
-      }
-    },
-  },
-  computed: {
-    saveBtn() {
-      if (this.state === "favouritesPage") {
-        return "display: none"
-      }
-    },
-    homeBtn() {
-      if (this.state === "mainPage") {
-        return "display: none"
-      }
+      if (this.state === "main") this.$emit("changeState", "favourites")
+      else this.$emit("changeState", "main")
     },
   },
 }
@@ -101,7 +78,7 @@ export default {
   position: relative;
 }
 
-.container-1 input#search {
+.container-1 input {
   width: 300px;
   height: 50px;
   background: #2b303b;
@@ -115,21 +92,21 @@ export default {
   border-radius: 5px;
 }
 
-.container-1 input#search::-webkit-input-placeholder {
+.container-1 input::-webkit-input-placeholder {
   color: #65737e;
 }
 
-.container-1 input#search:-moz-placeholder {
+.container-1 input:-moz-placeholder {
   /* Firefox 18- */
   color: #65737e;
 }
 
-.container-1 input#search::-moz-placeholder {
+.container-1 input::-moz-placeholder {
   /* Firefox 19+ */
   color: #65737e;
 }
 
-.container-1 input#search:-ms-input-placeholder {
+.container-1 input:-ms-input-placeholder {
   color: #65737e;
 }
 
@@ -141,12 +118,12 @@ export default {
   z-index: 1;
   color: #4f5b66;
 }
-.container-1 input#search:focus,
-.container-1 input#search:active {
+.container-1 input:focus,
+.container-1 input:active {
   outline: none;
 }
 
-.container-1 input#search {
+.container-1 input {
   width: 300px;
   height: 50px;
   background: #2b303b;

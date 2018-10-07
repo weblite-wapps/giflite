@@ -1,4 +1,5 @@
-const R = require("ramda")
+import * as R from "ramda"
+
 export const calculateScale = info => {
   console.log("info in helper ", info)
   return R.compose(
