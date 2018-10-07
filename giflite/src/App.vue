@@ -7,6 +7,7 @@
         :ShowTrend="ShowTrend"
         @tostate="changeState"
       />
+      
       <Main
         v-if="state === 'mainPage'"
         :search="search"
@@ -15,6 +16,7 @@
         :AddToFavourite="AddToFavourite"
         @tostate="changeState"
       />
+      
       <Favourites
         v-if="state === 'favouritesPage'"
         :showFavourites="showFavourites"
@@ -23,9 +25,6 @@
         :like="AddToFavourite"
         @tostate="changeState"
       />
-      <div class="footer">
-        <img class="footer-img" src=".\assets\Poweredby_100px-White_VertText.png" alt="footerGif">
-      </div>
     </div>
   </div>
 </template>
@@ -41,8 +40,10 @@ import {
 import Main from "./components/Main"
 import Favourites from "./components/Favourites"
 import Header from "./components/Header"
+import * as R from "ramda"
+
 const { W } = window
-const R = require("ramda")
+
 export default {
   name: "app",
 
@@ -50,62 +51,46 @@ export default {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      userName: "",
       userId: "javadId",
       state: "mainPage",
     }
   },
+
   components: {
     Main,
     Favourites,
     Header,
   },
 
-  created() {
-    W && webliteHandler(this)
-  },
+  created() { W && webliteHandler(this) },
+
   methods: {
-    ShowTrend() {
-      getTrendGifs().then(res => {
-        if (res) this.fillGifUrlAddresses(res)
-      })
-    },
-    search(info) {
-      if (info) {
-        getSearchGifs(info).then(res => {
-          if (res) this.fillGifUrlAddresses(res)
-        })
-      } else this.ShowTrend()
-    },
-    fillGifUrlAddresses(info) {
-      console.log("info in fill ", info)
+    ShowTrend() { getTrendGifs().then(this.addUserIdToInfo.bind(this)) },
 
-      this.searchedGifs = info.map(gifObj =>
-        R.merge(gifObj, { userId: this.userId }),
-      )
-      console.log("searchedGifs ", this.searchedGifs)
+    search(query) {
+      if (query) getSearchGifs(query).then(this.addUserIdToInfo.bind(this))
+      else this.ShowTrend()
     },
 
-    SendToChat(info) {
-      const { id, wisId } = info
+    addUserIdToInfo(infos) {
+      this.searchedGifs = infos.map(R.merge({ userId: this.userId }))
+    },
 
+    SendToChat({ id, wisId }) {
       W.sendMessageToCurrentChat("wapp", {
         wappId: "",
-        wisId: wisId,
+        wisId,
         customize: { id },
       })
     },
-    AddToFavourite(info) {
-      addToFav(info)
-    },
+
+    AddToFavourite(info) { addToFav(info) },
+
     showFavourites() {
-      getAllFavourites(this.userId).then(res => {
-        if (res) this.favouriteGifs = res
-      })
+      getAllFavourites(this.userId).then(this.favouriteGifs.bind(this))
     },
-    changeState(event) {
-      if (this.state !== event) this.state = event
-    },
+
+    changeState(event) { this.state = event },
   },
 }
 </script>
@@ -119,9 +104,11 @@ export default {
   border: 5px solid #2b303b;
   bottom: 20px;
 }
+
 .footer {
   justify-content: center;
 }
+
 .footer-img {
   margin-left: 34%;
 }

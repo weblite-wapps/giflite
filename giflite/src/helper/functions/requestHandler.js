@@ -7,12 +7,20 @@ export const getTrendGifs = () =>
     .get(`${config.server}/trend`)
     .set("Access-Control-Allow-Origin", "*")
     .then(res => res.body)
+    .then(res => {
+      if (!res) throw "not res"
+    })
+    .catch(console.log)
 
 export const getSearchGifs = info =>
   request
     .get(`${config.server}/search/${info}`)
     .set("Access-Control-Allow-Origin", "*")
     .then(res => res.body)
+    .then(res => {
+      if (!res) throw "not res"
+    })
+    .catch(console.log)
 
 export const addToFav = info =>
   request
@@ -26,3 +34,7 @@ export const getAllFavourites = userId =>
     .get(`${config.server}/load/favs/all/${userId}`)
     .set("Access-Control-Allow-Origin", "*")
     .then(res => res.body)
+    .then(res => {
+      if (!res) throw "not res"
+    })
+    .catch(console.log)
