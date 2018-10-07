@@ -19,7 +19,7 @@ export default {
       wisId: W && W.wisId,
       wisId: "22",
       url: {},
-      gifId: "YWaKbAQz1xXGX9ipPB",
+      gifId: "3oAt2dA6LxMkRrGc0g",
       userId: "javadId",
     }
   },

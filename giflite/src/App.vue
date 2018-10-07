@@ -80,11 +80,10 @@ export default {
     fillGifUrlAddresses(info) {
       console.log("info in fill ", info)
 
-      info.forEach(x => {
-        x.userId = this.userId
-      })
+      this.searchedGifs = info.map(gifObj =>
+        R.merge(gifObj, { userId: this.userId }),
+      )
       console.log("searchedGifs ", this.searchedGifs)
-      this.searchedGifs = info
     },
 
     SendToChat(info) {
