@@ -25,25 +25,29 @@ router.get("/search/:info", ({ params: { info } }, res) => {
       )
       res.send(urls)
     })
-    .catch(console.log)
+    .catch(console.log("we can not search"))
 })
 
-router.post("/addToFav", (req, res) => {
+router.post("/addToFav", ({ body: { info } }, res) => {
   database
-    .updateLikedGif(
-      req.body.info.gifId,
-      req.body.info.userId,
-      req.body.info.wisId,
-    )
+    .updateLikedGifAfterLike(info.gifId, info.userId, info.wisId)
     .then(() => res.send("added to Favourites"))
-    .catch(console.log)
+    .catch(console.log("we can not add to fav"))
+})
+
+router.post("/saveSentGif", ({ body: { info: { gifId, wisId } } }, res) => {
+  database
+    .saveSentGif(gifId, wisId)
+    .then(() => res.send("saved in sent db"))
+    .catch(console.log("we can not saved in sent"))
+  database
+    .updateLikedGifAfterSent(gifId, wisId)
+    .catch(console.log("we can not updateLikedGifAfterSent"))
 })
 
 router.get("/load/favs/all/:userId", ({ params: { userId } }, res) => {
   database.getAllLikedGifs(userId).then(LikedgifsInDb => {
     const Ids = LikedgifsInDb.map(gif => R.prop("gifId", gif))
-
-    console.log("load favs ", Ids)
     const options = {
       uri: `http://api.giphy.com/v1/gifs?ids=${Ids}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
     }
@@ -67,7 +71,7 @@ router.get("/load/favs/all/:userId", ({ params: { userId } }, res) => {
         res.send(urls)
       })
       .catch(error => {
-        console.log(error)
+        console.log("we can not load fav 2")
         res.send([])
       })
   })
@@ -77,6 +81,7 @@ router.get("/load/single/:gifId", ({ params: { gifId } }, res) => {
   const options = {
     uri: `http://api.giphy.com/v1/gifs/${gifId}?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
   }
+
   rp(options)
     .then(giphyResponse => {
       const parsedBody = JSON.parse(giphyResponse)
@@ -89,15 +94,7 @@ router.get("/load/single/:gifId", ({ params: { gifId } }, res) => {
       }
       res.send(urls)
     })
-    .catch(console.log)
-})
-
-router.post("/saveSentGif", ({ body: { info } }, res) => {
-  console.log("info ", info)
-  database
-    .updateSentGif(info.gifId, info.wisId)
-    .then(() => res.send("saved in sent db"))
-    .catch(console.log)
+    .catch(console.log("we can not load single"))
 })
 
 router.get("/trend", (req, res) => {
@@ -118,7 +115,7 @@ router.get("/trend", (req, res) => {
       )
       res.send(urls)
     })
-    .catch(console.log)
+    .catch(console.log("we can not load trend"))
 })
 
 module.exports = router

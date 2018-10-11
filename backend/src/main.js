@@ -1,4 +1,3 @@
-// import no-extraneous-dependecies
 const express = require("express")
 const https = require("https")
 const cors = require("cors")
@@ -11,11 +10,11 @@ const Database = require("./db/dbhandler")
 const app = express()
 
 app.use(cors({ origin: "*" }))
-Database.connect("giflite_liked_db")
+Database.connect("giflite_db")
 app.use(bodyParser.json())
 app.use("/", router)
 
 const key = fs.readFileSync(path.resolve("./src/certs/express.key"), "utf8")
 const cert = fs.readFileSync(path.resolve("./src/certs/express.crt"), "utf8")
 
-https.createServer({ key, cert }, app).listen(3095)
+https.createServer({ key, cert }, app).listen("3095")

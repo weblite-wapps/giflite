@@ -2,31 +2,33 @@ const mongoose = require("mongoose")
 const models = require("./db")
 
 exports.connect = name => {
-  mongoose.connect(
-    `mongodb://localhost/${name}`,
+  const uri = `mongodb://javadVhd_2256:javad2256atlas#@cluster0-shard-00-00-mmpzu.mongodb.net:27017,cluster0-shard-00-01-mmpzu.mongodb.net:27017,cluster0-shard-00-02-mmpzu.mongodb.net:27017/${name}?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true`
+  const connection = mongoose.connect(
+    uri,
     { useNewUrlParser: true },
   )
-  const db = mongoose.connection
-  db.on("error", console.log)
-  db.once("open", () => {
-    console.log(`connected to  database ${name} `)
-  })
 }
+mongoose.connection.on("connected", () => {
+  console.log("connection established!!!")
+})
+mongoose.connection.on("error", console.log)
 
 exports.getAllLikedGifs = userId => models.LikedGifliteMessages.find({ userId })
 
-exports.getSingleGif = wisId => models.LikedGifliteMessages.find({ wisId })
+exports.getSingleSentGif = gifId => models.SentGifliteMessages.find({ gifId })
 
-exports.updateLikedGif = (gifId, userId, wisId) =>
+exports.updateLikedGifAfterLike = (gifId, userId, wisId) =>
   models.LikedGifliteMessages.findOneAndUpdate(
     { gifId, userId },
     { wisId },
     { upsert: true },
   ).exec()
 
-exports.updateSentGif = (gifId, wisId) =>
+exports.updateLikedGifAfterSent = (gifId, wisId) =>
+  models.LikedGifliteMessages.findOneAndUpdate({ gifId }, { wisId }).exec()
+
+exports.saveSentGif = (gifId, wisId) =>
   models.SentGifliteMessages.find({ gifId }).then(docs => {
-    // console.log("docs ", docs.length)
     if (!docs.length) {
       new models.SentGifliteMessages({
         gifId,
