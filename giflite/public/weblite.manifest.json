@@ -1,0 +1,15 @@
+{
+  "name": "giflite",
+  "id": "5bc6072618461f32eebc9010",
+  "searchable": true,
+  "instancable": false,
+  "creator": false,
+  "inline": false,
+  "shareDB": false,
+  "userInfo": true,
+  "servIndexes": {
+    "inline": "index",
+    "main": "index",
+    "customize": "index"
+  }
+}
