@@ -7,6 +7,7 @@
       :sendToChat="sendToChat"
       :addToFavourite="addToFavourite"
       :scale="ratios[index]"
+      :parent="name"
     />
   </div>
 </template>
@@ -17,8 +18,6 @@ import Gif from "./Gif"
 import { calculateScale } from "./../helper/functions/helperFunctions"
 
 export default {
-  name: "Main",
-
   props: {
     gifs: {
       Type: Array,
@@ -30,6 +29,7 @@ export default {
 
   data() {
     return {
+      name: "Main",
       ratios: {},
     }
   },

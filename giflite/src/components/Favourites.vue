@@ -7,6 +7,7 @@
       :sendToChat="sendToChat"
       :addToFavourite="addToFavourite"
       :scale="ratios[index]"
+      :parent="name"
     />
   </div>
 </template>
@@ -16,10 +17,9 @@ import Gif from "./Gif"
 import { calculateScale } from "./../helper/functions/helperFunctions"
 
 export default {
-  name: "Favourites",
-
   data() {
     return {
+      name: "Favourites",
       ratios: [],
     }
   },

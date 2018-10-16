@@ -4,6 +4,7 @@
 
       <span
         class="span-icon save-icon"
+        :style="saveCircleStyle"
       >
         <i
           class="fa fa-bookmark icon"
@@ -39,6 +40,7 @@ export default {
     addToFavourite: Function,
     sendToChat: Function,
     scale: Number,
+    parent: String,
   },
 
   data() {
@@ -54,6 +56,9 @@ export default {
 
     imgTagUrl() {
       return this.url[this.play ? "smallUrl" : "smallImage"]
+    },
+    saveCircleStyle() {
+      return `display: ${this.parent === "Favourites" ? "none" : "inline"}`
     },
   },
 

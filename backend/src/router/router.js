@@ -92,7 +92,6 @@ router.get("/load/favs/all/:userId", ({ params: { userId } }, res) => {
             ),
           }),
         )
-        console.log("1 urls ", urls)
         res.send(urls)
       })
       .catch(console.log("cant do load all"))
