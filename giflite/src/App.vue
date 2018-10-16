@@ -2,25 +2,24 @@
   <div id="app">
     <div class="container">
       <Header
-        :state="state" 
-        :search="search"
-        @changeState="changeState"
+        :page="page" 
+        :searchContent="searchContent"
+        @changePage="changePage"
       />
 
       <Main
-        v-if="state === 'main'"
-        :search="search"
+        v-if="page === 'main'"
         :gifs="searchedGifs"
-        :SendToChat="SendToChat"
-        :AddToFavourite="AddToFavourite"
+        :sendToChat="sendToChat"
+        :addToFavourite="addToFavourite"
       />
 
       <Favourites
-        v-if="state === 'favourites'"
+        v-if="page === 'favourites'"
         :getFavourites="getFavourites"
-        :SendToChat="SendToChat"
+        :sendToChat="sendToChat"
         :gifs="favouriteGifs"
-        :AddToFavourite="AddToFavourite"
+        :addToFavourite="addToFavourite"
       />
     </div>
   </div>
@@ -48,8 +47,8 @@ export default {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      userId: "javadId",
-      state: "main",
+      userId: "",
+      page: "main",
     }
   },
 
@@ -65,9 +64,11 @@ export default {
   },
 
   methods: {
-    getTrends() { getTrendGifs().then(this.addUserIdToInfo.bind(this)) },
+    getTrends() {
+      getTrendGifs().then(this.addUserIdToInfo.bind(this))
+    },
 
-    search(query) {
+    searchContent(query) {
       if (query) getSearchGifs(query).then(this.addUserIdToInfo.bind(this))
       else this.getTrends()
     },
@@ -76,7 +77,7 @@ export default {
       this.searchedGifs = infos.map(R.merge({ userId: this.userId }))
     },
 
-    SendToChat({ id, wisId }) {
+    sendToChat({ id, wisId }) {
       W.sendMessageToCurrentChat("wapp", {
         wappId: "",
         wisId,
@@ -84,13 +85,21 @@ export default {
       })
     },
 
-    AddToFavourite(info) { addToFav(info) },
-
-    getFavourites() {
-      getAllFavourites(this.userId).then(favouriteGifs => { this.favouriteGifs = favouriteGifs })
+    addToFavourite(info) {
+      addToFav(info)
     },
 
-    changeState(event) { this.state = event },
+    getFavourites() {
+      getAllFavourites(this.userId).then(favouriteGifs => {
+        this.favouriteGifs = favouriteGifs
+          ? R.reverse(favouriteGifs)
+          : favouriteGifs
+      })
+    },
+
+    changePage(event) {
+      this.page = event
+    },
   },
 }
 </script>
@@ -103,13 +112,5 @@ export default {
   background-color: #5f5b5b;
   border: 5px solid #2b303b;
   bottom: 20px;
-}
-
-.footer {
-  justify-content: center;
-}
-
-.footer-img {
-  margin-left: 34%;
 }
 </style>

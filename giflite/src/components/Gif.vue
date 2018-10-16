@@ -1,20 +1,25 @@
 <template>
-  <div class="container">
+  <div class="gif">
     <div class="card">
-      <!-- TODO: icon -->
-      <img
-        v-if="!url.wisId"              
-        src="./../assets/tack-save-button5.png"  
-        class="btn btn-2"
-        @click="like({ gifId: url.gifId, userId: url.userId, wisId: url.wisId ? url.wisId: ' ' })"  
-        alt="image place"
+
+      <span
+        class="span-icon save-icon"
       >
-      <img  
-        class="btn btn-1"
-        @click="Send( {id: url.gifId, wisId: url.wisId ? url.wisId: ' ' })" 
-        src="./../assets/send-button5.png" 
-        alt="image place"
+        <i
+          class="fa fa-bookmark icon"
+          @click="addToFavourite({ gifId: url.gifId, userId: url.userId, wisId: url.wisId ? url.wisId: '' })"
+        />
+      </span
       >
+
+      <span 
+        class="span-icon send-icon"
+      >
+        <i
+          class="fa fa-share-square icon"
+          @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
+        />
+      </span>
       <img 
         :src="imgTagUrl"   
         alt="image place"
@@ -31,8 +36,8 @@ export default {
 
   props: {
     url: Object,
-    like: Function,
-    Send: Function,
+    addToFavourite: Function,
+    sendToChat: Function,
     scale: Number,
   },
 
@@ -47,16 +52,20 @@ export default {
       return `width: ${this.scale * parseInt(this.url.width)}px`
     },
 
-    imgTagUrl() { return this.url[this.play ? 'smallUrl' : 'smallImage'] },
+    imgTagUrl() {
+      return this.url[this.play ? "smallUrl" : "smallImage"]
+    },
   },
 
   methods: {
-    toggleShow() { this.play = !this.play },
+    toggleShow() {
+      this.play = !this.play
+    },
   },
 }
 </script>
 <style scoped>
-.container {
+.gif {
   display: flex;
   position: relative;
 }
@@ -68,7 +77,14 @@ export default {
   align-items: center;
 }
 
-.btn-1 {
+.span-icon {
+  padding-left: 5px;
+  background-color: #2b303b;
+  border: 4px solid #2b303b;
+  border-radius: 100px;
+}
+
+.send-icon {
   position: absolute;
   box-sizing: content-box;
   bottom: 5px;
@@ -77,27 +93,29 @@ export default {
   width: 18px;
   opacity: 1;
 }
-.btn-2 {
+.save-icon {
   position: absolute;
   box-sizing: content-box;
   bottom: 5px;
-  left: 35px;
+  left: 40px;
   height: 18px;
   width: 18px;
 }
 
-.btn {
-  background-color: #2b303b;
-  border: 4px solid #2b303b;
-  border-radius: 100px;
-}
-
 .hidden {
   box-sizing: content-box;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 .isShowing {
   box-sizing: content-box;
   opacity: 1;
+}
+
+.icon {
+  color: #4f5b66;
+}
+
+.icon:active {
+  opacity: 0.6;
 }
 </style>

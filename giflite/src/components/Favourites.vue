@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div class="favourites">
     <Gif
       v-for="(item, index) in gifs"
       :key="item.smallUrl"
       :url="item"
-      :Send="SendToChat"
-      :like="AddToFavourite"
+      :sendToChat="sendToChat"
+      :addToFavourite="addToFavourite"
       :scale="ratios[index]"
     />
   </div>
@@ -27,15 +27,17 @@ export default {
   props: {
     getFavourites: Function,
     gifs: Array,
-    SendToChat: Function,
-    AddToFavourite: Function,
+    sendToChat: Function,
+    addToFavourite: Function,
   },
-  
+
   components: {
     Gif,
   },
 
-  created() { this.getFavourites() },
+  created() {
+    this.getFavourites()
+  },
 
   watch: {
     gifs() {
@@ -47,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.favourites {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

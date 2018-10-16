@@ -1,11 +1,11 @@
 <template>
-  <div class="container"> 
+  <div class="main"> 
     <Gif
       v-for="(item, index) in gifs"
       :key="item.gifId" 
       :url="item"
-      :SendtoChat="SendtoChat"
-      :like="AddtoFavourite"
+      :sendToChat="sendToChat"
+      :addToFavourite="addToFavourite"
       :scale="ratios[index]"
     />
   </div>
@@ -24,8 +24,8 @@ export default {
       Type: Array,
       required: true,
     },
-    SendtoChat: Function,
-    AddtoFavourite: Function,
+    sendToChat: Function,
+    addToFavourite: Function,
   },
 
   data() {
@@ -38,23 +38,29 @@ export default {
     Gif,
   },
 
-  mounted() { this.calculateRatios() },
+  mounted() {
+    this.calculateRatios()
+  },
 
   watch: {
-    gifs() { this.calculateRatios() },
+    gifs() {
+      this.calculateRatios()
+    },
   },
 
   methods: {
     calculateRatios() {
       const gifsWidth = this.gifs.map(({ width }) => parseInt(width))
       this.ratios = calculateScale(gifsWidth)
-    }
+    },
   },
 }
 </script>
 
 <style scoped>
-html, body, .container {
+html,
+body,
+.main {
   height: 100%;
   margin: 0;
   display: flex;

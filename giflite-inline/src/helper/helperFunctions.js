@@ -1,7 +1,8 @@
 export const calculateScales = info => {
-  return info.x < info.y
-    ? 350 / info.y
-    : info.y < info.x
-      ? 350 / info.x
-      : 350 / info.x
+  const { width, height } = info
+  return width < height
+    ? 350 / height
+    : height < width
+      ? 350 / width
+      : 350 / width
 }

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Gif
-      :url="url"
-      :Like="AddToFavourites"
+      :gifInfos="gifInfos"
+      :addToFavourites="addToFavourites"
     />
   </div>
 </template>
@@ -10,38 +10,33 @@
 <script>
 const R = require("ramda")
 import Gif from "./components/Gif"
-import { addToFav, getSingleGifData, SaveToDb } from "./helper/requestHandler"
+import { addToFav, getSingleGifData, saveToDb } from "./helper/requestHandler"
 const { W } = window
 export default {
   name: "App",
   data() {
     return {
       wisId: W && W.wisId,
-      wisId: "22",
-      url: {},
-      gifId: "3oAt2dA6LxMkRrGc0g",
-      userId: "javadId",
+      gifInfos: {},
+      gifId: "",
+      userId: "",
     }
   },
   components: {
     Gif,
   },
   created() {
-    this.init()
+    getSingleGifData(this.gifId).then(receivedUrls => {
+      this.gifInfos = receivedUrls
+    })
   },
   updated() {
-    SaveToDb({ gifId: this.gifId, wisId: this.wisId })
+    saveToDb({ gifId: this.gifId, wisId: this.wisId })
   },
 
   methods: {
-    init() {
-      getSingleGifData(this.gifId).then(res => {
-        if (res) this.url = res
-      })
-    },
-    AddToFavourites() {
-      const info = { gifId: this.gifId, userId: this.userId, wisId: this.wisId }
-      addToFav(info)
+    addToFavourites() {
+      addToFav({ gifId: this.gifId, userId: this.userId, wisId: this.wisId })
     },
   },
 }

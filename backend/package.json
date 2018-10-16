@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node .\\node_modules\\nodemon\\bin\\nodemon.js src/main.js"
+    "start": "node ./node_modules/nodemon/bin/nodemon.js src/main.js"
   },
   "author": "javad vahedi  <vahedi.r46@gmail.com>",
   "license": "MIT",
@@ -17,5 +17,9 @@
     "ramda": "^0.25.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
+  },
+  "engines": {
+    "node": "^8.9.3",
+    "npm": "6.3.0"
   }
 }

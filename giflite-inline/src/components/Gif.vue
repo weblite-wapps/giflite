@@ -1,18 +1,16 @@
 <template>
-  <div class="card">
+  <div class="gif-card">
     <div class="containter">
       <div class="save">
         <div class="img_overlay"/>
-        <img 
-          src="./../assets/tack-save-button5.png"
-          v-on:click="Like"
-          class="save-btn"
-          alt="save place"
-        >
+        <i 
+          class="fa fa-bookmark save-btn"
+          v-on:click="addToFavourites"
+        />
       </div>
       <img 
         :style="style" 
-        v-on:click="changeShow" 
+        v-on:click="toggleShow" 
         class="gif" 
         :src="gifurl" 
         alt="image place"
@@ -33,25 +31,24 @@ export default {
     }
   },
   props: {
-    url: Object,
-    Like: Function,
+    gifInfos: Object,
+    addToFavourites: Function,
   },
   computed: {
     style() {
-      const { width, height, ...info } = this.url
-      const rate = calculateScales({ x: width, y: height })
-      return "width: " + rate * width + "px;"
+      const { width, height } = this.gifInfos
+      return `width: ${calculateScales({ width, height }) * width}px;`
     },
   },
   watch: {
-    url() {
-      this.gifurl = this.url.bigImage
+    gifInfos() {
+      this.gifurl = this.gifInfos.bigImage
     },
   },
   methods: {
-    changeShow() {
+    toggleShow() {
       this.play = !this.play
-      this.gifurl = this.play ? this.url.bigUrl : this.url.bigImage
+      this.gifurl = this.play ? this.gifInfos.bigUrl : this.gifInfos.bigImage
     },
   },
 }
@@ -63,7 +60,7 @@ export default {
   position: relative;
 }
 
-.card {
+.gif-card {
   width: 350px;
   height: 350px;
   display: flex;
@@ -81,8 +78,11 @@ export default {
   left: 2px;
   border: 5px solid #2b303b;
   border-radius: 8px;
+  color: #4f5b66;
 }
-
+.save-btn:active {
+  opacity: 0.6;
+}
 .gif {
   box-sizing: content-box;
 }

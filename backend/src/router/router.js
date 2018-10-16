@@ -2,25 +2,43 @@ const express = require("express")
 const R = require("ramda")
 const bodyParser = require("body-parser")
 const rp = require("request-promise")
+
 const database = require("./../db/dbhandler")
+const {
+  makeArrayOfGiphyObjects,
+  makeArrOfSentsAvailable,
+  collectGifsDetails,
+} = require("../helper/helperFunctions")
 
 const router = express.Router()
-
 router.use(bodyParser.json())
+
 router.get("/search/:info", ({ params: { info } }, res) => {
   const options = {
     uri: `http://api.giphy.com/v1/gifs/search?q=${info}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
   }
   rp(options)
-    .then(giphyResponse => {
-      const parsedBody = JSON.parse(giphyResponse)
-      const paresdBodyData = R.prop("data", parsedBody)
+    .then(async giphyResponse => {
+      const paresdBodyData = R.compose(
+        R.prop("data"),
+        JSON.parse,
+      )(giphyResponse)
+      const gifs = await database.getSentGifsById(R.pluck("id", paresdBodyData))
+      const wisIds = R.reduce(
+        (acc, doc) => R.assoc(doc.gifId, doc.wisId, acc),
+        {},
+        gifs,
+      )
       const urls = paresdBodyData.map(
         R.applySpec({
-          gifId: R.path(["id"]),
+          gifId: R.prop("id"),
           smallUrl: R.path(["images", "fixed_height_small", "url"]),
           smallImage: R.path(["images", "fixed_height_small_still", "url"]),
           width: R.path(["images", "fixed_height_small", "width"]),
+          wisId: R.compose(
+            R.prop(R.__, wisIds),
+            R.prop("id"),
+          ),
         }),
       )
       res.send(urls)
@@ -40,40 +58,44 @@ router.post("/saveSentGif", ({ body: { info: { gifId, wisId } } }, res) => {
     .saveSentGif(gifId, wisId)
     .then(() => res.send("saved in sent db"))
     .catch(console.log("we can not saved in sent"))
-  database
-    .updateLikedGifAfterSent(gifId, wisId)
-    .catch(console.log("we can not updateLikedGifAfterSent"))
 })
 
 router.get("/load/favs/all/:userId", ({ params: { userId } }, res) => {
-  database.getAllLikedGifs(userId).then(LikedgifsInDb => {
-    const Ids = LikedgifsInDb.map(gif => R.prop("gifId", gif))
+  database.getAllLikedGifs(userId).then(likedGifsInDB => {
+    const Ids = likedGifsInDB.map(gif => R.prop("gifId", gif))
     const options = {
       uri: `http://api.giphy.com/v1/gifs?ids=${Ids}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
     }
     rp(options)
-      .then(giphyResponse => {
-        const parsedBody = JSON.parse(giphyResponse)
-        const paresdBodyData = R.prop("data", parsedBody)
+      .then(async giphyResponse => {
+        const paresdBodyData = R.compose(
+          R.prop("data"),
+          JSON.parse,
+        )(giphyResponse)
+        const gifs = await database.getSentGifsById(
+          R.pluck("id", paresdBodyData),
+        )
+        const wisIds = R.reduce(
+          (acc, doc) => R.assoc(doc.gifId, doc.wisId, acc),
+          {},
+          gifs,
+        )
         const urls = paresdBodyData.map(
           R.applySpec({
-            gifId: R.path(["id"]),
+            gifId: R.prop("id"),
             smallUrl: R.path(["images", "fixed_height_small", "url"]),
-            bigUrl: R.path(["images", "fixed_height", "url"]),
             smallImage: R.path(["images", "fixed_height_small_still", "url"]),
             width: R.path(["images", "fixed_height_small", "width"]),
-            userId: R.always(userId),
-            wisId: gifObj =>
-              R.find(R.propEq("gifId", R.path(["id"], gifObj)))(LikedgifsInDb)
-                .wisId,
+            wisId: R.compose(
+              R.prop(R.__, wisIds),
+              R.prop("id"),
+            ),
           }),
         )
+        console.log("1 urls ", urls)
         res.send(urls)
       })
-      .catch(error => {
-        console.log("we can not load fav 2")
-        res.send([])
-      })
+      .catch(console.log("cant do load all"))
   })
 })
 
@@ -102,18 +124,19 @@ router.get("/trend", (req, res) => {
     uri: `http://api.giphy.com/v1/gifs/trending?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
   }
   rp(options)
-    .then(giphyResponse => {
-      const parsedBody = JSON.parse(giphyResponse)
-      const paresdBodyData = R.prop("data", parsedBody)
-      const urls = paresdBodyData.map(
-        R.applySpec({
-          gifId: R.path(["id"]),
-          smallUrl: R.path(["images", "fixed_height_small", "url"]),
-          smallImage: R.path(["images", "fixed_height_small_still", "url"]),
-          width: R.path(["images", "fixed_height_small", "width"]),
-        }),
+    .then(async giphyResponse => {
+      const arrayOfGiphyObjects = makeArrayOfGiphyObjects(giphyResponse)
+      const giphyGifsAvailableinDb = await database.getSentGifsById(
+        R.pluck("id", arrayOfGiphyObjects),
       )
-      res.send(urls)
+      const arrOfSentsAvailableinSearch = makeArrOfSentsAvailable(
+        giphyGifsAvailableinDb,
+      )
+      const gifsDetails = collectGifsDetails(
+        arrayOfGiphyObjects,
+        arrOfSentsAvailableinSearch,
+      )
+      res.send(gifsDetails)
     })
     .catch(console.log("we can not load trend"))
 })

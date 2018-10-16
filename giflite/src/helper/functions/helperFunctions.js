@@ -1,8 +1,7 @@
 import * as R from "ramda"
 
-export const calculateScale = info => {
-  console.log("info in helper ", info)
-  return R.compose(
+export const calculateScale = info =>
+  R.compose(
     ({ array, sum, count }) =>
       count ? R.concat(array, R.repeat(330 / sum, count)) : array,
     R.reduce(
@@ -17,4 +16,3 @@ export const calculateScale = info => {
       { array: [], sum: 0, count: 0 },
     ),
   )(info)
-}
