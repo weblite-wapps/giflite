@@ -22,33 +22,33 @@
         :addToFavourite="addToFavourite"
       />
     </div>
+    
   </div>
 </template>
 
 <script>
-import webliteHandler from "./helper/functions/weblite.api"
+import webliteHandler from './helper/functions/weblite.api'
 import {
   getTrendGifs,
   getSearchGifs,
   addToFav,
   getAllFavourites,
-} from "./helper/functions/requestHandler.js"
-import Main from "./components/Main"
-import Favourites from "./components/Favourites"
-import Header from "./components/Header"
-import * as R from "ramda"
+} from './helper/functions/requestHandler.js'
+import Main from './components/Main'
+import Favourites from './components/Favourites'
+import Header from './components/Header'
+import * as R from 'ramda'
 
 const { W } = window
-
 export default {
-  name: "app",
+  name: 'app',
 
   data() {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      userId: "",
-      page: "main",
+      userId: 'javadId',
+      page: 'main',
     }
   },
 
@@ -78,8 +78,8 @@ export default {
     },
 
     sendToChat({ id, wisId }) {
-      W.sendMessageToCurrentChat("wapp", {
-        wappId: "",
+      W.sendMessageToCurrentChat('wapp', {
+        wappId: '',
         wisId,
         customize: { id },
       })

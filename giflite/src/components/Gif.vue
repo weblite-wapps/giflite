@@ -33,7 +33,7 @@
 </template>
 <script>
 export default {
-  name: "Gif",
+  name: 'Gif',
 
   props: {
     url: Object,
@@ -53,18 +53,24 @@ export default {
     widthStyle() {
       return `width: ${this.scale * parseInt(this.url.width)}px`
     },
-
     imgTagUrl() {
-      return this.url[this.play ? "smallUrl" : "smallImage"]
+      return `http://localhost:3095/load/content?url=${
+        this.url[this.play ? 'smallUrl' : 'smallImage']
+      }`
     },
     saveCircleStyle() {
-      return `display: ${this.parent === "Favourites" ? "none" : "inline"}`
+      return `display: ${this.parent === 'Favourites' ? 'none' : 'inline'}`
     },
   },
 
   methods: {
     toggleShow() {
       this.play = !this.play
+    },
+  },
+  watch: {
+    parent: () => {
+      console.log('parent: ', parent)
     },
   },
 }

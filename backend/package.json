@@ -16,7 +16,8 @@
     "nodemon": "^1.18.4",
     "ramda": "^0.25.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "superagent": "^4.0.0-beta.5"
   },
   "engines": {
     "node": "^8.9.3",
