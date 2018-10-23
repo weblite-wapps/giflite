@@ -8,18 +8,18 @@
 </template>
 
 <script>
-const R = require("ramda")
-import Gif from "./components/Gif"
-import { addToFav, getSingleGifData, saveToDb } from "./helper/requestHandler"
+const R = require('ramda')
+import Gif from './components/Gif'
+import { addToFav, getSingleGifData, saveToDb } from './helper/requestHandler'
 const { W } = window
 export default {
-  name: "App",
+  name: 'App',
   data() {
     return {
       wisId: W && W.wisId,
       gifInfos: {},
-      gifId: "",
-      userId: "",
+      gifId: '',
+      userId: '',
     }
   },
   components: {

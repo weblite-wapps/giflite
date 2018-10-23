@@ -47,7 +47,7 @@ export default {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      userId: 'javadId',
+      userId: '',
       page: 'main',
     }
   },
@@ -107,8 +107,10 @@ export default {
 <style>
 #app {
   width: 350px;
+  /* width: 330px; */
+  /* height: 100%; */
   height: 100vh;
-  overflow-y: scroll;
+  overflow: auto;
   background-color: #5f5b5b;
   border: 5px solid #2b303b;
   bottom: 20px;

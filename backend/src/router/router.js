@@ -1,49 +1,19 @@
 const express = require('express')
 const R = require('ramda')
 const bodyParser = require('body-parser')
-const rp = require('request-promise')
-const superagent = require('superagent')
 const database = require('./../db/dbhandler')
 const {
-  makeArrayOfGiphyObjects,
-  makeArrOfSentsAvailable,
-  collectGifsDetails,
+  reqToGiphyShowResTocli,
+  getSingleGifUrlsFromGiphy,
+  getSingleGifContentFromGiphy,
 } = require('../helper/helperFunctions')
 
 const router = express.Router()
 router.use(bodyParser.json())
 
 router.get('/search/:info', ({ params: { info } }, res) => {
-  const options = {
-    uri: `http://api.giphy.com/v1/gifs/search?q=${info}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
-  }
-  rp(options)
-    .then(async giphyResponse => {
-      const paresdBodyData = R.compose(
-        R.prop('data'),
-        JSON.parse,
-      )(giphyResponse)
-      const gifs = await database.getSentGifsById(R.pluck('id', paresdBodyData))
-      const wisIds = R.reduce(
-        (acc, doc) => R.assoc(doc.gifId, doc.wisId, acc),
-        {},
-        gifs,
-      )
-      const urls = paresdBodyData.map(
-        R.applySpec({
-          gifId: R.prop('id'),
-          smallUrl: R.path(['images', 'fixed_height_small', 'url']),
-          smallImage: R.path(['images', 'fixed_height_small_still', 'url']),
-          width: R.path(['images', 'fixed_height_small', 'width']),
-          wisId: R.compose(
-            R.prop(R.__, wisIds),
-            R.prop('id'),
-          ),
-        }),
-      )
-      res.send(urls)
-    })
-    .catch(console.log('we can not search'))
+  const giphyUrl = `http://api.giphy.com/v1/gifs/search?q=${info}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`
+  reqToGiphyShowResTocli(giphyUrl, res)
 })
 
 router.post('/addToFav', ({ body: { info } }, res) => {
@@ -57,7 +27,7 @@ router.post('/saveSentGif', ({ body: { info: { gifId, wisId } } }, res) => {
   database
     .saveSentGif(gifId, wisId)
     .then(() => res.send('saved in sent db'))
-    .catch(console.log('we can not saved in sent'))
+    .catch(console.log('we can not save in sent'))
 })
 
 router.get('/load/favs/all/:userId', ({ params: { userId } }, res) => {
@@ -65,120 +35,26 @@ router.get('/load/favs/all/:userId', ({ params: { userId } }, res) => {
     .getAllLikedGifs(userId)
     .then(likedGifsInDB => {
       if (R.length(likedGifsInDB)) {
-        const Ids = likedGifsInDB.map(gif => R.prop('gifId', gif))
-        const options = {
-          uri: `http://api.giphy.com/v1/gifs?ids=${Ids}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
-        }
-        rp(options)
-          .then(async giphyResponse => {
-            const paresdBodyData = R.compose(
-              R.prop('data'),
-              JSON.parse,
-            )(giphyResponse)
-            const gifs = await database.getSentGifsById(
-              R.pluck('id', paresdBodyData),
-            )
-            const wisIds = R.reduce(
-              (acc, doc) => R.assoc(doc.gifId, doc.wisId, acc),
-              {},
-              gifs,
-            )
-            const urls = paresdBodyData.map(
-              R.applySpec({
-                gifId: R.prop('id'),
-                smallUrl: R.path(['images', 'fixed_height_small', 'url']),
-                smallImage: R.path([
-                  'images',
-                  'fixed_height_small_still',
-                  'url',
-                ]),
-                width: R.path(['images', 'fixed_height_small', 'width']),
-                wisId: R.compose(
-                  R.prop(R.__, wisIds),
-                  R.prop('id'),
-                ),
-              }),
-            )
-            res.send(urls)
-          })
-          .catch(console.log('cant do load all'))
+        const gifsIds = likedGifsInDB.map(gif => R.prop('gifId', gif))
+        const giphyUrl = `http://api.giphy.com/v1/gifs?ids=${gifsIds}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`
+        reqToGiphyShowResTocli(giphyUrl, res)
       }
     })
     .catch(console.log('cant load favs in db'))
 })
 
 router.get('/load/single/:gifId', ({ params: { gifId } }, res) => {
-  const options = {
-    uri: `http://api.giphy.com/v1/gifs/${gifId}?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`,
-  }
-
-  rp(options)
-    .then(giphyResponse => {
-      const parsedBody = JSON.parse(giphyResponse)
-      const paresdBodyData = R.prop('data', parsedBody)
-      const urls = {
-        bigUrl: paresdBodyData.images.fixed_height.url,
-        bigImage: paresdBodyData.images.fixed_height_still.url,
-        width: paresdBodyData.images.fixed_height.width,
-        height: paresdBodyData.images.fixed_height.height,
-      }
-      res.send(urls)
-    })
-    .catch(console.log('we can not load single'))
+  const giphyUrl = `http://api.giphy.com/v1/gifs/${gifId}?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`
+  getSingleGifUrlsFromGiphy(giphyUrl, res)
 })
 
 router.get('/trend', (req, res) => {
-  const uri = `http://api.giphy.com/v1/gifs/trending?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`
-  // superagent
-  //   .get(uri)
-  //   .then(async giphyResponse => {
-  //     const paresdBodyData = giphyResponse.body.data
-  //     const gifs = await database.getSentGifsById(R.pluck('id', paresdBodyData))
-  //     const wisIds = R.reduce(
-  //       (acc, doc) => R.assoc(doc.gifId, doc.wisId, acc),
-  //       {},
-  //       gifs,
-  //     )
-  //     const urls = paresdBodyData.map(
-  //       R.applySpec({
-  //         gifId: R.prop('id'),
-  //         smallUrl: R.path(['images', 'fixed_height_small', 'url']),
-  //         smallImage: R.path(['images', 'fixed_height_small_still', 'url']),
-  //         width: R.path(['images', 'fixed_height_small', 'width']),
-  //         wisId: R.compose(
-  //           R.prop(R.__, wisIds),
-  //           R.prop('id'),
-  //         ),
-  //       }),
-  //     )
-  //     res.send(urls)
-  //   })
-  //   .catch(console.log('in trend sup catch'))
-  rp(uri)
-    .then(async giphyResponse => {
-      const arrayOfGiphyObjects = makeArrayOfGiphyObjects(giphyResponse)
-      const giphyGifsAvailableinDb = await database.getSentGifsById(
-        R.pluck('id', arrayOfGiphyObjects),
-      )
-      const arrOfSentsAvailableinSearch = makeArrOfSentsAvailable(
-        giphyGifsAvailableinDb,
-      )
-      const gifsDetails = collectGifsDetails(
-        arrayOfGiphyObjects,
-        arrOfSentsAvailableinSearch,
-      )
-      res.send(gifsDetails)
-    })
-    .catch(console.log('we can not load trend'))
+  const giphyUrl = `http://api.giphy.com/v1/gifs/trending?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=25`
+  reqToGiphyShowResTocli(giphyUrl, res)
 })
 
-router.get('/load/content', (req, res) => {
-  superagent
-    .get(req.query.url)
-    .then(gres => {
-      res.send(gres.body)
-    })
-    .catch(console.log('in superagent catch'))
+router.get('/load/content', ({ query: { url } }, res) => {
+  getSingleGifContentFromGiphy(url, res)
 })
 
 module.exports = router

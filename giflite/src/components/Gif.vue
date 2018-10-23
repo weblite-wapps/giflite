@@ -54,7 +54,7 @@ export default {
       return `width: ${this.scale * parseInt(this.url.width)}px`
     },
     imgTagUrl() {
-      return `http://localhost:3095/load/content?url=${
+      return `https://giflite.herokuapp.com/load/content?url=${
         this.url[this.play ? 'smallUrl' : 'smallImage']
       }`
     },

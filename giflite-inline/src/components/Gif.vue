@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import { calculateScales } from "./../helper/helperFunctions"
-const R = require("ramda")
+import { calculateScales } from './../helper/helperFunctions'
+const R = require('ramda')
 export default {
-  name: "Gif",
+  name: 'Gif',
   data() {
     return {
-      gifurl: "",
+      gifurl: '',
       play: false,
     }
   },
@@ -42,13 +42,17 @@ export default {
   },
   watch: {
     gifInfos() {
-      this.gifurl = this.gifInfos.bigImage
+      this.gifurl = `https://giflite.herokuapp.com/load/content?url=${
+        this.gifInfos.bigImage
+      }`
     },
   },
   methods: {
     toggleShow() {
       this.play = !this.play
-      this.gifurl = this.play ? this.gifInfos.bigUrl : this.gifInfos.bigImage
+      this.gifurl = `https://giflite.herokuapp.com/load/content?url=${
+        this.play ? this.gifInfos.bigUrl : this.gifInfos.bigImage
+      }`
     },
   },
 }
