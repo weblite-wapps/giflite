@@ -1,7 +1,6 @@
 <template>
   <div class="gif">
     <div class="card">
-
       <span
         class="span-icon save-icon"
         :style="saveCircleStyle"

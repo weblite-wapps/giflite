@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import * as R from "ramda"
-import Gif from "./Gif"
-import { calculateScale } from "./../helper/functions/helperFunctions"
+import * as R from 'ramda'
+import Gif from './Gif'
+import { calculateScale } from './../helper/functions/helperFunctions'
 
 export default {
   props: {
@@ -29,7 +29,7 @@ export default {
 
   data() {
     return {
-      name: "Main",
+      name: 'Main',
       ratios: {},
     }
   },
@@ -61,7 +61,6 @@ export default {
 html,
 body,
 .main {
-  height: 100%;
   margin: 0;
   display: flex;
   flex-direction: row;

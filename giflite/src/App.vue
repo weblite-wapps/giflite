@@ -6,23 +6,23 @@
         :searchContent="searchContent"
         @changePage="changePage"
       />
+      <div class="content">
+        <Main
+          v-if="page === 'main'"
+          :gifs="searchedGifs"
+          :sendToChat="sendToChat"
+          :addToFavourite="addToFavourite"
+        />
 
-      <Main
-        v-if="page === 'main'"
-        :gifs="searchedGifs"
-        :sendToChat="sendToChat"
-        :addToFavourite="addToFavourite"
-      />
-
-      <Favourites
-        v-if="page === 'favourites'"
-        :getFavourites="getFavourites"
-        :sendToChat="sendToChat"
-        :gifs="favouriteGifs"
-        :addToFavourite="addToFavourite"
-      />
+        <Favourites
+          v-if="page === 'favourites'"
+          :getFavourites="getFavourites"
+          :sendToChat="sendToChat"
+          :gifs="favouriteGifs"
+          :addToFavourite="addToFavourite"
+        />
+      </div>
     </div>
-    
   </div>
 </template>
 
@@ -106,13 +106,29 @@ export default {
 
 <style>
 #app {
-  width: 350px;
-  /* width: 330px; */
-  /* height: 100%; */
-  height: 100vh;
-  overflow: auto;
+  width: 340px;
   background-color: #5f5b5b;
   border: 5px solid #2b303b;
   bottom: 20px;
+}
+
+.content {
+  height: 100vh;
+  overflow: auto;
+}
+
+.content::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #555555;
+}
+
+.content::-webkit-scrollbar {
+  width: 10px;
+  background-color: #555555;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: #000000;
+  border: 2px solid #555555;
 }
 </style>
