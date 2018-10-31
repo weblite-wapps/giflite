@@ -35,7 +35,9 @@ router.get('/load/favs/all/:userId', ({ params: { userId } }, res) => {
     .getAllLikedGifs(userId)
     .then(likedGifsInDB => {
       if (R.length(likedGifsInDB)) {
-        const gifsIds = likedGifsInDB.map(gif => R.prop('gifId', gif))
+        const gifsIds = R.reverse(
+          likedGifsInDB.map(gif => R.prop('gifId', gif)),
+        )
         const giphyUrl = `http://api.giphy.com/v1/gifs?ids=${gifsIds}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`
         reqToGiphyShowResTocli(giphyUrl, res)
       }

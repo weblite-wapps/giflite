@@ -7,7 +7,7 @@
       >
         <i
           class="fa fa-bookmark icon"
-          @click="addToFavourite({ gifId: url.gifId, userId: url.userId, wisId: url.wisId ? url.wisId: '' })"
+          @click="addToFavourite({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '' })"
         />
       </span
       >
@@ -65,11 +65,6 @@ export default {
   methods: {
     toggleShow() {
       this.play = !this.play
-    },
-  },
-  watch: {
-    parent: () => {
-      console.log('parent: ', parent)
     },
   },
 }

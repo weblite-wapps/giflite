@@ -6,6 +6,7 @@
         :searchContent="searchContent"
         @changePage="changePage"
       />
+      
       <div class="content">
         <Main
           v-if="page === 'main'"
@@ -65,16 +66,17 @@ export default {
 
   methods: {
     getTrends() {
-      getTrendGifs().then(this.addUserIdToInfo.bind(this))
+      getTrendGifs().then(searchResult => {
+        this.searchedGifs = searchResult
+      })
     },
 
     searchContent(query) {
-      if (query) getSearchGifs(query).then(this.addUserIdToInfo.bind(this))
+      if (query)
+        getSearchGifs(query).then(searchResult => {
+          this.searchedGifs = searchResult
+        })
       else this.getTrends()
-    },
-
-    addUserIdToInfo(infos) {
-      this.searchedGifs = infos.map(R.merge({ userId: this.userId }))
     },
 
     sendToChat({ id, wisId }) {
@@ -86,14 +88,12 @@ export default {
     },
 
     addToFavourite(info) {
-      addToFav(info)
+      addToFav({ ...info, userId: this.userId })
     },
 
     getFavourites() {
       getAllFavourites(this.userId).then(favouriteGifs => {
         this.favouriteGifs = favouriteGifs
-          ? R.reverse(favouriteGifs)
-          : favouriteGifs
       })
     },
 

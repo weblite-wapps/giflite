@@ -7,7 +7,7 @@
       :sendToChat="sendToChat"
       :addToFavourite="addToFavourite"
       :scale="ratios[index]"
-      :parent="name"
+      parent=Main
     />
   </div>
 </template>
@@ -29,7 +29,6 @@ export default {
 
   data() {
     return {
-      name: 'Main',
       ratios: {},
     }
   },

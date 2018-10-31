@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       gifurl: '',
-      play: false,
+      play: true,
     }
   },
   props: {
@@ -43,7 +43,7 @@ export default {
   watch: {
     gifInfos() {
       this.gifurl = `https://giflite.herokuapp.com/load/content?url=${
-        this.gifInfos.bigImage
+        this.gifInfos.bigUrl
       }`
     },
   },

@@ -25,12 +25,13 @@ export default {
   components: {
     Gif,
   },
+
   created() {
     getSingleGifData(this.gifId).then(receivedUrls => {
       this.gifInfos = receivedUrls
     })
   },
-  updated() {
+  mounted() {
     saveToDb({ gifId: this.gifId, wisId: this.wisId })
   },
 
