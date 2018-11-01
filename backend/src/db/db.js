@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const { Schema } = mongoose
 
@@ -13,5 +13,5 @@ const sendSchema = new Schema({
   gifId: String,
 })
 
-exports.LikedGifliteMessages = mongoose.model("giflite_liked_dc", likeSchema)
-exports.SentGifliteMessages = mongoose.model("giflite_sent_dc", sendSchema)
+exports.LikedGifliteMessages = mongoose.model('giflite_liked_dc', likeSchema)
+exports.SentGifliteMessages = mongoose.model('giflite_sent_dc', sendSchema)
