@@ -11,6 +11,7 @@
 const R = require('ramda')
 import Gif from './components/Gif'
 import { addToFav, getSingleGifData, saveToDb } from './helper/requestHandler'
+import webliteHandler from './helper/weblite.api'
 const { W } = window
 export default {
   name: 'App',
@@ -27,15 +28,19 @@ export default {
   },
 
   created() {
-    getSingleGifData(this.gifId).then(receivedUrls => {
-      this.gifInfos = receivedUrls
-    })
-  },
-  mounted() {
-    saveToDb({ gifId: this.gifId, wisId: this.wisId })
+    if(W) webliteHandler(this)
+    else this.init()
   },
 
   methods: {
+    init() {
+      getSingleGifData(this.gifId).then(receivedUrls => {
+       this.gifInfos = receivedUrls
+      })
+
+      saveToDb({ gifId: this.gifId, wisId: this.wisId })
+    },
+
     addToFavourites() {
       addToFav({ gifId: this.gifId, userId: this.userId, wisId: this.wisId })
     },

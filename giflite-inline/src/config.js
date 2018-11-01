@@ -4,5 +4,5 @@ export default (process.env.NODE_ENV === 'development'
       // server: 'http://localhost:3095',
     }
   : {
-      server: 'https://git.heroku.com/giflite.git',
+      server: 'https://giflite.herokuapp.com',
     })

@@ -1,0 +1,17 @@
+{
+  "name": "giflite-inline",
+  "id": "5bdab37de778c859bd162675",
+  "searchable": false,
+  "customizeArray": [],
+  "instancable": true,
+  "creator": false,
+  "inline": true,
+  "shareDB": false,
+  "width": 350,
+  "height": 350,
+  "userInfo": true,
+  "servIndexes": {
+    "inline": "index",
+    "main": "index"
+  }
+}
