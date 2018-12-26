@@ -1,12 +1,8 @@
 <template>
   <div id="app">
     <div class="container">
-      <Header
-        :page="page" 
-        :searchContent="searchContent"
-        @changePage="changePage"
-      />
-      
+      <Header :page="page" :searchContent="searchContent" @changePage="changePage"/>
+
       <div class="content">
         <Main
           v-if="page === 'main'"
