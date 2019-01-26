@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <Gif
-      :gifInfos="gifInfos"
-      :addToFavourites="addToFavourites"
-    />
+    <Gif :gifInfos="gifInfos" :addToFavourites="addToFavourites"/>
   </div>
 </template>
 
@@ -28,14 +25,14 @@ export default {
   },
 
   created() {
-    if(W) webliteHandler(this)
+    if (W) webliteHandler(this)
     else this.init()
   },
 
   methods: {
     init() {
       getSingleGifData(this.gifId).then(receivedUrls => {
-       this.gifInfos = receivedUrls
+        this.gifInfos = receivedUrls
       })
 
       saveToDb({ gifId: this.gifId, wisId: this.wisId })

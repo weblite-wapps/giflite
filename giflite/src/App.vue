@@ -77,7 +77,7 @@ export default {
 
     sendToChat({ id, wisId }) {
       W.sendMessageToCurrentChat('wapp', {
-        wappId: '5bdab37de778c859bd162675',
+        wappId: '5c4c39afe50e46486b155fc9',
         wisId,
         customize: { id },
       })
