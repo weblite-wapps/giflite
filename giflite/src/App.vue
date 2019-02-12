@@ -34,7 +34,6 @@ import {
 import Main from './components/Main'
 import Favourites from './components/Favourites'
 import Header from './components/Header'
-import * as R from 'ramda'
 
 const { W } = window
 export default {
@@ -77,7 +76,7 @@ export default {
 
     sendToChat({ id, wisId }) {
       W.sendMessageToCurrentChat('wapp', {
-        wappId: '5c4c5d0d8b27391860c92c6c',
+        wappId: '5c4c39afe50e46486b155fc9',
         wisId,
         customize: { id },
       })
