@@ -23,7 +23,7 @@ export const getSearchGifs = info =>
     .then(filter)
     .catch(console.log)
 
-export const addToFav = info =>
+export const changeLikes = info =>
   request
     .post(`${config.server}/addToFav`)
     .set('Access-Control-Allow-Origin', '*')

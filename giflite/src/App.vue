@@ -8,7 +8,7 @@
           v-if="page === 'main'"
           :gifs="searchedGifs"
           :sendToChat="sendToChat"
-          :addToFavourite="addToFavourite"
+          :changeUserLikes="changeUserLikes"
         />
 
         <Favourites
@@ -16,7 +16,7 @@
           :getFavourites="getFavourites"
           :sendToChat="sendToChat"
           :gifs="favouriteGifs"
-          :addToFavourite="addToFavourite"
+          :changeUserLikes="changeUserLikes"
         />
       </div>
     </div>
@@ -28,9 +28,10 @@ import webliteHandler from './helper/functions/weblite.api'
 import {
   getTrendGifs,
   getSearchGifs,
-  addToFav,
+  changeLikes,
   getAllFavourites,
 } from './helper/functions/requestHandler.js'
+import { removeGif } from './helper/functions/helperFunctions'
 import Main from './components/Main'
 import Favourites from './components/Favourites'
 import Header from './components/Header'
@@ -44,7 +45,7 @@ export default {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      userId: '',
+      userId: 'javadId',
       page: 'main',
     }
   },
@@ -83,8 +84,11 @@ export default {
       })
     },
 
-    addToFavourite(info) {
-      addToFav({ ...info, userId: this.userId })
+    changeUserLikes(info) {
+      changeLikes({ ...info, userId: this.userId })
+      if (info.action === 'dislike') {
+        this.favouriteGifs = removeGif(info.gifId, this.favouriteGifs)
+      }
     },
 
     getFavourites() {
@@ -101,11 +105,14 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0px;
+}
 #app {
   width: 340px;
   background-color: #5f5b5b;
   border: 5px solid #2b303b;
-  bottom: 20px;
+  /* bottom: 20px; */
 }
 
 .content {

@@ -18,7 +18,7 @@ router.get('/search/:info', ({ params: { info } }, res) => {
 
 router.post('/addToFav', ({ body: { info } }, res) => {
   database
-    .updateLikedGifAfterLike(info.gifId, info.userId, info.wisId)
+    .changeUserLikes(info)
     .then(() => res.send('added to Favourites'))
     .catch(console.log('we can not add to fav'))
 })

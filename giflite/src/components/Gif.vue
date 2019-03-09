@@ -1,28 +1,27 @@
 <template>
   <div class="gif">
     <div class="card">
-      <span
-        class="span-icon save-icon"
-        :style="saveCircleStyle"
-      >
+      <span v-if="play && !isLikeButton" class="span-icon save-icon">
         <i
           class="fa fa-bookmark icon"
-          @click="addToFavourite({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '' })"
+          @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: 'no wis', action: 'like' })"
         />
-      </span
-      >
-
-      <span 
-        class="span-icon send-icon"
-      >
+      </span>
+      
+      <span v-if="play && isLikeButton" class="span-icon save-icon">
+        <i
+          class="fa fa-home icon"
+          @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: 'no wis', action: 'dislike' })"
+        />
+      </span>
+      <span v-if="play" class="span-icon send-icon">
         <i
           class="fa fa-share-square icon"
           @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
         />
       </span>
-      <img 
-        :src="imgTagUrl"   
-        alt="image place"
+      <img
+        :src="imgTagUrl"
         :style="widthStyle"
         @click="toggleShow"
         :class="{ isShowing: play, hidden: !play }"
@@ -36,7 +35,7 @@ export default {
 
   props: {
     url: Object,
-    addToFavourite: Function,
+    changeUserLikes: Function,
     sendToChat: Function,
     scale: Number,
     parent: String,
@@ -57,8 +56,8 @@ export default {
         this.url[this.play ? 'smallUrl' : 'smallImage']
       }`
     },
-    saveCircleStyle() {
-      return `display: ${this.parent === 'Favourites' ? 'none' : 'inline'}`
+    isLikeButton() {
+      return this.parent === 'Favourites'
     },
   },
 

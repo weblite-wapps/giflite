@@ -1,13 +1,13 @@
 <template>
-  <div class="main"> 
+  <div class="main">
     <Gif
       v-for="(item, index) in gifs"
-      :key="item.gifId" 
+      :key="item.gifId"
       :url="item"
       :sendToChat="sendToChat"
-      :addToFavourite="addToFavourite"
+      :changeUserLikes="changeUserLikes"
       :scale="ratios[index]"
-      parent=Main
+      parent="Main"
     />
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
       required: true,
     },
     sendToChat: Function,
-    addToFavourite: Function,
+    changeUserLikes: Function,
   },
 
   data() {
