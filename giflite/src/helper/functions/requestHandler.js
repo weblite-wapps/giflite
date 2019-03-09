@@ -7,9 +7,10 @@ const filter = res => {
   throw 'not res'
 }
 
-export const getTrendGifs = () =>
+export const getTrendGifs = offset =>
   request
     .get(`${config.server}/trend`)
+    .query({ offset })
     .set('Access-Control-Allow-Origin', '*')
     .then(res => res.body)
     .then(filter)
@@ -25,7 +26,7 @@ export const getSearchGifs = info =>
 
 export const changeLikes = info =>
   request
-    .post(`${config.server}/addToFav`)
+    .post(`${config.server}/changeLike`)
     .set('Access-Control-Allow-Origin', '*')
     .send({ info })
     .then(res => res.body)

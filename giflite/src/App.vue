@@ -9,6 +9,7 @@
           :gifs="searchedGifs"
           :sendToChat="sendToChat"
           :changeUserLikes="changeUserLikes"
+          :loadMore="loadMore"
         />
 
         <Favourites
@@ -47,6 +48,7 @@ export default {
       favouriteGifs: [],
       userId: 'javadId',
       page: 'main',
+      requestOffset: 0,
     }
   },
 
@@ -57,14 +59,14 @@ export default {
   },
 
   created() {
-    this.getTrends()
+    this.getTrends(this.requestOffset)
     W && webliteHandler(this)
   },
 
   methods: {
-    getTrends() {
-      getTrendGifs().then(searchResult => {
-        this.searchedGifs = searchResult
+    getTrends(offset) {
+      getTrendGifs(offset).then(searchResult => {
+        this.searchedGifs = R.concat(this.searchedGifs, searchResult)
       })
     },
 
@@ -100,6 +102,10 @@ export default {
     changePage(event) {
       this.page = event
     },
+
+    loadMore() {
+      this.getTrends(++this.requestOffset)
+    },
   },
 }
 </script>
@@ -128,10 +134,12 @@ body {
 .content::-webkit-scrollbar {
   width: 10px;
   background-color: #555555;
+  border-radius: 20px;
 }
 
 .content::-webkit-scrollbar-thumb {
   background-color: #000000;
+  border-radius: 40px;
   border: 2px solid #555555;
 }
 </style>

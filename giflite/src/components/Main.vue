@@ -9,6 +9,7 @@
       :scale="ratios[index]"
       parent="Main"
     />
+    <div @click="loadMore">Load More</div>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ export default {
     },
     sendToChat: Function,
     changeUserLikes: Function,
+    loadMore: Function,
   },
 
   data() {

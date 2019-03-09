@@ -16,7 +16,7 @@ router.get('/search/:info', ({ params: { info } }, res) => {
   reqToGiphyShowResTocli(giphyUrl, res)
 })
 
-router.post('/addToFav', ({ body: { info } }, res) => {
+router.post('/changeLike', ({ body: { info } }, res) => {
   database
     .changeUserLikes(info)
     .then(() => res.send('added to Favourites'))
@@ -50,8 +50,9 @@ router.get('/load/single/:gifId', ({ params: { gifId } }, res) => {
   getSingleGifUrlsFromGiphy(giphyUrl, res)
 })
 
-router.get('/trend', (req, res) => {
-  const giphyUrl = `http://api.giphy.com/v1/gifs/trending?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=25`
+router.get('/trend', ({ query: { offset } }, res) => {
+  const giphyUrl = `http://api.giphy.com/v1/gifs/trending?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=25&offset=${offset *
+    26}`
   reqToGiphyShowResTocli(giphyUrl, res)
 })
 
