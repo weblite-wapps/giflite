@@ -2,7 +2,7 @@
   "name": "giflite-inline",
   "id": "5c4c5d0d8b27391860c92c6c",
   "searchable": false,
-  "instancable": true,
+  "instantiable": true,
   "creator": false,
   "inline": true,
   "shareDB": false,

@@ -2,7 +2,7 @@
   "name": "giflite",
   "id": "5c4c5fba8b27391860c92c6d",
   "searchable": true,
-  "instancable": false,
+  "instantiable": false,
   "creator": false,
   "inline": false,
   "shareDB": false,
