@@ -6,7 +6,7 @@ export const calculateScale = info =>
       count ? R.concat(array, R.repeat(330 / sum, count)) : array,
     R.reduce(
       (acc, size) =>
-        acc.sum + size > 330
+        acc.sum + size > 330 && acc.count > 1
           ? {
               array: R.concat(acc.array, R.repeat(330 / acc.sum, acc.count)),
               sum: size,

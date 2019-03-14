@@ -1,36 +1,27 @@
 <template>
   <div class="gif">
-    <div class="card">
-      <span
-        class="span-icon save-icon"
-        :style="saveCircleStyle"
-      >
-        <i
-          class="fa fa-bookmark icon"
-          @click="addToFavourite({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-        />
-      </span
-      >
-
-      <span 
-        class="span-icon send-icon"
-      >
-        <i
-          class="fa fa-share-square icon"
-          @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-        />
+    <div class="card" @mouseover="mouseOver" @mouseleave="mouseLeave">
+      <Slider
+        :class="{ isShowing: downloaded, hidden: !downloaded }"
+        class="slider"
+        v-if="showSlider"
+        :sendToChat="sendToChat"
+        :addToFavourite="addToFavourite"
+        :url="url"
+        :parent="parent"
+      />
+      <span class="download-icon" :class="{ isShowing: !downloaded, hidden: downloaded }">
+        <i class="fas fa-circle icon" @click="download"/>
       </span>
-      <img 
-        :src="imgTagUrl"   
-        alt="image place"
-        :style="widthStyle"
-        @click="toggleShow"
-        :class="{ isShowing: play, hidden: !play }"
-      >
+
+      <div class="imgDiv" :style="widthStyle">
+        <img :src="imgTagUrl" alt="image place" :style="gifStyle">
+      </div>
     </div>
   </div>
 </template>
 <script>
+import Slider from './Slider.vue'
 export default {
   name: 'Gif',
 
@@ -44,27 +35,45 @@ export default {
 
   data() {
     return {
-      play: false,
+      showSlider: false,
+      downloaded: false,
     }
+  },
+
+  components: {
+    Slider,
   },
 
   computed: {
     widthStyle() {
-      return `width: ${this.scale * parseInt(this.url.width)}px`
+      var width = this.scale * parseInt(this.url.width)
+      return `height: 120px; width: ${width - 2}px;`
+    },
+    gifStyle() {
+      var height = this.scale * parseInt(this.url.height)
+      var width = this.scale * parseInt(this.url.width)
+      if (height > 120) {
+        return `height: ${height}px; width: ${width}px;`
+      } else {
+        return `height: 120px; width: ${width}px;`
+      }
     },
     imgTagUrl() {
       return `https://giflite.herokuapp.com/load/content?url=${
-        this.url[this.play ? 'smallUrl' : 'smallImage']
+        this.url[this.downloaded ? 'smallUrl' : 'smallImage']
       }`
-    },
-    saveCircleStyle() {
-      return `display: ${this.parent === 'Favourites' ? 'none' : 'inline'}`
     },
   },
 
   methods: {
-    toggleShow() {
-      this.play = !this.play
+    mouseOver() {
+      this.showSlider = true
+    },
+    mouseLeave() {
+      this.showSlider = false
+    },
+    download() {
+      this.downloaded = true
     },
   },
 }
@@ -73,44 +82,40 @@ export default {
 .gif {
   display: flex;
   position: relative;
+  height: 120px;
 }
 
-.card-content {
+.imgDiv {
+  overflow: hidden;
+  border: 1px white solid;
+}
+
+.slider {
+  height: 100%;
+  width: 40px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-.span-icon {
-  padding-left: 5px;
-  background-color: #2b303b;
-  border: 4px solid #2b303b;
-  border-radius: 100px;
-}
-
-.send-icon {
-  position: absolute;
+.download-icon {
   box-sizing: content-box;
-  bottom: 5px;
-  left: 5px;
-  height: 18px;
-  width: 18px;
-  opacity: 1;
-}
-.save-icon {
   position: absolute;
-  box-sizing: content-box;
-  bottom: 5px;
-  left: 40px;
-  height: 18px;
-  width: 18px;
 }
 
 .hidden {
   box-sizing: content-box;
-  opacity: 0.7;
+  opacity: 0;
 }
+
 .isShowing {
   box-sizing: content-box;
   opacity: 1;
@@ -118,9 +123,5 @@ export default {
 
 .icon {
   color: #4f5b66;
-}
-
-.icon:active {
-  opacity: 0.6;
 }
 </style>

@@ -34,7 +34,7 @@ import {
 import Main from './components/Main'
 import Favourites from './components/Favourites'
 import Header from './components/Header'
-import * as R from 'ramda'
+// import * as R from 'ramda'
 
 const { W } = window
 export default {
@@ -101,6 +101,9 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0;
+}
 #app {
   width: 340px;
   background-color: #5f5b5b;
