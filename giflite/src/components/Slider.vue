@@ -11,11 +11,18 @@
       <img @click="expand()" src="../assets/expand.svg">
     </span>
     
-    <span class="save-icon" :style="saveCircleStyle">
+    <span v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle">
       <img
-        @click="addToFavourite({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '' })"
+        @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
         src="../assets/bookmark.svg"
       >
+    </span>
+    
+    <span v-if="isLikeButton" class="span-icon save-icon">
+      <i
+        class="fa fa-home icon"
+        @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
+      />
     </span>
   </div>
 </template>

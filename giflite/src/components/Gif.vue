@@ -28,7 +28,7 @@ export default {
 
   props: {
     url: Object,
-    addToFavourite: Function,
+    changeUserLikes: Function,
     sendToChat: Function,
     scale: Number,
     parent: String,
@@ -63,6 +63,9 @@ export default {
       return `https://giflite.herokuapp.com/load/content?url=${
         this.url[this.downloaded ? 'smallUrl' : 'smallImage']
       }`
+    },
+    isLikeButton() {
+      return this.parent === 'Favourites'
     },
   },
 

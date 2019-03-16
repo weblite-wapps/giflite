@@ -5,10 +5,11 @@
       :key="item.gifId"
       :url="item"
       :sendToChat="sendToChat"
-      :addToFavourite="addToFavourite"
+      :changeUserLikes="changeUserLikes"
       :scale="ratios[index]"
       parent="Main"
     />
+    <div @click="loadMore">Load More</div>
   </div>
 </template>
 
@@ -24,7 +25,8 @@ export default {
       required: true,
     },
     sendToChat: Function,
-    addToFavourite: Function,
+    changeUserLikes: Function,
+    loadMore: Function,
   },
 
   data() {

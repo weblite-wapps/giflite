@@ -5,9 +5,9 @@
       :key="item.smallUrl"
       :url="item"
       :sendToChat="sendToChat"
-      :addToFavourite="addToFavourite"
+      :changeUserLikes="changeUserLikes"
       :scale="ratios[index]"
-      parent=Favourites
+      parent="Favourites"
     />
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
     getFavourites: Function,
     gifs: Array,
     sendToChat: Function,
-    addToFavourite: Function,
+    changeUserLikes: Function,
   },
 
   components: {

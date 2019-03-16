@@ -16,3 +16,11 @@ export const calculateScale = info =>
       { array: [], sum: 0, count: 0 },
     ),
   )(info)
+
+export const removeGif = (gifId, gifs) =>
+  R.compose(
+    R.reduce(
+      (acc, item) => (item.gifId !== gifId ? acc.concat(item) : acc),
+      [],
+    ),
+  )(gifs)
