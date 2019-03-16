@@ -18,6 +18,7 @@
         <img :src="imgTagUrl" alt="image place" :style="gifStyle">
       </div>
     </div>
+    <div class="preview" v-if="downloaded"></div>
   </div>
 </template>
 <script>
@@ -80,8 +81,15 @@ export default {
 </script>
 <style scoped>
 .gif {
-  display: flex;
+  display: grid;
+  grid-template-areas: 'a b', 'c d';
   position: relative;
+  height: 120px;
+}
+
+.preview {
+  background-color: pink;
+  width: 330px;
   height: 120px;
 }
 

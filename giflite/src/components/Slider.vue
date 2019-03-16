@@ -1,21 +1,21 @@
 <template>
   <div class="slider">
     <span class="send-icon">
-      <i
-        class="fa fa-share-square"
+      <img
         @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-      />
+        src="../assets/send.svg"
+      >
     </span>
     
     <span class="expand-icon">
-      <i class="fas fa-expand-arrows-alt" @click="expand()"/>
+      <img @click="expand()" src="../assets/expand.svg">
     </span>
     
     <span class="save-icon" :style="saveCircleStyle">
-      <i
-        class="fa fa-bookmark"
+      <img
         @click="addToFavourite({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-      />
+        src="../assets/bookmark.svg"
+      >
     </span>
   </div>
 </template>
@@ -38,6 +38,12 @@ export default {
 </script>
 
 <style scoped>
+img {
+  margin-left: 5px;
+  margin-top: 6px;
+  width: 30px;
+  height: 30px;
+}
 .send-icon {
   box-sizing: content-box;
   background-color: #2e6aeb;
@@ -65,7 +71,7 @@ export default {
   align-self: stretch;
   grid-template-areas:
     'send'
-    'save'
-    'expand';
+    'expand'
+    'save';
 }
 </style>

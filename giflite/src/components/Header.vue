@@ -13,7 +13,7 @@
       </div>
       <div class="container-2" v-if="!isSearching">
         <span v-if="page === 'main'" class="home-and-save-icon">
-          <i @click="changePage" class="fa fa-bookmark"/>
+          <img @click="changePage" src="../assets/bookmark.svg">
         </span>
         
         <span v-if="page === 'favourites'" class="home-and-save-icon">
@@ -83,6 +83,11 @@ export default {
   grid-area: logo;
 }
 
+img {
+  width: 20px;
+  height: 20px;
+}
+
 .box {
   height: 50px;
   display: grid;
@@ -107,8 +112,8 @@ export default {
   z-index: 1;
   color: #4f5b66;
 }
-.container-1 input:focus,
-.container-1 input:active {
+.box input:focus,
+.box input:active {
   outline: none;
 }
 
@@ -127,8 +132,8 @@ export default {
 .container-2 .home-and-save-icon {
   color: #4f5b66;
   position: relative;
-  top: 33%;
-  margin-left: 18px;
+  top: 30%;
+  margin-left: 15px;
 }
 .container-2 {
   grid-area: bookmark;
