@@ -6,7 +6,8 @@
         class="slider"
         v-if="showSlider"
         :sendToChat="sendToChat"
-        :addToFavourite="addToFavourite"
+        :changeUserLikes="changeUserLikes"
+        :expand="expand"
         :url="url"
         :parent="parent"
       />
@@ -17,12 +18,22 @@
       <div class="imgDiv" :style="widthStyle">
         <img :src="imgTagUrl" alt="image place" :style="gifStyle">
       </div>
+
+      <modal
+        v-if="showModal"
+        :url="url"
+        :sendToChat="sendToChat"
+        :changeUserLikes="changeUserLikes"
+        :parent="parent"
+        @close="showModal = false"
+      ></modal>
     </div>
-    <div class="preview" v-if="downloaded"></div>
   </div>
 </template>
 <script>
 import Slider from './Slider.vue'
+import modal from './Modal.vue'
+
 export default {
   name: 'Gif',
 
@@ -30,19 +41,21 @@ export default {
     url: Object,
     changeUserLikes: Function,
     sendToChat: Function,
-    scale: Number,
     parent: String,
+    scale: Number,
   },
 
   data() {
     return {
       showSlider: false,
       downloaded: false,
+      showModal: false,
     }
   },
 
   components: {
     Slider,
+    modal,
   },
 
   computed: {
@@ -64,9 +77,6 @@ export default {
         this.url[this.downloaded ? 'smallUrl' : 'smallImage']
       }`
     },
-    isLikeButton() {
-      return this.parent === 'Favourites'
-    },
   },
 
   methods: {
@@ -78,6 +88,9 @@ export default {
     },
     download() {
       this.downloaded = true
+    },
+    expand() {
+      this.showModal = true
     },
   },
 }

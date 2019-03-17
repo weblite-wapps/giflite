@@ -46,7 +46,7 @@ export default {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      userId: '',
+      userId: 'javadId',
       page: 'main',
       requestOffset: 0,
     }
@@ -116,9 +116,11 @@ body {
 }
 #app {
   width: 340px;
-  background-color: #5f5b5b;
-  border: 5px solid #2b303b;
+  background-color: white;
+  /* border: 5px solid #2b303b; */
   /* bottom: 20px; */
+  /* height: 100vh; */
+  /* overflow: hidden; */
 }
 
 .content {

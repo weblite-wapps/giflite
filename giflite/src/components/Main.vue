@@ -9,7 +9,8 @@
       :scale="ratios[index]"
       parent="Main"
     />
-    <div @click="loadMore">Load More</div>
+    <button class="load-more" @click="loadMore">Load More</button>
+    <!-- <vmodal v-ref:modal1 @click="this.show" name="hello-world">hello, world!</vmodal> -->
   </div>
 </template>
 
@@ -54,6 +55,9 @@ export default {
       const gifsWidth = this.gifs.map(({ width }) => parseInt(width))
       this.ratios = calculateScale(gifsWidth)
     },
+    show() {
+      this.$refs.modal1.show('this is a message from javad')
+    },
   },
 }
 </script>
@@ -66,5 +70,9 @@ body,
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.load-more {
+  width: 330px;
 }
 </style>

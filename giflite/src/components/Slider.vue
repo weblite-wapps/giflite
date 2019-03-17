@@ -8,7 +8,7 @@
     </span>
     
     <span class="expand-icon">
-      <img @click="expand()" src="../assets/expand.svg">
+      <img @click="expand" src="../assets/expand.svg">
     </span>
     
     <span v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle">
@@ -32,13 +32,17 @@ export default {
   name: 'Slider',
   props: {
     url: Object,
-    addToFavourite: Function,
+    changeUserLikes: Function,
     sendToChat: Function,
     parent: String,
+    expand: Function,
   },
   computed: {
     saveCircleStyle() {
       return `display: ${this.parent === 'Favourites' ? 'none' : 'inline'}`
+    },
+    isLikeButton() {
+      return this.parent === 'Favourites'
     },
   },
 }

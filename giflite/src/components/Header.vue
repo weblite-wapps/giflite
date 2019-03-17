@@ -4,6 +4,7 @@
       <input
         v-if="isSearching"
         autofocus
+        class="input"
         @input="debounceInput"
         type="search"
         placeholder="Search..."
@@ -77,6 +78,11 @@ export default {
 <style scoped>
 .header {
   background: #a700d1;
+  background-image: linear-gradient(
+    to right,
+    rgb(240, 70, 211),
+    rgb(27, 153, 211)
+  );
 }
 
 .logo {
@@ -89,7 +95,7 @@ img {
 }
 
 .box {
-  height: 50px;
+  /* height: 50px; */
   display: grid;
   grid-template-columns: auto 40px 40px;
   grid-template-rows: 50px;
@@ -118,8 +124,9 @@ img {
 }
 
 .box input {
+  margin-top: 10px;
   width: 300px;
-  height: 50px;
+  height: 30px;
   background: #850068;
   border: none;
   font-size: 10pt;
