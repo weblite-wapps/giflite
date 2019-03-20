@@ -126,22 +126,26 @@ body {
 .content {
   height: 100vh;
   overflow: auto;
+  margin-top: 2px;
 }
 
 .content::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #555555;
+  background-color: #ffffff;
 }
 
 .content::-webkit-scrollbar {
   width: 10px;
-  background-color: #555555;
+  background-color: #ffffff;
   border-radius: 20px;
 }
 
 .content::-webkit-scrollbar-thumb {
-  background-color: #000000;
+  background-color: #c9c9c9;
   border-radius: 40px;
-  border: 2px solid #555555;
+  border: 2px solid #ffffff;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  border: 0px solid #ffffff;
 }
 </style>

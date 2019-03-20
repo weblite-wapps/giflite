@@ -1,29 +1,24 @@
 <template>
   <div class="slider">
-    <span class="send-icon">
-      <img
-        @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-        src="../assets/send.svg"
-      >
-    </span>
-    
-    <span class="expand-icon">
-      <img @click="expand" src="../assets/expand.svg">
-    </span>
-    
-    <span v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle">
-      <img
-        @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
-        src="../assets/bookmark.svg"
-      >
-    </span>
-    
-    <span v-if="isLikeButton" class="span-icon save-icon">
-      <i
-        class="fa fa-home icon"
-        @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
-      />
-    </span>
+      <div class="send-box" @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })">
+        <img
+          class="send-icon"  
+          src="../assets/send.svg"
+        >
+      </div>
+
+      <div class="expand-box" @click="expand">
+        <img class="expand-icon"  src="../assets/expand.svg">
+      </div>
+
+      <div class="save-box" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })">
+        <img
+          v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle"
+          src="../assets/bookmark.svg"
+        >
+
+        <img @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })" v-if="isLikeButton" class="icon span-icon save-icon" src="../assets/unbookmark.png" >
+      </div>
   </div>
 </template>
 
@@ -49,40 +44,70 @@ export default {
 </script>
 
 <style scoped>
-img {
-  margin-left: 5px;
-  margin-top: 6px;
-  width: 30px;
-  height: 30px;
+.box {
+   box-sizing: content-box;
 }
+.send-box {
+  box-sizing: content-box;
+  background-color: #02ABE2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 40px; */
+  height: 39.3px;
+  width: 40px;
+}
+
 .send-icon {
-  box-sizing: content-box;
-  background-color: #2e6aeb;
-  grid-area: send;
+  width: 21px;
+  height: 18px;
 }
+
+
+.save-box {
+  box-sizing: content-box;
+  background-color: #B93AB4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 40px; */
+  height: 39.3px;
+  width: 40px;
+  
+}
+
 .save-icon {
-  box-sizing: content-box;
-  background-color: #790097;
-  grid-area: save;
+  width: 20px;
+  height: 24px;
 }
-.expand-icon {
+
+.expand-box {
   box-sizing: content-box;
-  background-color: #3c00ac;
-  grid-area: expand;
+  background-color: #6A6BC8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 40px; */
+  height: 39.3px;
+  width: 40px;
+}
+
+.expand-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .slider {
-  display: grid;
+  display: flex;
   position: absolute;
   height: 100%;
   z-index: 10;
-  grid-template-columns: auto;
-  grid-template-rows: 40px 40px 40px;
-  justify-self: stretch;
-  align-self: stretch;
-  grid-template-areas:
-    'send'
-    'expand'
-    'save';
+  flex-direction: column;
+  margin-top: 1px;
+  margin-right: 1px;
+}
+
+i {
+  color: #ffffff;
 }
 </style>

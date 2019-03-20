@@ -49,9 +49,11 @@ export default {
 
 <style scoped>
 .favourites {
+  margin: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 </style>
 

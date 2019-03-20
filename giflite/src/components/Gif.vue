@@ -12,7 +12,7 @@
         :parent="parent"
       />
       <span class="download-icon" :class="{ isShowing: !downloaded, hidden: downloaded }">
-        <i class="fas fa-circle icon" @click="download"/>
+        <img src="../assets/download.png" @click="download">
       </span>
 
       <div class="imgDiv" :style="widthStyle">
@@ -97,10 +97,11 @@ export default {
 </script>
 <style scoped>
 .gif {
-  display: grid;
+  display: flex;
   grid-template-areas: 'a b', 'c d';
   position: relative;
   height: 120px;
+  /* margin-inline-start: 3px; */
 }
 
 .preview {

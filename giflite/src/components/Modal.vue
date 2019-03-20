@@ -6,7 +6,7 @@
           <div class="modal-container">
             <div class="modal-header">
               <slot name="header">
-                <button @click="$emit('close')" class="modal-default-button">X</button>
+                <button @click="$emit('close')" class="modal-default-button"><img src="../assets/close.png" alt="X"></button>
               </slot>
             </div>
 
@@ -16,26 +16,22 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                <span
-                  class="icon"
-                  @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-                >
-                  <img src="../assets/send.svg">
-                </span>
-                
-                <span class="icon">
-                  <img
-                    @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
+               
+
+                <button class="bookmark icon" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })">
+                  <img   
                     src="../assets/bookmark.svg"
                   >
-                </span>
+                </button>
+
+                <button class="send icon"
+                @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })">
+                  <img src="../assets/send.svg">
+                </button>
                 
-                <span class="icon">
-                  <i
-                    class="fa fa-home icon"
-                    @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
-                  />
-                </span>
+                <button class="unbookmark icon" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })">
+                  <img src="../assets/unbookmark.png">
+                </button>
               </slot>
             </div>
           </div>
@@ -82,8 +78,12 @@ export default {
 }
 
 .icon {
+  color: #FFFFFF;
   width: 30px;
   height: 30px;
+  display: flex;
+  justify-content: center;
+  margin-left: 20px;
 }
 
 .modal-mask {
@@ -94,7 +94,7 @@ export default {
   width: 340px;
   height: 100%;
   /* filter: blur(8px); */
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: table;
   transition: opacity 0.3s ease;
 }
@@ -102,6 +102,7 @@ export default {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  background: rgb(0, 0, 0, 0.5);
 }
 
 .modal-container {
@@ -126,12 +127,71 @@ export default {
 
 .modal-default-button {
   float: right;
-  margin: 0px 20px 20px 20px;
+  position: absolute;
+  top: 25px;
+  right: 10px;
+  background: transparent;
+  border: none;
 }
 .modal-footer {
-  width: 200px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.modal-default-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.bookmark {
+  background: #B93AB4;
+  display:block;
+  height: 55px;
+  width: 55px;
+  padding: 15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+
+.bookmark img{
+  width: 25px;
+  height: 20px;
+}
+
+.send {
+  background: #02ABE2;
+  display:block;
+  height: 55px;
+  width: 55px;
+  padding: 15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+
+.send img {
+  width: 21px;
+  height: 18px;
+}
+
+.unbookmark {
+  background: #41D36D;
+  display:block;
+  height: 55px;
+  width: 55px;
+  padding: 15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+
+.unbookmark img {
+  width: 20px;
+  height: 24px;
 }
 </style>

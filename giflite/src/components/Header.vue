@@ -7,10 +7,11 @@
         class="input"
         @input="debounceInput"
         type="search"
-        placeholder="Search..."
+        placeholder="Enter Key Word..."
       >
       <div v-if="!isSearching" class="logo">
-        <p>logo</p>
+        <img class="logo-img" src="../assets/logo.png" alt="Gif Lite">
+        <p class="logo-text">GIFLITE</p>
       </div>
       <div class="container-2" v-if="!isSearching">
         <span v-if="page === 'main'" class="home-and-save-icon">
@@ -18,12 +19,12 @@
         </span>
         
         <span v-if="page === 'favourites'" class="home-and-save-icon">
-          <i @click="changePage" class="fa fa-home"/>
+          <i @click="changePage" class="fa fa-home fa-lg"/>
         </span>
       </div>
       <div class="container-1">
         <span class="search-icon">
-          <i @click="toggleSearch" class="fa fa-search"/>
+          <i @click="toggleSearch" class="fa fa-search fa-lg"/>
         </span>
       </div>
     </div>
@@ -77,22 +78,32 @@ export default {
 
 <style scoped>
 .header {
-  background: #a700d1;
-  background-image: linear-gradient(
-    to right,
-    rgb(240, 70, 211),
-    rgb(27, 153, 211)
-  );
+  background: rgb(208,64,202);
+  background: linear-gradient(90deg, rgba(208,64,202,1) 0%, rgba(0,192,255,1) 100%);
 }
 
 .logo {
   grid-area: logo;
+  display: flex;
+  align-items: center;
 }
 
-img {
-  width: 20px;
-  height: 20px;
+.logo-img {
+  margin-left: 15px;
 }
+
+.logo-text {
+  font-family: Century Gothic;
+  font-size: 28px;
+  color: #FFFFFF;
+  margin-left: 12.5px;
+  font-weight: bold;
+}
+
+/* img {
+  width: 25px;
+  height: 25px;
+} */
 
 .box {
   /* height: 50px; */
@@ -102,6 +113,7 @@ img {
   justify-self: stretch;
   align-self: stretch;
   grid-template-areas: 'logo bookmark search';
+  
 }
 
 .container-1 {
@@ -116,8 +128,9 @@ img {
   margin-left: 6px;
   margin-top: 16px;
   z-index: 1;
-  color: #4f5b66;
+  color: #FFFFFF;
 }
+
 .box input:focus,
 .box input:active {
   outline: none;
@@ -127,23 +140,35 @@ img {
   margin-top: 10px;
   width: 300px;
   height: 30px;
-  background: #850068;
+  background: transparent;
   border: none;
-  font-size: 10pt;
+  font-size: 18px;
   display: absolute;
-  color: whitesmoke;
+  color: #FFFFFF;
   padding-left: 15px;
   z-index: 10;
 }
 
+.box input::placeholder {
+  color: #FFFFFF;
+  opacity: 0.33;
+}
+
 .container-2 .home-and-save-icon {
-  color: #4f5b66;
+  color: #FFFFFF;
   position: relative;
   top: 30%;
-  margin-left: 15px;
+  margin-left: 10px;
 }
+
+.container-2 .home-and-save-icon img {
+  width: 19px;
+  height: 21px;
+}
+
 .container-2 {
   grid-area: bookmark;
+
 }
 </style>
 
