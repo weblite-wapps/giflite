@@ -6,7 +6,9 @@
           <div class="modal-container">
             <div class="modal-header">
               <slot name="header">
-                <button @click="$emit('close')" class="modal-default-button"><img src="../assets/close.png" alt="X"></button>
+                <button @click="$emit('close')" class="modal-default-button">
+                  <img src="../assets/close.png" alt="X">
+                </button>
               </slot>
             </div>
 
@@ -16,20 +18,26 @@
 
             <div class="modal-footer">
               <slot name="footer">
-               
-
-                <button class="bookmark icon" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })">
-                  <img   
-                    src="../assets/bookmark.svg"
-                  >
+                <button
+                  v-if="parent=== 'Main'"
+                  class="bookmark icon"
+                  @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
+                >
+                  <img src="../assets/bookmark.svg">
                 </button>
-
-                <button class="send icon"
-                @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })">
+                
+                <button
+                  class="send icon"
+                  @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
+                >
                   <img src="../assets/send.svg">
                 </button>
                 
-                <button class="unbookmark icon" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })">
+                <button
+                  v-if="parent=== 'Favourites'"
+                  class="unbookmark icon"
+                  @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
+                >
                   <img src="../assets/unbookmark.png">
                 </button>
               </slot>
@@ -78,7 +86,7 @@ export default {
 }
 
 .icon {
-  color: #FFFFFF;
+  color: #ffffff;
   width: 30px;
   height: 30px;
   display: flex;
@@ -145,8 +153,8 @@ export default {
 }
 
 .bookmark {
-  background: #B93AB4;
-  display:block;
+  background: #b93ab4;
+  display: block;
   height: 55px;
   width: 55px;
   padding: 15px;
@@ -156,14 +164,14 @@ export default {
   border: none;
 }
 
-.bookmark img{
+.bookmark img {
   width: 25px;
   height: 20px;
 }
 
 .send {
-  background: #02ABE2;
-  display:block;
+  background: #02abe2;
+  display: block;
   height: 55px;
   width: 55px;
   padding: 15px;
@@ -179,8 +187,8 @@ export default {
 }
 
 .unbookmark {
-  background: #41D36D;
-  display:block;
+  background: #41d36d;
+  display: block;
   height: 55px;
   width: 55px;
   padding: 15px;

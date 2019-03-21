@@ -1,16 +1,17 @@
 <template>
   <div class="main">
-    <Gif
-      v-for="(item, index) in gifs"
-      :key="item.gifId"
-      :url="item"
-      :sendToChat="sendToChat"
-      :changeUserLikes="changeUserLikes"
-      :scale="ratios[index]"
-      parent="Main"
-    />
-    <button class="load-more" @click="loadMore">Load More</button>
-    <!-- <vmodal v-ref:modal1 @click="this.show" name="hello-world">hello, world!</vmodal> -->
+    <div ref="mainGifsPanel" class="gifs">
+      <Gif
+        v-for="(item, index) in gifs"
+        :key="item.gifId"
+        :url="item"
+        :sendToChat="sendToChat"
+        :changeUserLikes="changeUserLikes"
+        :scale="ratios[index]"
+        parent="Main"
+      />
+    </div>
+    <button class="load-more" v-if="showLoadMoreButton" @click="loadMore">Load More</button>
   </div>
 </template>
 
@@ -33,6 +34,7 @@ export default {
   data() {
     return {
       ratios: {},
+      showLoadMoreButton: false,
     }
   },
 
@@ -49,23 +51,29 @@ export default {
       this.calculateRatios()
     },
   },
+  updated() {
+    if (!this.showLoadMoreButton) {
+      this.showLoadMoreButton = this.$refs['mainGifsPanel'].clientHeight > 400
+    }
+  },
 
   methods: {
     calculateRatios() {
       const gifsWidth = this.gifs.map(({ width }) => parseInt(width))
       this.ratios = calculateScale(gifsWidth)
     },
-    show() {
-      this.$refs.modal1.show('this is a message from javad')
-    },
   },
 }
 </script>
 
+
 <style scoped>
 html,
-body,
-.main {
+body {
+  margin: 0;
+}
+
+.gifs {
   margin: 0;
   display: flex;
   flex-direction: row;
@@ -74,6 +82,7 @@ body,
 }
 
 .load-more {
-  width: 330px;
+  width: 100%;
+  height: 30px;
 }
 </style>

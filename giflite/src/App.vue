@@ -1,25 +1,22 @@
 <template>
   <div id="app">
-    <div class="container">
-      <Header :page="page" :searchContent="searchContent" @changePage="changePage"/>
+    <Header :page="page" :searchContent="searchContent" @changePage="changePage"/>
+    <div class="content">
+      <Main
+        v-if="page === 'main'"
+        :gifs="searchedGifs"
+        :sendToChat="sendToChat"
+        :changeUserLikes="changeUserLikes"
+        :loadMore="loadMore"
+      />
 
-      <div class="content">
-        <Main
-          v-if="page === 'main'"
-          :gifs="searchedGifs"
-          :sendToChat="sendToChat"
-          :changeUserLikes="changeUserLikes"
-          :loadMore="loadMore"
-        />
-
-        <Favourites
-          v-if="page === 'favourites'"
-          :getFavourites="getFavourites"
-          :sendToChat="sendToChat"
-          :gifs="favouriteGifs"
-          :changeUserLikes="changeUserLikes"
-        />
-      </div>
+      <Favourites
+        v-if="page === 'favourites'"
+        :getFavourites="getFavourites"
+        :sendToChat="sendToChat"
+        :gifs="favouriteGifs"
+        :changeUserLikes="changeUserLikes"
+      />
     </div>
   </div>
 </template>
@@ -117,14 +114,12 @@ body {
 #app {
   width: 340px;
   background-color: white;
-  /* border: 5px solid #2b303b; */
-  /* bottom: 20px; */
-  /* height: 100vh; */
-  /* overflow: hidden; */
+  height: 100vh;
+  overflow: hidden;
 }
 
 .content {
-  height: 100vh;
+  height: 700px;
   overflow: auto;
   margin-top: 2px;
 }

@@ -3,18 +3,9 @@
     <div class="containter">
       <div class="save">
         <div class="img_overlay"/>
-        <i 
-          class="fa fa-bookmark save-btn"
-          v-on:click="addToFavourites"
-        />
+        <i class="fa fa-bookmark save-btn" v-on:click="addToFavourites"/>
       </div>
-      <img 
-        :style="style" 
-        v-on:click="toggleShow" 
-        class="gif" 
-        :src="gifurl" 
-        alt="image place"
-      >
+      <img :style="style" v-on:click="toggleShow" class="gif" :src="gifurl" alt="image place">
     </div>
   </div>
 </template>
