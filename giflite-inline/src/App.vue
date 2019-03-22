@@ -16,8 +16,8 @@ export default {
     return {
       wisId: W && W.wisId,
       gifInfos: {},
-      gifId: 'SJkjeO4rgLbc0SLf0B',
-      userId: 'javadId',
+      gifId: '',
+      userId: '',
     }
   },
   components: {

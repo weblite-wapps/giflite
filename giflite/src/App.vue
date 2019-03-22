@@ -43,7 +43,7 @@ export default {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      userId: 'javadId',
+      userId: '',
       page: 'main',
       requestOffset: 0,
       searchQuery: '',
