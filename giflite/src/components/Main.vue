@@ -2,7 +2,7 @@
   <div class="main">
     <div ref="mainGifsPanel" class="gifs">
       <Gif
-        v-for="(item, index) in gifs"
+        v-for="(item, index) in filteredGifs"
         :key="item.gifId"
         :url="item"
         :sendToChat="sendToChat"
@@ -52,11 +52,14 @@ export default {
     },
   },
   updated() {
-    if (!this.showLoadMoreButton) {
-      this.showLoadMoreButton = this.$refs['mainGifsPanel'].clientHeight > 400
-    }
+    this.showLoadMoreButton = this.$refs['mainGifsPanel'].clientHeight > 400
   },
 
+  computed: {
+    filteredGifs() {
+      return this.gifs.filter(gif => gif.smallUrl !== '')
+    },
+  },
   methods: {
     calculateRatios() {
       const gifsWidth = this.gifs.map(({ width }) => parseInt(width))

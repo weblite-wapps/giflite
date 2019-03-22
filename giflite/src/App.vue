@@ -46,6 +46,7 @@ export default {
       userId: 'javadId',
       page: 'main',
       requestOffset: 0,
+      searchQuery: '',
     }
   },
 
@@ -64,15 +65,21 @@ export default {
     getTrends(offset) {
       getTrendGifs(offset).then(searchResult => {
         this.searchedGifs = R.concat(this.searchedGifs, searchResult)
+        this.searchQuery = ''
       })
     },
 
-    searchContent(query) {
-      if (query)
-        getSearchGifs(query).then(searchResult => {
-          this.searchedGifs = searchResult
+    searchContent(query, offset) {
+      if (this.searchQuery != query) {
+        this.requestOffset = 0
+        this.searchedGifs = []
+      }
+      if (query) {
+        getSearchGifs(query, offset).then(searchResult => {
+          this.searchedGifs = R.concat(this.searchedGifs, searchResult)
+          this.searchQuery = query
         })
-      else this.getTrends()
+      } else this.getTrends()
     },
 
     sendToChat({ id, wisId }) {
@@ -101,7 +108,9 @@ export default {
     },
 
     loadMore() {
-      this.getTrends(++this.requestOffset)
+      if (this.searchQuery) {
+        this.searchContent(this.searchQuery, ++this.requestOffset)
+      } else this.getTrends(++this.requestOffset)
     },
   },
 }
@@ -122,6 +131,8 @@ body {
   height: 700px;
   overflow: auto;
   margin-top: 2px;
+  overflow-x: hidden;
+  box-shadow: 10px black;
 }
 
 .content::-webkit-scrollbar-track {

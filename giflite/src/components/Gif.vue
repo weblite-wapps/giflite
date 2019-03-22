@@ -104,12 +104,6 @@ export default {
   /* margin-inline-start: 3px; */
 }
 
-.preview {
-  background-color: pink;
-  width: 330px;
-  height: 120px;
-}
-
 .imgDiv {
   overflow: hidden;
   border: 1px white solid;

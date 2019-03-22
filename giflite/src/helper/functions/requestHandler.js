@@ -7,6 +7,8 @@ const filter = res => {
   throw 'not res'
 }
 
+const logger = console.log
+
 export const getTrendGifs = offset =>
   request
     .get(`${config.server}/trend`)
@@ -14,15 +16,16 @@ export const getTrendGifs = offset =>
     .set('Access-Control-Allow-Origin', '*')
     .then(res => res.body)
     .then(filter)
-    .catch(console.log)
+    .catch(logger)
 
-export const getSearchGifs = info =>
+export const getSearchGifs = (info, offset) =>
   request
     .get(`${config.server}/search/${info}`)
+    .query({ offset })
     .set('Access-Control-Allow-Origin', '*')
     .then(res => res.body)
     .then(filter)
-    .catch(console.log)
+    .catch(logger)
 
 export const changeLikes = info =>
   request
@@ -30,7 +33,7 @@ export const changeLikes = info =>
     .set('Access-Control-Allow-Origin', '*')
     .send({ info })
     .then(res => res.body)
-    .catch(console.log)
+    .catch(logger)
 
 export const getAllFavourites = userId =>
   request
@@ -38,4 +41,4 @@ export const getAllFavourites = userId =>
     .set('Access-Control-Allow-Origin', '*')
     .then(res => res.body)
     .then(filter)
-    .catch(console.log)
+    .catch(logger)
