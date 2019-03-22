@@ -11,8 +11,10 @@ const {
 const router = express.Router()
 router.use(bodyParser.json())
 
-router.get('/search/:info', ({ params: { info } }, res) => {
-  const giphyUrl = `http://api.giphy.com/v1/gifs/search?q=${info}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz`
+router.get('/search/:info', ({ params: { info }, query: { offset } }, res) => {
+  console.log('search offset', offset)
+  const giphyUrl = `http://api.giphy.com/v1/gifs/search?q=${info}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=25&offset=${offset *
+    26}`
   reqToGiphyShowResTocli(giphyUrl, res)
 })
 
