@@ -84,7 +84,7 @@ export default {
 
     sendToChat({ id, wisId }) {
       W.sendMessageToCurrentChat('wapp', {
-        wappId: '5c4c5d0d8b27391860c92c6c',
+        wappId: '5c4c39afe50e46486b155fc9',
         wisId,
         customize: { id },
       })
@@ -136,6 +136,7 @@ body {
   margin-top: 2px;
   overflow-x: hidden;
   box-shadow: 10px black;
+  user-select: none;
 }
 
 .content::-webkit-scrollbar-track {
