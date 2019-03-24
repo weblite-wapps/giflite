@@ -92,6 +92,8 @@ export default {
   display: flex;
   justify-content: center;
   margin-left: 20px;
+  cursor: pointer;
+  outline: none;
 }
 
 .modal-mask {
@@ -140,6 +142,8 @@ export default {
   right: 10px;
   background: transparent;
   border: none;
+  cursor: pointer;
+  outline: none;
 }
 .modal-footer {
   display: flex;

@@ -9,15 +9,18 @@
 
       <div class="expand-box" @click="expand">
         <img class="expand-icon"  src="../assets/expand.svg">
-      </div>
+      </div> 
 
-      <div class="save-box" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })">
+      <div class="save-box" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: isLikeButton ? 'dislike' : 'like' })">
         <img
           v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle"
           src="../assets/bookmark.svg"
         >
-
-        <img @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })" v-if="isLikeButton" class="icon span-icon save-icon" src="../assets/unbookmark.png" >
+        <img
+          v-if="isLikeButton"
+          class="icon span-icon save-icon"
+          src="../assets/unbookmark.png"
+        >
       </div>
   </div>
 </template>
@@ -56,6 +59,8 @@ export default {
   /* height: 40px; */
   height: 39.3px;
   width: 40px;
+  cursor: pointer;
+  outline: none;
 }
 
 .send-icon {
@@ -73,7 +78,8 @@ export default {
   /* height: 40px; */
   height: 39.3px;
   width: 40px;
-  
+  cursor: pointer;
+  outline: none;
 }
 
 .save-icon {
@@ -90,6 +96,8 @@ export default {
   /* height: 40px; */
   height: 39.3px;
   width: 40px;
+  cursor: pointer;
+  outline: none;
 }
 
 .expand-icon {

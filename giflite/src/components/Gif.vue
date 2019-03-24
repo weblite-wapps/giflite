@@ -19,20 +19,20 @@
         <img :src="imgTagUrl" alt="image place" :style="gifStyle">
       </div>
 
-      <modal
+      <Modal
         v-if="showModal"
         :url="url"
         :sendToChat="sendToChat"
         :changeUserLikes="changeUserLikes"
         :parent="parent"
         @close="showModal = false"
-      ></modal>
+      ></Modal>
     </div>
   </div>
 </template>
 <script>
 import Slider from './Slider.vue'
-import modal from './Modal.vue'
+import Modal from './Modal.vue'
 
 export default {
   name: 'Gif',
@@ -55,7 +55,7 @@ export default {
 
   components: {
     Slider,
-    modal,
+    Modal,
   },
 
   computed: {
