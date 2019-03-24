@@ -119,7 +119,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
 
-body { 
+body {
   margin: 0px;
 }
 
