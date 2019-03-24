@@ -71,11 +71,6 @@ export default {
 
 
 <style scoped>
-html,
-body {
-  margin: 0;
-}
-
 .gifs {
   margin: 0;
   display: flex;

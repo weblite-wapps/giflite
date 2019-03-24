@@ -2,15 +2,16 @@
   "name": "giflite-inline",
   "id": "5c4c39afe50e46486b155fc9",
   "searchable": false,
-  "instancable": true,
+  "instantiable": true,
   "creator": false,
   "inline": true,
   "shareDB": false,
-  "width": 350,
-  "height": 350,
+  "width": 350, 
+  "height": 200,
   "userInfo": true,
   "servIndexes": {
     "inline": "index",
     "main": "index"
-  }
+  },
+  "version": "0.1.1"
 }
