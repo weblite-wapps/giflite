@@ -33,7 +33,6 @@ import { removeGif } from './helper/functions/helperFunctions'
 import Main from './components/Main'
 import Favourites from './components/Favourites'
 import Header from './components/Header'
-import * as R from 'ramda'
 
 const { W } = window
 export default {
