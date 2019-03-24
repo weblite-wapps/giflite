@@ -117,11 +117,14 @@ export default {
 </script>
 
 <style>
-body {
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
+
+body { 
   margin: 0px;
 }
+
 #app {
-  width: 340px;
+  width: 350px;
   background-color: white;
   height: 100vh;
   overflow: hidden;

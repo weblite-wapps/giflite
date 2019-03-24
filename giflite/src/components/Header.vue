@@ -93,7 +93,8 @@ export default {
 }
 
 .logo-text {
-  font-family: Century Gothic;
+  font-family: 'Didact Gothic', sans-serif;
+  letter-spacing: 2px;
   font-size: 28px;
   color: #FFFFFF;
   margin-left: 12.5px;
