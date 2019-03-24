@@ -27,8 +27,8 @@ export default {
   },
   computed: {
     style() {
-      const { width, height } = this.gifInfos
-      return `width: ${calculateScales({ width, height }) * width}px;`
+      const { width } = this.gifInfos
+      return `width: ${calculateScales({ width }) * width}px;`
     },
   },
   watch: {
@@ -57,7 +57,6 @@ export default {
 
 .gif-card {
   width: 350px;
-  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
