@@ -81,7 +81,7 @@ export default {
 
 .load-more {
   width: 100%;
-  height: 50px;
+  height: 30px;
   padding-bottom: 10px;
   display: inline-block;
   margin-right: 5px;

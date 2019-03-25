@@ -137,6 +137,7 @@ body {
   overflow-x: hidden;
   box-shadow: 10px black;
   user-select: none;
+  margin-top: 2px;
 }
 
 .content::-webkit-scrollbar-track {
