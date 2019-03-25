@@ -2,11 +2,11 @@
   <div class="main">
     <transition name="modal">
       <div class="modal-mask">
-        <div class="modal-wrapper">
+        <div class="modal-wrapper" @click.self="$emit('close')">
           <div class="modal-container">
             <div class="modal-header">
               <slot name="header">
-                <button @click="$emit('close')" class="modal-default-button">
+                <button class="modal-default-button" @click="$emit('close')">
                   <img src="../assets/close.png" alt="X">
                 </button>
               </slot>

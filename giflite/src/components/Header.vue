@@ -13,19 +13,24 @@
         <img class="logo-img" src="../assets/logo.png" alt="Gif Lite">
         <p class="logo-text">GIFLITE</p>
       </div>
-      <div class="container-2" v-if="!isSearching">
-        <span v-if="page === 'main'" class="home-and-save-icon">
-          <img @click="changePage" src="../assets/bookmark.svg">
-        </span>
-        
-        <span v-if="page === 'favourites'" class="home-and-save-icon">
-          <i @click="changePage" class="fa fa-home fa-lg"/>
-        </span>
+      <div class="container-2" v-if="!isSearching" @click="changePage">
+        <abbr title="Bookmark">
+          <span v-if="page === 'main'" class="home-and-save-icon">
+            <img  src="../assets/bookmark.svg">
+          </span>
+        </abbr>
+        <abbr title="Home">
+          <span v-if="page === 'favourites'" class="home-and-save-icon">
+            <i @click="changePage" class="fa fa-home fa-lg"/>
+          </span>
+        </abbr>
       </div>
-      <div class="container-1">
-        <span class="search-icon">
-          <i @click="toggleSearch" class="fa fa-search fa-lg"/>
-        </span>
+      <div class="container-1" @click="toggleSearch">
+        <abbr title="Search">
+          <span class="search-icon">
+            <i  class="fa fa-search fa-lg"/>
+          </span>
+        </abbr>
       </div>
     </div>
   </div>
@@ -128,6 +133,7 @@ export default {
   white-space: nowrap;
   position: relative;
   grid-area: search;
+  cursor: pointer;
 }
 
 .container-1 .search-icon {
@@ -175,7 +181,7 @@ export default {
 
 .container-2 {
   grid-area: bookmark;
-
+  cursor: pointer;
 }
 </style>
 
