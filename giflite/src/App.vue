@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import * as R from 'ramda'
 import webliteHandler from './helper/functions/weblite.api'
 import {
   getTrendGifs,
