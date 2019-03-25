@@ -84,7 +84,6 @@ export default {
   height: 50px;
   padding-bottom: 10px;
   display: inline-block;
-  padding: 15px;
   margin-right: 5px;
   height: 50px;
   min-width: 100px;
