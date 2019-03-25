@@ -128,15 +128,16 @@ body {
   background-color: white;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
-  height: 700px;
-  overflow: auto;
-  margin-top: 2px;
+  height: 100%;
   overflow-x: hidden;
   box-shadow: 10px black;
   user-select: none;
+  margin-top: 2px;
 }
 
 .content::-webkit-scrollbar-track {
