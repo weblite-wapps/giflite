@@ -9,22 +9,26 @@
         type="search"
         placeholder="Enter Key Word..."
       >
+
       <div v-if="!isSearching" class="logo">
         <img class="logo-img" src="../assets/logo.png" alt="Gif Lite">
         <p class="logo-text">GIFLITE</p>
       </div>
+
       <div class="container-2" v-if="!isSearching" @click="changePage">
         <abbr title="Bookmark">
           <span v-if="page === 'main'" class="home-and-save-icon">
             <img  src="../assets/bookmark.svg">
           </span>
         </abbr>
+        
         <abbr title="Home">
           <span v-if="page === 'favourites'" class="home-and-save-icon">
             <i @click="changePage" class="fa fa-home fa-lg"/>
           </span>
         </abbr>
       </div>
+
       <div class="container-1" @click="toggleSearch">
         <abbr title="Search">
           <span class="search-icon">

@@ -18,28 +18,34 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                <button
-                  v-if="parent=== 'Main'"
-                  class="bookmark icon"
-                  @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
-                >
-                  <img src="../assets/bookmark.svg">
-                </button>
+                <abbr title="Bookmark">
+                  <button
+                    v-if="parent=== 'Main'"
+                    class="bookmark icon"
+                    @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
+                  >
+                    <img src="../assets/bookmark.svg">
+                  </button>
+                </abbr>
+
+                <abbr title="Unbookmark">
+                  <button
+                    v-if="parent=== 'Favourites'"
+                    class="unbookmark icon"
+                    @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
+                  >
+                    <img src="../assets/unbookmark.png">
+                  </button>
+                </abbr>
                 
-                <button
-                  class="send icon"
-                  @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-                >
-                  <img src="../assets/send.svg">
-                </button>
-                
-                <button
-                  v-if="parent=== 'Favourites'"
-                  class="unbookmark icon"
-                  @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
-                >
-                  <img src="../assets/unbookmark.png">
-                </button>
+                <abbr title="Send in chat">
+                  <button
+                    class="send icon"
+                    @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
+                  >
+                    <img src="../assets/send.svg">
+                  </button>
+                </abbr>
               </slot>
             </div>
           </div>
