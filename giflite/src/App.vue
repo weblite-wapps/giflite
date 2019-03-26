@@ -86,11 +86,10 @@ export default {
     },
 
     sendToChat({ gifId, wisId, width }) {
-      console.log(gifId, wisId, width);
       W.sendMessageToCurrentChat("wapp", {
         wappId: "5c4c39afe50e46486b155fc9",
         wisId,
-        customize: { id },
+        customize: { gifId },
         height: parseInt((100 * 320) / parseInt(width))
       });
     },
