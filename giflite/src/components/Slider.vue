@@ -1,17 +1,17 @@
 <template>
   <div class="slider">
-    <div class="send-box" @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })">
+    <div class="box send-box" @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })">
       <img
         class="send-icon"  
         src="../assets/send.svg"
       >
     </div>
 
-    <div class="expand-box" @click="expand">
-      <img class="expand-icon"  src="../assets/expand.svg">
+    <div class="box expand-box button" @click="expand">
+      <img class="expand-icon button__inner" src="../assets/expand.svg">
     </div>
 
-    <div class="save-box" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: isLikeButton ? 'dislike' : 'like' })">
+    <div class="box save-box" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: isLikeButton ? 'dislike' : 'like' })">
       <img
         v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle"
         src="../assets/bookmark.svg"
@@ -48,28 +48,6 @@ export default {
 
 <style scoped>
 .box {
-   box-sizing: content-box;
-}
-.send-box {
-  box-sizing: content-box;
-  background-color: #02ABE2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* height: 40px; */
-  height: 39.3px;
-  width: 40px;
-  cursor: pointer;
-  outline: none;
-}
-
-.send-icon {
-  width: 21px;
-  height: 18px;
-}
-
-
-.save-box {
   box-sizing: content-box;
   background-color: #B93AB4;
   display: flex;
@@ -82,22 +60,34 @@ export default {
   outline: none;
 }
 
+.send-box {
+  background-color: #02abe2;
+}
+
+.send-box:hover, .send-box:active,
+.save-box:hover, .save-box:active,
+.expand-box:hover, .expand-box:active
+{
+  opacity: 0.75;
+  transition: opacity ease 0.5s;
+}
+
+.send-icon {
+  width: 21px;
+  height: 18px;
+}
+
+.save-box {
+  background-color: #b93ab4;
+}
+
 .save-icon {
   width: 20px;
   height: 24px;
 }
 
 .expand-box {
-  box-sizing: content-box;
-  background-color: #6A6BC8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* height: 40px; */
-  height: 39.3px;
-  width: 40px;
-  cursor: pointer;
-  outline: none;
+  background-color: #6a6bc8;
 }
 
 .expand-icon {

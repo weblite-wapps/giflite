@@ -17,22 +17,22 @@
 
       <div class="container-2" v-if="!isSearching" @click="changePage">
         <abbr title="Bookmark">
-          <span v-if="page === 'main'" class="home-and-save-icon">
-            <img  src="../assets/bookmark.svg">
+          <span v-if="page === 'main'" class="icon">
+            <i class="fa fa-bookmark fa-lg"/>
           </span>
         </abbr>
         
         <abbr title="Home">
-          <span v-if="page === 'favourites'" class="home-and-save-icon">
-            <i @click="changePage" class="fa fa-home fa-lg"/>
+          <span v-if="page === 'favourites'" class="icon">
+            <i class="fa fa-home fa-lg"/>
           </span>
         </abbr>
       </div>
 
       <div class="container-1" @click="toggleSearch">
         <abbr title="Search">
-          <span class="search-icon">
-            <i  class="fa fa-search fa-lg"/>
+          <span class="search-icon icon">
+            <i class="fa fa-search fa-lg"/>
           </span>
         </abbr>
       </div>
@@ -171,17 +171,23 @@ export default {
   opacity: 0.33;
 }
 
-.container-2 .home-and-save-icon {
+.container-2 .icon {
   color: #FFFFFF;
   position: relative;
   top: 30%;
   margin-left: 10px;
 }
 
-.container-2 .home-and-save-icon img {
+.container-2 .icon img {
   width: 19px;
   height: 21px;
+} 
+
+.icon:hover, .icon:active {
+  color: #CC45CC;
+  transition: color ease 0.5s;
 }
+
 
 .container-2 {
   grid-area: bookmark;

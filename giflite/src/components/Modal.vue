@@ -151,6 +151,7 @@ export default {
   cursor: pointer;
   outline: none;
 }
+
 .modal-footer {
   display: flex;
   flex-direction: row;
@@ -172,6 +173,15 @@ export default {
   display: flex;
   justify-content: center;
   border: none;
+}
+
+.bookmark:hover, .bookmark:active,
+.send:hover, .send:active,
+.unbookmark:hover, .unbookmark:active
+.modal-default-button:hover, .modal-default-button:active
+{
+  opacity: 0.75;
+  transition: opacity ease 0.5s;
 }
 
 .bookmark img {

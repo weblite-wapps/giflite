@@ -4,8 +4,8 @@
         <Slider
           :class="{ isShowing: downloaded, hidden: !downloaded }"
           class="slider"
-          v-if="showSlider"
-          :sendToChat="sendToChat"
+          v-if="downloaded && showSlider"
+          :sendToChat="sendToChat" 
           :changeUserLikes="changeUserLikes"
           :expand="expand"
           :url="url"
@@ -122,7 +122,6 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  cursor: pointer;
 }
 
 .download-icon {
