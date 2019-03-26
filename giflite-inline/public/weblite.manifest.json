@@ -6,8 +6,7 @@
   "creator": false,
   "inline": true,
   "shareDB": false,
-  "width": 350, 
-  "height": 200,
+  "width": 320,
   "userInfo": true,
   "servIndexes": {
     "inline": "index",

@@ -1,103 +1,103 @@
 <template>
   <div class="gif">
-      <div class="card" @mouseover="mouseOver" @mouseleave="mouseLeave" @click="download">
-        <Slider
-          :class="{ isShowing: downloaded, hidden: !downloaded }"
-          class="slider"
-          v-if="downloaded && showSlider"
-          :sendToChat="sendToChat" 
-          :changeUserLikes="changeUserLikes"
-          :expand="expand"
-          :url="url"
-          :parent="parent"
-        />
-        <span class="download-icon" :class="{ isShowing: !downloaded, hidden: downloaded }">
-          <img src="../assets/download.png">
-        </span>
-        <div class="imgDiv" :style="widthStyle">
-          <img :src="imgTagUrl" alt="image place" :style="gifStyle">
-        </div>
-
-        <Modal
-          v-if="showModal"
-          :url="url"
-          :sendToChat="sendToChat"
-          :changeUserLikes="changeUserLikes"
-          :parent="parent"
-          @close="showModal = false"
-        ></Modal>
+    <div class="card" @mouseover="mouseOver" @mouseleave="mouseLeave" @click="download">
+      <Slider
+        :class="{ isShowing: downloaded, hidden: !downloaded }"
+        class="slider"
+        v-if="downloaded && showSlider"
+        :sendToChat="sendToChat"
+        :changeUserLikes="changeUserLikes"
+        :expand="expand"
+        :url="url"
+        :parent="parent"
+      />
+      <span class="download-icon" :class="{ isShowing: !downloaded, hidden: downloaded }">
+        <img src="../assets/download.png">
+      </span>
+      <div class="imgDiv" :style="widthStyle">
+        <img :src="imgTagUrl" alt="image place" :style="gifStyle">
       </div>
+
+      <Modal
+        v-if="showModal"
+        :url="url"
+        :sendToChat="sendToChat"
+        :changeUserLikes="changeUserLikes"
+        :parent="parent"
+        @close="showModal = false"
+      ></Modal>
+    </div>
   </div>
 </template>
 <script>
-import Slider from './Slider.vue'
-import Modal from './Modal.vue'
+import Slider from "./Slider.vue";
+import Modal from "./Modal.vue";
 
 export default {
-  name: 'Gif',
+  name: "Gif",
 
   props: {
     url: Object,
     changeUserLikes: Function,
     sendToChat: Function,
     parent: String,
-    scale: Number,
+    scale: Number
   },
 
   data() {
     return {
       showSlider: false,
       downloaded: false,
-      showModal: false,
-    }
+      showModal: false
+    };
   },
 
   components: {
     Slider,
-    Modal,
+    Modal
   },
 
   computed: {
     widthStyle() {
-      var width = this.scale * parseInt(this.url.width)
-      return `height: 120px; width: ${width - 2}px;`
+      var width = this.scale * parseInt(this.url.width);
+      return `height: 120px; width: ${width - 2}px;`;
     },
     gifStyle() {
-      var height = this.scale * parseInt(this.url.height)
-      var width = this.scale * parseInt(this.url.width)
+      var height = this.scale * parseInt(this.url.height);
+      var width = this.scale * parseInt(this.url.width);
       if (height > 120) {
-        return `height: ${height}px; width: ${width}px;`
+        return `height: ${height}px; width: ${width}px;`;
       } else {
-        return `height: 120px; width: ${width}px;`
+        return `height: 120px; width: ${width}px;`;
       }
     },
     imgTagUrl() {
       return `https://giflite.herokuapp.com/load/content?url=${
-        this.url[this.downloaded ? 'smallUrl' : 'smallImage']
-      }`
-    },
+        this.url[this.downloaded ? "smallUrl" : "smallImage"]
+      }`;
+    }
   },
 
   methods: {
     mouseOver() {
-      this.showSlider = true
+      this.showSlider = true;
     },
     mouseLeave() {
-      this.showSlider = false
+      this.showSlider = false;
     },
     download() {
-      this.downloaded = true
+      this.downloaded = true;
     },
     expand() {
-      this.showModal = true
-    },
-  },
-}
+      this.showModal = true;
+    }
+  }
+};
 </script>
 <style scoped>
 .gif {
   display: flex;
-  grid-template-areas: 'a b', 'c d';
+  grid-template-areas: "a b", "c d";
   position: relative;
   height: 120px;
   /* margin-inline-start: 3px; */

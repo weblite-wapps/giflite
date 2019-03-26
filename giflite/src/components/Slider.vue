@@ -1,55 +1,53 @@
 <template>
   <div class="slider">
-    <div class="box send-box" @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })">
-      <img
-        class="send-icon"  
-        src="../assets/send.svg"
-      >
+    <div class="box send-box" @click="sendToChat(url)">
+      <img class="send-icon" src="../assets/send.svg">
     </div>
 
     <div class="box expand-box button" @click="expand">
       <img class="expand-icon button__inner" src="../assets/expand.svg">
     </div>
 
-    <div class="box save-box" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: isLikeButton ? 'dislike' : 'like' })">
+    <div
+      class="box save-box"
+      @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: isLikeButton ? 'dislike' : 'like' })"
+    >
       <img
-        v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle"
+        v-if="!isLikeButton"
+        class="save-icon"
+        :style="saveCircleStyle"
         src="../assets/bookmark.svg"
       >
-      <img
-        v-if="isLikeButton"
-        class="icon span-icon save-icon"
-        src="../assets/unbookmark.png"
-      >
+      <img v-if="isLikeButton" class="icon span-icon save-icon" src="../assets/unbookmark.png">
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Slider',
+  name: "Slider",
   props: {
     url: Object,
     changeUserLikes: Function,
     sendToChat: Function,
     parent: String,
-    expand: Function,
+    expand: Function
   },
   computed: {
     saveCircleStyle() {
-      return `display: ${this.parent === 'Favourites' ? 'none' : 'inline'}`
+      return `display: ${this.parent === "Favourites" ? "none" : "inline"}`;
     },
     isLikeButton() {
-      return this.parent === 'Favourites'
-    },
-  },
-}
+      return this.parent === "Favourites";
+    }
+  }
+};
 </script>
 
 <style scoped>
 .box {
   box-sizing: content-box;
-  background-color: #B93AB4;
+  background-color: #b93ab4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,10 +62,12 @@ export default {
   background-color: #02abe2;
 }
 
-.send-box:hover, .send-box:active,
-.save-box:hover, .save-box:active,
-.expand-box:hover, .expand-box:active
-{
+.send-box:hover,
+.send-box:active,
+.save-box:hover,
+.save-box:active,
+.expand-box:hover,
+.expand-box:active {
   opacity: 0.75;
   transition: opacity ease 0.5s;
 }

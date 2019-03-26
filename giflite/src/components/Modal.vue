@@ -37,12 +37,9 @@
                     <img src="../assets/unbookmark.png">
                   </button>
                 </abbr>
-                
+
                 <abbr title="Send in chat">
-                  <button
-                    class="send icon"
-                    @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-                  >
+                  <button class="send icon" @click="sendToChat(url)">
                     <img src="../assets/send.svg">
                   </button>
                 </abbr>
@@ -56,7 +53,7 @@
 </template>
 
 <script>
-import * as R from 'ramda'
+import * as R from "ramda";
 
 export default {
   props: {
@@ -64,26 +61,26 @@ export default {
     changeUserLikes: Function,
     sendToChat: Function,
     parent: String,
-    expand: Function,
+    expand: Function
   },
 
   data() {
     return {
-      play: true,
-    }
+      play: true
+    };
   },
 
   methods: {
-    nothing() {},
+    nothing() {}
   },
   computed: {
     imgTagUrl() {
       return `https://giflite.herokuapp.com/load/content?url=${
-        this.url[this.play ? 'smallUrl' : 'smallImage']
-      }`
-    },
-  },
-}
+        this.url[this.play ? "smallUrl" : "smallImage"]
+      }`;
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -175,11 +172,13 @@ export default {
   border: none;
 }
 
-.bookmark:hover, .bookmark:active,
-.send:hover, .send:active,
-.unbookmark:hover, .unbookmark:active
-.modal-default-button:hover, .modal-default-button:active
-{
+.bookmark:hover,
+.bookmark:active,
+.send:hover,
+.send:active,
+.unbookmark:hover,
+.unbookmark:active .modal-default-button:hover,
+.modal-default-button:active {
   opacity: 0.75;
   transition: opacity ease 0.5s;
 }
