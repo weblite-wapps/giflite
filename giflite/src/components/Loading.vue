@@ -15,8 +15,9 @@
 .sp-bars {
   position: relative;
   width: 10px;
-  border: 1px #ffffff solid;
-  background-color: rgba(255, 255, 255, 0.25);
+  border: 1px rgb(208,64,202) solid;
+  background: rgb(208,64,202);
+  background: linear-gradient(90deg, rgba(208,64,202,1) 0%, rgba(0,192,255,1) 100%);
   -webkit-animation: spBars 1s infinite linear;
   animation: spBars 1s infinite linear;
 }
@@ -27,7 +28,8 @@
   width: inherit;
   height: inherit;
   border: inherit;
-  background-color: inherit;
+  background: rgb(208,64,202);
+  background: linear-gradient(90deg, rgba(208,64,202,1) 0%, rgba(0,192,255,1) 100%);
   top: -1px;
 }
 

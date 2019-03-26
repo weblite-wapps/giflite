@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header :page="page" :searchContent="searchContent" @changePage="changePage"/>
-    <div class="content">
-      <Main
+    <div class="content" v-if="searchedGifs.length || favouriteGifs.length">
+      <Main 
         v-if="page === 'main'"
         :gifs="searchedGifs"
         :sendToChat="sendToChat"
@@ -18,6 +18,7 @@
         :changeUserLikes="changeUserLikes"
       />
     </div>
+    <Loading v-else />
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import { removeGif } from './helper/functions/helperFunctions'
 import Main from './components/Main'
 import Favourites from './components/Favourites'
 import Header from './components/Header'
+import Loading from './components/Loading'
 
 const { W } = window
 export default {
@@ -54,6 +56,7 @@ export default {
     Main,
     Favourites,
     Header,
+    Loading,
   },
 
   created() {
