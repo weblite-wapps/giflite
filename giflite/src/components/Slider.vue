@@ -1,33 +1,27 @@
 <template>
   <div class="slider">
-    <abbr title="Send in chat">
-      <div class="send-box" @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })">
-        <img
-          class="send-icon"  
-          src="../assets/send.svg"
-        >
-      </div>
-    </abbr>
+    <div class="send-box" @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })">
+      <img
+        class="send-icon"  
+        src="../assets/send.svg"
+      >
+    </div>
 
-    <abbr title="Fullscreen">
-      <div class="expand-box" @click="expand">
-        <img class="expand-icon"  src="../assets/expand.svg">
-      </div>
-    </abbr>
+    <div class="expand-box" @click="expand">
+      <img class="expand-icon"  src="../assets/expand.svg">
+    </div>
 
-    <abbr :title="isLikeButton ? 'Unbookmark' : 'Bookmark'">
-      <div class="save-box" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: isLikeButton ? 'dislike' : 'like' })">
-        <img
-          v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle"
-          src="../assets/bookmark.svg"
-        >
-        <img
-          v-if="isLikeButton"
-          class="icon span-icon save-icon"
-          src="../assets/unbookmark.png"
-        >
-      </div>
-    </abbr>
+    <div class="save-box" @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: isLikeButton ? 'dislike' : 'like' })">
+      <img
+        v-if="!isLikeButton" class="save-icon" :style="saveCircleStyle"
+        src="../assets/bookmark.svg"
+      >
+      <img
+        v-if="isLikeButton"
+        class="icon span-icon save-icon"
+        src="../assets/unbookmark.png"
+      >
+    </div>
   </div>
 </template>
 
