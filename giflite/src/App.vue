@@ -92,9 +92,9 @@ export default {
         customize: {
           gifId,
           height: parseInt((100 * 320) / parseInt(width)),
-          width
+          width: 320
         },
-        width,
+        width: 320,
         height: parseInt((100 * 320) / parseInt(width))
       });
       // console.log({
@@ -103,9 +103,9 @@ export default {
       //   customize: {
       //     gifId,
       //     height: parseInt((100 * 320) / parseInt(width)),
-      //     width
+      //     width: parseInt(width)
       //   },
-      //   width,
+      //   width: parseInt(width),
       //   height: parseInt((100 * 320) / parseInt(width))
       // });
     },

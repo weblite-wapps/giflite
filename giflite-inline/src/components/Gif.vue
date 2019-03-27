@@ -61,6 +61,7 @@ export default {
 <style scoped>
 .gif-card {
   margin: 0px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   justify-content: center;
