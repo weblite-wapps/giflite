@@ -89,9 +89,25 @@ export default {
       W.sendMessageToCurrentChat("wapp", {
         wappId: "5c4c39afe50e46486b155fc9",
         wisId,
-        customize: { gifId },
+        customize: {
+          gifId,
+          height: parseInt((100 * 320) / parseInt(width)),
+          width
+        },
+        width,
         height: parseInt((100 * 320) / parseInt(width))
       });
+      // console.log({
+      //   wappId: "5c4c39afe50e46486b155fc9",
+      //   wisId,
+      //   customize: {
+      //     gifId,
+      //     height: parseInt((100 * 320) / parseInt(width)),
+      //     width
+      //   },
+      //   width,
+      //   height: parseInt((100 * 320) / parseInt(width))
+      // });
     },
 
     changeUserLikes(info) {

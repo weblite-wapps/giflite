@@ -15,7 +15,7 @@
         <img src="../assets/download.png">
       </span>
       <div class="imgDiv" :style="widthStyle">
-        <img :src="imgTagUrl" alt="image place" :style="gifStyle">
+        <img :src="imgTagUrl" :style="gifStyle">
       </div>
 
       <Modal

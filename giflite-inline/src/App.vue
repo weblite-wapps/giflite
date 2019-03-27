@@ -29,7 +29,9 @@ export default {
     if (W) webliteHandler(this);
     else this.init();
   },
-
+  updated() {
+    console.log("height in app.vue ", this.height);
+  },
   methods: {
     init() {
       getSingleGifData(this.gifId).then(receivedUrls => {
