@@ -93,25 +93,13 @@ export default {
           gifId,
           height: parseInt((100 * 320) / parseInt(width)),
           width: 320
-        },
-        width: 320,
-        height: parseInt((100 * 320) / parseInt(width))
+        }
       });
-      // console.log({
-      //   wappId: "5c4c39afe50e46486b155fc9",
-      //   wisId,
-      //   customize: {
-      //     gifId,
-      //     height: parseInt((100 * 320) / parseInt(width)),
-      //     width: parseInt(width)
-      //   },
-      //   width: parseInt(width),
-      //   height: parseInt((100 * 320) / parseInt(width))
-      // });
     },
 
     changeUserLikes(info) {
       changeLikes({ ...info, userId: this.userId });
+      console.log({ ...info, userId: this.userId });
       if (info.action === "dislike") {
         this.favouriteGifs = removeGif(info.gifId, this.favouriteGifs);
       }

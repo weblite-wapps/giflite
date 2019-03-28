@@ -19,7 +19,7 @@ export const getSingleGifData = gifId =>
 
 export const addToFav = info =>
   request
-    .post(`${config.server}/addToFav`)
+    .post(`${config.server}/changeLike`)
     .set("Access-Control-Allow-Origin", "*")
     .send({ info })
     .then(res => res.body);

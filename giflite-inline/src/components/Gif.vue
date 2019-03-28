@@ -68,17 +68,19 @@ export default {
   align-items: center;
   position: relative;
   background-color: black;
+  overflow: hidden;
 }
 
 .save-btn {
   background-color: #2b303b;
   position: fixed;
   box-sizing: content-box;
-  top: 165px;
+  bottom: 10px;
   left: 10px;
   border: 5px solid #2b303b;
   border-radius: 8px;
-  color: #4f5b66;
+  color: white;
+  /* color: black; */
 }
 
 .save-btn:active {
