@@ -12,7 +12,7 @@ const router = express.Router()
 router.use(bodyParser.json())
 
 router.get('/search/:info', ({ params: { info }, query: { offset } }, res) => {
-  const giphyUrl = `http://api.giphy.com/v1/gifs/search?q=${info}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=25&offset=${offset *
+  const giphyUrl = `http://api.giphy.com/v1/gifs/search?q=${info}&api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=20&offset=${offset *
     26}`
   reqToGiphyShowResTocli(giphyUrl, res)
 })
@@ -52,7 +52,7 @@ router.get('/load/single/:gifId', ({ params: { gifId } }, res) => {
 })
 
 router.get('/trend', ({ query: { offset } }, res) => {
-  const giphyUrl = `http://api.giphy.com/v1/gifs/trending?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=25&offset=${offset *
+  const giphyUrl = `http://api.giphy.com/v1/gifs/trending?api_key=mX3Dx22ZGrswOXaCUw1tVVM23Jn3atiz&limit=20&offset=${offset *
     26}`
   reqToGiphyShowResTocli(giphyUrl, res)
 })
