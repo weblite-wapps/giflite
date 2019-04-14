@@ -42,6 +42,7 @@
 
 <script>
 import debounce from 'debounce'
+const { W } = window;
 
 export default {
   name: 'Header',

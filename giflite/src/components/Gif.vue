@@ -32,6 +32,7 @@
 <script>
 import Slider from "./Slider.vue";
 import Modal from "./Modal.vue";
+const { W } = window;
 
 export default {
   name: "Gif",
