@@ -95,6 +95,7 @@ export default {
         height: parseInt((100 * 320) / parseInt(width)),
         width: 320
       });
+      W.analytics("SEND_TO_CHAT", { from: this.page })
     },
 
     changeUserLikes(info) {
@@ -102,6 +103,7 @@ export default {
       if (info.action === "dislike") {
         this.favouriteGifs = removeGif(info.gifId, this.favouriteGifs);
       }
+      W.analytics(info.action === "dislike" ? "UN_BOOKMARK": "BOOKMARK")
     },
 
     getFavourites() {
@@ -112,12 +114,14 @@ export default {
 
     changePage(event) {
       this.page = event;
+      W.analytics("CHANGE_PAGE", { to: this.page })
     },
 
     loadMore() {
       if (this.searchQuery) {
         this.searchContent(this.searchQuery, ++this.requestOffset);
       } else this.getTrends(++this.requestOffset);
+      W.analytics("LOAD_MORE_CLICK")
     }
   }
 };

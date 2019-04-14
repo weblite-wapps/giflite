@@ -70,6 +70,7 @@ export default {
 
     toggleSearch() {
       this.isSearching = !this.isSearching
+      W.analytics("SEARCH_CLICK")
     },
   },
 

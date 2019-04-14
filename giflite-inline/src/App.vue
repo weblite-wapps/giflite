@@ -45,6 +45,7 @@ export default {
         wisId: this.wisId,
         action: "like"
       });
+      W.analytics("BOOKMARK")
     }
   }
 };
