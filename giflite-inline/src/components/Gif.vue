@@ -4,7 +4,7 @@
       <img :style="style" v-on:click="toggleShow" class="gif" :src="gifurl" alt="image place">
       <i class="fa fa-bookmark save-btn" v-on:click="addToFavourites"/>
     </template>
-    <Loading v-else/>
+    <Loading v-else />
   </div>
 </template>
 
@@ -62,6 +62,7 @@ export default {
 .gif-card {
   margin: 0px;
   width: 320px;
+  height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   justify-content: center;
