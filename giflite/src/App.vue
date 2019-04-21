@@ -23,112 +23,112 @@
 </template>
 
 <script>
-import * as R from "ramda";
-import webliteHandler from "./helper/functions/weblite.api";
+import * as R from 'ramda'
+import webliteHandler from './helper/functions/weblite.api'
 import {
   getTrendGifs,
   getSearchGifs,
   changeLikes,
-  getAllFavourites
-} from "./helper/functions/requestHandler.js";
-import { removeGif } from "./helper/functions/helperFunctions";
-import Main from "./components/Main";
-import Favourites from "./components/Favourites";
-import Header from "./components/Header";
-import Loading from "./components/Loading";
+  getAllFavourites,
+} from './helper/functions/requestHandler.js'
+import { removeGif } from './helper/functions/helperFunctions'
+import Main from './components/Main'
+import Favourites from './components/Favourites'
+import Header from './components/Header'
+import Loading from './components/Loading'
 
-const { W } = window;
+const { W } = window
 export default {
-  name: "app",
+  name: 'app',
 
   data() {
     return {
       searchedGifs: [],
       favouriteGifs: [],
-      userId: "",
-      page: "main",
+      userId: '',
+      page: 'main',
       requestOffset: 0,
-      searchQuery: ""
-    };
+      searchQuery: '',
+    }
   },
 
   components: {
     Main,
     Favourites,
     Header,
-    Loading
+    Loading,
   },
 
   created() {
-    this.getTrends(this.requestOffset);
-    W && webliteHandler(this);
+    this.getTrends(this.requestOffset)
+    W && webliteHandler(this)
   },
 
   methods: {
     getTrends(offset) {
       getTrendGifs(offset).then(searchResult => {
-        this.searchedGifs = R.concat(this.searchedGifs, searchResult);
-        this.searchQuery = "";
-      });
+        this.searchedGifs = R.concat(this.searchedGifs, searchResult)
+        this.searchQuery = ''
+      })
     },
 
     searchContent(query, offset) {
       if (this.searchQuery != query) {
-        this.requestOffset = 0;
-        this.searchedGifs = [];
+        this.requestOffset = 0
+        this.searchedGifs = []
       }
       if (query) {
         getSearchGifs(query, offset).then(searchResult => {
-          this.searchedGifs = R.concat(this.searchedGifs, searchResult);
-          this.searchQuery = query;
-        });
-      } else this.getTrends();
+          this.searchedGifs = R.concat(this.searchedGifs, searchResult)
+          this.searchQuery = query
+        })
+      } else this.getTrends()
     },
 
     sendToChat({ gifId, wisId, width }) {
-      W.sendMessageToCurrentChat("wapp", {
-        wappId: "5c4c39afe50e46486b155fc9",
+      W.sendMessageToCurrentChat('wapp', {
+        wappId: '5c4c39afe50e46486b155fc9',
         wisId,
         customize: {
-          gifId
+          gifId,
         },
         height: parseInt((100 * 320) / parseInt(width)),
-        width: 320
-      });
-      W.analytics("SEND_TO_CHAT", { from: this.page })
+        width: 320,
+      })
+      W.analytics('SEND_TO_CHAT', { from: this.page })
     },
 
     changeUserLikes(info) {
-      changeLikes({ ...info, userId: this.userId });
-      if (info.action === "dislike") {
-        this.favouriteGifs = removeGif(info.gifId, this.favouriteGifs);
+      changeLikes({ ...info, userId: this.userId })
+      if (info.action === 'dislike') {
+        this.favouriteGifs = removeGif(info.gifId, this.favouriteGifs)
       }
-      W.analytics(info.action === "dislike" ? "UN_BOOKMARK": "BOOKMARK")
+      W.analytics(info.action === 'dislike' ? 'UN_BOOKMARK' : 'BOOKMARK')
     },
 
     getFavourites() {
       getAllFavourites(this.userId).then(favouriteGifs => {
-        this.favouriteGifs = favouriteGifs;
-      });
+        this.favouriteGifs = favouriteGifs
+      })
     },
 
     changePage(event) {
-      this.page = event;
-      W.analytics("CHANGE_PAGE", { to: this.page })
+      this.page = event
+      W.analytics('CHANGE_PAGE', { to: this.page })
     },
 
     loadMore() {
       if (this.searchQuery) {
-        this.searchContent(this.searchQuery, ++this.requestOffset);
-      } else this.getTrends(++this.requestOffset);
-      W.analytics("LOAD_MORE_CLICK")
-    }
-  }
-};
+        this.searchContent(this.searchQuery, ++this.requestOffset)
+      } else this.getTrends(++this.requestOffset)
+      W.analytics('LOAD_MORE_CLICK')
+    },
+  },
+}
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Didact+Gothic");
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
 
 body {
   margin: 0px;

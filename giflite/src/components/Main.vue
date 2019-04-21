@@ -17,56 +17,56 @@
 </template>
 
 <script>
-import Gif from "./Gif";
-import { calculateScale } from "./../helper/functions/helperFunctions";
+import Gif from './Gif'
+import { calculateScale } from './../helper/functions/helperFunctions'
 
 export default {
   props: {
     gifs: {
       Type: Array,
-      required: true
+      required: true,
     },
     sendToChat: Function,
     changeUserLikes: Function,
-    loadMore: Function
+    loadMore: Function,
   },
 
   data() {
     return {
       ratios: {},
-      showLoadMoreButton: false
-    };
+      showLoadMoreButton: false,
+    }
   },
 
   components: {
-    Gif
+    Gif,
   },
 
   mounted() {
-    this.calculateRatios();
+    this.calculateRatios()
   },
 
   watch: {
     gifs() {
-      this.calculateRatios();
-    }
+      this.calculateRatios()
+    },
   },
   updated() {
-    this.showLoadMoreButton = this.$refs["mainGifsPanel"].clientHeight > 400;
+    this.showLoadMoreButton = this.$refs['mainGifsPanel'].clientHeight > 400
   },
 
   computed: {
     filteredGifs() {
-      return this.gifs.filter(gif => gif.smallUrl !== "");
-    }
+      return this.gifs.filter(gif => gif.smallUrl !== '')
+    },
   },
   methods: {
     calculateRatios() {
-      const gifsWidth = this.filteredGifs.map(({ width }) => parseInt(width));
-      this.ratios = calculateScale(gifsWidth);
-    }
-  }
-};
+      const gifsWidth = this.filteredGifs.map(({ width }) => parseInt(width))
+      this.ratios = calculateScale(gifsWidth)
+    },
+  },
+}
 </script>
 
 

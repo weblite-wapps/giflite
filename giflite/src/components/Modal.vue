@@ -53,34 +53,34 @@
 </template>
 
 <script>
-import * as R from "ramda";
-
+import * as R from 'ramda'
+import config from '../config.js'
 export default {
   props: {
     url: Object,
     changeUserLikes: Function,
     sendToChat: Function,
     parent: String,
-    expand: Function
+    expand: Function,
   },
 
   data() {
     return {
-      play: true
-    };
+      play: true,
+    }
   },
 
   methods: {
-    nothing() {}
+    nothing() {},
   },
   computed: {
     imgTagUrl() {
-      return `https://giflite.herokuapp.com/load/content?url=${
-        this.url[this.play ? "smallUrl" : "smallImage"]
-      }`;
-    }
-  }
-};
+      return `${config.server}/load/content?url=${
+        this.url[this.play ? 'smallUrl' : 'smallImage']
+      }`
+    },
+  },
+}
 </script>
 
 <style scoped>

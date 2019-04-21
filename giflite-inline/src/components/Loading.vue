@@ -21,7 +21,8 @@
   animation: spBars 1s infinite linear;
 }
 
-.sp-bars:after, .sp-bars:before {
+.sp-bars:after,
+.sp-bars:before {
   content: '';
   position: absolute;
   width: inherit;

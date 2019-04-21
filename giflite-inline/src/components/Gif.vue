@@ -4,58 +4,58 @@
       <img :style="style" v-on:click="toggleShow" class="gif" :src="gifurl" alt="image place">
       <i class="fa fa-bookmark save-btn" v-on:click="addToFavourites"/>
     </template>
-    <Loading v-else />
+    <Loading v-else/>
   </div>
 </template>
 
 <script>
-import Loading from "./Loading";
-import { calculateScales } from "./../helper/helperFunctions";
-const R = require("ramda");
+import Loading from './Loading'
+import { calculateScales } from './../helper/helperFunctions'
+const R = require('ramda')
 
 export default {
-  name: "Gif",
+  name: 'Gif',
 
   data() {
     return {
-      gifurl: "",
-      play: true
-    };
+      gifurl: '',
+      play: true,
+    }
   },
 
   components: {
-    Loading
+    Loading,
   },
 
   props: {
     gifInfos: Object,
-    addToFavourites: Function
+    addToFavourites: Function,
   },
 
   computed: {
     style() {
-      const { width } = this.gifInfos;
-      return `width: ${calculateScales({ width }) * width}px;`;
-    }
+      const { width } = this.gifInfos
+      return `width: ${calculateScales({ width }) * width}px;`
+    },
   },
 
   watch: {
     gifInfos() {
       this.gifurl = `https://giflite.herokuapp.com/load/content?url=${
         this.gifInfos.bigUrl
-      }`;
-    }
+      }`
+    },
   },
 
   methods: {
     toggleShow() {
-      this.play = !this.play;
+      this.play = !this.play
       this.gifurl = `https://giflite.herokuapp.com/load/content?url=${
         this.play ? this.gifInfos.bigUrl : this.gifInfos.bigImage
-      }`;
-    }
-  }
-};
+      }`
+    },
+  },
+}
 </script>
 
 <style scoped>

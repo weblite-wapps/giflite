@@ -21,7 +21,7 @@
             <i class="fa fa-bookmark fa-lg"/>
           </span>
         </abbr>
-        
+
         <abbr title="Home">
           <span v-if="page === 'favourites'" class="icon">
             <i class="fa fa-home fa-lg"/>
@@ -42,7 +42,7 @@
 
 <script>
 import debounce from 'debounce'
-const { W } = window;
+const { W } = window
 
 export default {
   name: 'Header',
@@ -71,7 +71,7 @@ export default {
 
     toggleSearch() {
       this.isSearching = !this.isSearching
-      W.analytics("SEARCH_CLICK")
+      W.analytics('SEARCH_CLICK')
     },
   },
 
@@ -89,8 +89,12 @@ export default {
 
 <style scoped>
 .header {
-  background: rgb(208,64,202);
-  background: linear-gradient(90deg, rgba(208,64,202,1) 0%, rgba(0,192,255,1) 100%);
+  background: rgb(208, 64, 202);
+  background: linear-gradient(
+    90deg,
+    rgba(208, 64, 202, 1) 0%,
+    rgba(0, 192, 255, 1) 100%
+  );
 }
 
 .logo {
@@ -113,7 +117,7 @@ export default {
   font-family: 'Didact Gothic', sans-serif;
   letter-spacing: 2px;
   font-size: 28px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-left: 12.5px;
   font-weight: bold;
 }
@@ -131,7 +135,6 @@ export default {
   justify-self: stretch;
   align-self: stretch;
   grid-template-areas: 'logo bookmark search';
-  
 }
 
 .container-1 {
@@ -147,7 +150,7 @@ export default {
   margin-left: 6px;
   margin-top: 16px;
   z-index: 1;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .box input:focus,
@@ -163,18 +166,18 @@ export default {
   border: none;
   font-size: 18px;
   display: absolute;
-  color: #FFFFFF;
+  color: #ffffff;
   padding-left: 15px;
   z-index: 10;
 }
 
 .box input::placeholder {
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 0.33;
 }
 
 .container-2 .icon {
-  color: #FFFFFF;
+  color: #ffffff;
   position: relative;
   top: 30%;
   margin-left: 10px;
@@ -183,13 +186,13 @@ export default {
 .container-2 .icon img {
   width: 19px;
   height: 21px;
-} 
-
-.icon:hover, .icon:active {
-  color: #CC45CC;
-  transition: color ease 0.5s;
 }
 
+.icon:hover,
+.icon:active {
+  color: #cc45cc;
+  transition: color ease 0.5s;
+}
 
 .container-2 {
   grid-area: bookmark;
