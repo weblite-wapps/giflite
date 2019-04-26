@@ -11,4 +11,4 @@ Database.connect('giflite_db')
 app.use(bodyParser.json())
 app.use('/', router)
 
-app.listen(process.env.PORT || 3095)
+app.listen(process.env.PORT || 4180)

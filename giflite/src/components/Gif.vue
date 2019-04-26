@@ -32,6 +32,8 @@
 <script>
 import Slider from './Slider.vue'
 import Modal from './Modal.vue'
+import config from '../config'
+const { server } = config
 
 export default {
   name: 'Gif',
@@ -72,7 +74,7 @@ export default {
       }
     },
     imgTagUrl() {
-      return `https://giflite.herokuapp.com/load/content?url=${
+      return `${server}/load/content?url=${
         this.url[this.downloaded ? 'smallUrl' : 'smallImage']
       }`
     },

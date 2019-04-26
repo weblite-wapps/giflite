@@ -57,6 +57,8 @@
 
 <script>
 import * as R from 'ramda'
+import config from '../config'
+const { server } = config
 
 export default {
   props: {
@@ -78,7 +80,7 @@ export default {
   },
   computed: {
     imgTagUrl() {
-      return `https://giflite.herokuapp.com/load/content?url=${
+      return `${server}/load/content?url=${
         this.url[this.play ? 'smallUrl' : 'smallImage']
       }`
     },
