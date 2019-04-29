@@ -2,7 +2,7 @@
   <div id="app">
     <Header :page="page" :searchContent="searchContent" @changePage="changePage"/>
     <div class="content" v-if="searchedGifs.length || favouriteGifs.length">
-      <Main 
+      <Main
         v-if="page === 'main'"
         :gifs="searchedGifs"
         :sendToChat="sendToChat"
@@ -18,7 +18,7 @@
         :changeUserLikes="changeUserLikes"
       />
     </div>
-    <Loading v-else />
+    <Loading v-else/>
   </div>
 </template>
 
@@ -85,12 +85,17 @@ export default {
       } else this.getTrends()
     },
 
-    sendToChat({ id, wisId }) {
+    sendToChat({ gifId, wisId, width }) {
       W.sendMessageToCurrentChat('wapp', {
         wappId: '5c4c39afe50e46486b155fc9',
         wisId,
-        customize: { id },
+        customize: {
+          gifId,
+        },
+        height: parseInt((100 * 320) / parseInt(width)),
+        width: 320,
       })
+      W.analytics('SEND_TO_CHAT', { from: this.page })
     },
 
     changeUserLikes(info) {
@@ -98,6 +103,7 @@ export default {
       if (info.action === 'dislike') {
         this.favouriteGifs = removeGif(info.gifId, this.favouriteGifs)
       }
+      W.analytics(info.action === 'dislike' ? 'UN_BOOKMARK' : 'BOOKMARK')
     },
 
     getFavourites() {
@@ -108,12 +114,14 @@ export default {
 
     changePage(event) {
       this.page = event
+      W.analytics('CHANGE_PAGE', { to: this.page })
     },
 
     loadMore() {
       if (this.searchQuery) {
         this.searchContent(this.searchQuery, ++this.requestOffset)
       } else this.getTrends(++this.requestOffset)
+      W.analytics('LOAD_MORE_CLICK')
     },
   },
 }

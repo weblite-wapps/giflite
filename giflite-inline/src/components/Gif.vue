@@ -1,11 +1,11 @@
 <template>
   <div class="gif-card">
-      <template v-if="!!gifurl">
-        <img :style="style" v-on:click="toggleShow" class="gif" :src="gifurl" alt="image place">
-        <i class="fa fa-bookmark save-btn" v-on:click="addToFavourites"/>
-      </template>
-      <Loading v-else />
-    </div>
+    <template v-if="!!gifurl">
+      <img :style="style" v-on:click="toggleShow" class="gif" :src="gifurl" alt="image place">
+      <i class="fa fa-bookmark save-btn" v-on:click="addToFavourites"/>
+    </template>
+    <Loading v-else/>
+  </div>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       gifurl: '',
-      play: true, 
+      play: true,
     }
   },
 
@@ -63,25 +63,28 @@ export default {
 
 <style scoped>
 .gif-card {
-  width: 350px;
-  height: 200px;
+  margin: 0px;
+  width: 320px;
+  height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   background-color: black;
+  overflow: hidden;
 }
 
 .save-btn {
   background-color: #2b303b;
   position: fixed;
   box-sizing: content-box;
-  top: 165px;
+  bottom: 10px;
   left: 10px;
   border: 5px solid #2b303b;
   border-radius: 8px;
-  color: #4f5b66;
+  color: white;
+  /* color: black; */
 }
 
 .save-btn:active {

@@ -6,12 +6,10 @@
   "creator": false,
   "inline": true,
   "shareDB": false,
-  "width": 350, 
-  "height": 200,
   "userInfo": true,
   "servIndexes": {
     "inline": "index",
     "main": "index"
   },
-  "version": "0.1.1"
+  "version": "0.1.3"
 }

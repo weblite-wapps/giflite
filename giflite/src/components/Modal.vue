@@ -37,12 +37,9 @@
                     <img src="../assets/unbookmark.png">
                   </button>
                 </abbr>
-                
+
                 <abbr title="Send in chat">
-                  <button
-                    class="send icon"
-                    @click="sendToChat( {id: url.gifId, wisId: url.wisId ? url.wisId: '' })"
-                  >
+                  <button class="send icon" @click="sendToChat(url)">
                     <img src="../assets/send.svg">
                   </button>
                 </abbr>
@@ -177,11 +174,13 @@ export default {
   border: none;
 }
 
-.bookmark:hover, .bookmark:active,
-.send:hover, .send:active,
-.unbookmark:hover, .unbookmark:active
-.modal-default-button:hover, .modal-default-button:active
-{
+.bookmark:hover,
+.bookmark:active,
+.send:hover,
+.send:active,
+.unbookmark:hover,
+.unbookmark:active .modal-default-button:hover,
+.modal-default-button:active {
   opacity: 0.75;
   transition: opacity ease 0.5s;
 }

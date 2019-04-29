@@ -11,7 +11,7 @@
         parent="Main"
       />
     </div>
-    
+
     <button class="load-more" v-if="showLoadMoreButton" @click="loadMore">Load More</button>
   </div>
 </template>
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     calculateRatios() {
-      const gifsWidth = this.gifs.map(({ width }) => parseInt(width))
+      const gifsWidth = this.filteredGifs.map(({ width }) => parseInt(width))
       this.ratios = calculateScale(gifsWidth)
     },
   },
@@ -87,8 +87,12 @@ export default {
   margin-right: 5px;
   height: 50px;
   min-width: 100px;
-  background: rgb(208,64,202);
-  background: linear-gradient(90deg, rgba(208,64,202,1) 0%, rgba(0,192,255,1) 100%);
+  background: rgb(208, 64, 202);
+  background: linear-gradient(
+    90deg,
+    rgba(208, 64, 202, 1) 0%,
+    rgba(0, 192, 255, 1) 100%
+  );
   border: none;
   outline: none;
   color: white;
@@ -101,8 +105,12 @@ export default {
   cursor: pointer;
 }
 .load-more:hover {
-  background: rgb(208,64,202);
-  background: linear-gradient(-90deg, rgba(208,64,202,1) 0%, rgba(0,192,255,1) 100%);
+  background: rgb(208, 64, 202);
+  background: linear-gradient(
+    -90deg,
+    rgba(208, 64, 202, 1) 0%,
+    rgba(0, 192, 255, 1) 100%
+  );
   box-shadow: 0 4px 1px #2e7a94;
   border-bottom: 2px solid #2a7088;
   transition: all 0.1s ease-in;

@@ -39,7 +39,13 @@ export default {
     },
 
     addToFavourites() {
-      addToFav({ gifId: this.gifId, userId: this.userId, wisId: this.wisId })
+      addToFav({
+        gifId: this.gifId,
+        userId: this.userId,
+        wisId: this.wisId,
+        action: 'like',
+      })
+      W.analytics('BOOKMARK')
     },
   },
 }
@@ -48,5 +54,6 @@ export default {
 <style>
 body {
   margin: 0px;
+  overflow: hidden;
 }
 </style>

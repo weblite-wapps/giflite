@@ -1,32 +1,32 @@
 <template>
   <div class="gif">
-      <div class="card" @mouseover="mouseOver" @mouseleave="mouseLeave" @click="download">
-        <Slider
-          :class="{ isShowing: downloaded, hidden: !downloaded }"
-          class="slider"
-          v-if="downloaded && showSlider"
-          :sendToChat="sendToChat" 
-          :changeUserLikes="changeUserLikes"
-          :expand="expand"
-          :url="url"
-          :parent="parent"
-        />
-        <span class="download-icon" :class="{ isShowing: !downloaded, hidden: downloaded }">
-          <img src="../assets/download.png">
-        </span>
-        <div class="imgDiv" :style="widthStyle">
-          <img :src="imgTagUrl" alt="image place" :style="gifStyle">
-        </div>
-
-        <Modal
-          v-if="showModal"
-          :url="url"
-          :sendToChat="sendToChat"
-          :changeUserLikes="changeUserLikes"
-          :parent="parent"
-          @close="showModal = false"
-        ></Modal>
+    <div class="card" @mouseover="mouseOver" @mouseleave="mouseLeave" @click="download">
+      <Slider
+        :class="{ isShowing: downloaded, hidden: !downloaded }"
+        class="slider"
+        v-if="downloaded && showSlider"
+        :sendToChat="sendToChat"
+        :changeUserLikes="changeUserLikes"
+        :expand="expand"
+        :url="url"
+        :parent="parent"
+      />
+      <span class="download-icon" :class="{ isShowing: !downloaded, hidden: downloaded }">
+        <img src="../assets/download.png">
+      </span>
+      <div class="imgDiv" :style="widthStyle">
+        <img :src="imgTagUrl" :style="gifStyle">
       </div>
+
+      <Modal
+        v-if="showModal"
+        :url="url"
+        :sendToChat="sendToChat"
+        :changeUserLikes="changeUserLikes"
+        :parent="parent"
+        @close="showModal = false"
+      ></Modal>
+    </div>
   </div>
 </template>
 <script>
@@ -34,6 +34,7 @@ import Slider from './Slider.vue'
 import Modal from './Modal.vue'
 import config from '../config'
 const { server } = config
+const { W } = window
 
 export default {
   name: 'Gif',
@@ -89,9 +90,11 @@ export default {
     },
     download() {
       this.downloaded = true
+      W.analytics('DOWNLOAD_CLICK')
     },
     expand() {
       this.showModal = true
+      W.analytics('PREVIEW_CLICK')
     },
   },
 }

@@ -15,6 +15,7 @@
 .sp-bars {
   position: relative;
   width: 10px;
+  margin: auto;
   border: 1px rgb(208,64,202) solid;
   background: rgb(208,64,202);
   background: linear-gradient(90deg, rgba(208,64,202,1) 0%, rgba(0,192,255,1) 100%);
@@ -97,3 +98,4 @@
   }
 }
 </style>
+
