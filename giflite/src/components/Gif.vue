@@ -32,7 +32,8 @@
 <script>
 import Slider from './Slider.vue'
 import Modal from './Modal.vue'
-import config from '../config.js'
+import config from '../config'
+const { server } = config
 const { W } = window
 
 export default {
@@ -74,7 +75,7 @@ export default {
       }
     },
     imgTagUrl() {
-      return `${config.server}/load/content?url=${
+      return `${server}/load/content?url=${
         this.url[this.downloaded ? 'smallUrl' : 'smallImage']
       }`
     },

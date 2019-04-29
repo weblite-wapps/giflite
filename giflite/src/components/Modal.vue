@@ -54,7 +54,9 @@
 
 <script>
 import * as R from 'ramda'
-import config from '../config.js'
+import config from '../config'
+const { server } = config
+
 export default {
   props: {
     url: Object,
@@ -75,7 +77,7 @@ export default {
   },
   computed: {
     imgTagUrl() {
-      return `${config.server}/load/content?url=${
+      return `${server}/load/content?url=${
         this.url[this.play ? 'smallUrl' : 'smallImage']
       }`
     },

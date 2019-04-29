@@ -11,6 +11,9 @@
 <script>
 import Loading from './Loading'
 import { calculateScales } from './../helper/helperFunctions'
+import config from '../config'
+const { server } = config
+
 const R = require('ramda')
 
 export default {
@@ -41,7 +44,7 @@ export default {
 
   watch: {
     gifInfos() {
-      this.gifurl = `https://giflite.herokuapp.com/load/content?url=${
+      this.gifurl = `${server}/load/content?url=${
         this.gifInfos.bigUrl
       }`
     },
@@ -50,7 +53,7 @@ export default {
   methods: {
     toggleShow() {
       this.play = !this.play
-      this.gifurl = `https://giflite.herokuapp.com/load/content?url=${
+      this.gifurl = `${server}/load/content?url=${
         this.play ? this.gifInfos.bigUrl : this.gifInfos.bigImage
       }`
     },
