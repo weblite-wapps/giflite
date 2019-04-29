@@ -25,23 +25,23 @@
 
 <script>
 export default {
-  name: "Slider",
+  name: 'Slider',
   props: {
     url: Object,
     changeUserLikes: Function,
     sendToChat: Function,
     parent: String,
-    expand: Function
+    expand: Function,
   },
   computed: {
     saveCircleStyle() {
-      return `display: ${this.parent === "Favourites" ? "none" : "inline"}`;
+      return `display: ${this.parent === 'Favourites' ? 'none' : 'inline'}`
     },
     isLikeButton() {
-      return this.parent === "Favourites";
-    }
-  }
-};
+      return this.parent === 'Favourites'
+    },
+  },
+}
 </script>
 
 <style scoped>

@@ -33,62 +33,64 @@
 <script>
 // components
 import Slider from "./Slider.vue";
+import config from '../config'
 // lazy loading
 const Modal = () => import('./Modal.vue')
 // const
-const { W } = window;
+const { server } = config
+const { W } = window
 
 export default {
-  name: "Gif",
+  name: 'Gif',
 
   props: {
     url: Object,
     changeUserLikes: Function,
     sendToChat: Function,
     parent: String,
-    scale: Number
+    scale: Number,
   },
 
   data() {
     return {
       showSlider: false,
       downloaded: false,
-      showModal: false
-    };
+      showModal: false,
+    }
   },
 
   components: {
     Slider,
-    Modal
+    Modal,
   },
 
   computed: {
     widthStyle() {
-      var width = this.scale * parseInt(this.url.width);
-      return `height: 120px; width: ${width - 2}px;`;
+      var width = this.scale * parseInt(this.url.width)
+      return `height: 120px; width: ${width - 2}px;`
     },
     gifStyle() {
-      var height = this.scale * parseInt(this.url.height);
-      var width = this.scale * parseInt(this.url.width);
+      var height = this.scale * parseInt(this.url.height)
+      var width = this.scale * parseInt(this.url.width)
       if (height > 120) {
-        return `height: ${height}px; width: ${width}px;`;
+        return `height: ${height}px; width: ${width}px;`
       } else {
-        return `height: 120px; width: ${width}px;`;
+        return `height: 120px; width: ${width}px;`
       }
     },
     imgTagUrl() {
-      return `https://giflite.herokuapp.com/load/content?url=${
-        this.url[this.downloaded ? "smallUrl" : "smallImage"]
-      }`;
-    }
+      return `${server}/load/content?url=${
+        this.url[this.downloaded ? 'smallUrl' : 'smallImage']
+      }`
+    },
   },
 
   methods: {
     mouseOver() {
-      this.showSlider = true;
+      this.showSlider = true
     },
     mouseLeave() {
-      this.showSlider = false;
+      this.showSlider = false
     },
     download() {
       this.downloaded = true;
@@ -104,7 +106,7 @@ export default {
 <style scoped>
 .gif {
   display: flex;
-  grid-template-areas: "a b", "c d";
+  grid-template-areas: 'a b', 'c d';
   position: relative;
   height: 120px;
   /* margin-inline-start: 3px; */
