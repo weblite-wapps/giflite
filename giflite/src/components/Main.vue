@@ -17,8 +17,11 @@
 </template>
 
 <script>
-import Gif from './Gif'
-import { calculateScale } from './../helper/functions/helperFunctions'
+// helpers
+import { calculateScale } from "./../helper/functions/helperFunctions";
+// lazy loading
+const Gif = () => import('./Gif')
+
 
 export default {
   props: {

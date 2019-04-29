@@ -11,6 +11,7 @@
         :url="url"
         :parent="parent"
       />
+      
       <span class="download-icon" :class="{ isShowing: !downloaded, hidden: downloaded }">
         <img src="../assets/download.png">
       </span>
@@ -30,9 +31,12 @@
   </div>
 </template>
 <script>
-import Slider from './Slider.vue'
-import Modal from './Modal.vue'
+// components
+import Slider from "./Slider.vue";
 import config from '../config'
+// lazy loading
+const Modal = () => import('./Modal.vue')
+// const
 const { server } = config
 const { W } = window
 
@@ -89,15 +93,15 @@ export default {
       this.showSlider = false
     },
     download() {
-      this.downloaded = true
-      W.analytics('DOWNLOAD_CLICK')
+      this.downloaded = true;
+      W && W.analytics("DOWNLOAD_CLICK")
     },
     expand() {
-      this.showModal = true
-      W.analytics('PREVIEW_CLICK')
-    },
-  },
-}
+      this.showModal = true;
+      W && W.analytics("PREVIEW_CLICK")
+    }
+  }
+};
 </script>
 <style scoped>
 .gif {

@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import * as R from 'ramda'
 import config from '../config'
+
 const { server } = config
 
 export default {
