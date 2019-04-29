@@ -1,47 +1,38 @@
 <template>
-  <div class="header">
-    <div class="box" :style="someStyle">
-      <input
-        v-if="isSearching"
-        autofocus
-        class="input"
-        @input="debounceInput"
-        type="search"
-        placeholder="Enter Key Word..."
-      >
+  <div class="container">
+    <div class="left-side">
+      <Input v-if="isSearching" :searchContent="searchContent" />
 
-      <div v-if="!isSearching" class="logo">
-        <img class="logo-img" src="../assets/logo.png" alt="Gif Lite">
+      <div class="logo-container" v-if="!isSearching">
+        <img src="../assets/logo.png" alt="Gif Lite">
         <p class="logo-text">GIFLITE</p>
       </div>
+    </div>
 
-      <div class="container-2" v-if="!isSearching" @click="changePage">
-        <abbr title="Bookmark">
-          <span v-if="page === 'main'" class="icon">
-            <i class="fa fa-bookmark fa-lg"/>
-          </span>
-        </abbr>
-        
-        <abbr title="Home">
-          <span v-if="page === 'favourites'" class="icon">
-            <i class="fa fa-home fa-lg"/>
-          </span>
-        </abbr>
-      </div>
-
-      <div class="container-1" @click="toggleSearch">
-        <abbr title="Search">
-          <span class="search-icon icon">
-            <i class="fa fa-search fa-lg"/>
-          </span>
-        </abbr>
-      </div>
+    <div class="right-side">
+      <img
+        class="button"
+        v-if="!isSearching && page === 'main'"
+        src="../assets/bookmark.svg"
+        @click="changePage"
+      />
+      <img
+        class="button"
+        v-if="!isSearching && page === 'favourites'"
+        src="../assets/home.svg" 
+        @click="changePage"
+      />
+      <img
+        class="button search"
+        src="../assets/search.svg"
+        @click="toggleSearch"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import debounce from 'debounce'
+import Input from "./Input" 
 const { W } = window;
 
 export default {
@@ -52,6 +43,10 @@ export default {
     page: String,
   },
 
+  components: {
+    Input,
+  },
+
   data() {
     return {
       isSearching: false,
@@ -59,11 +54,6 @@ export default {
   },
 
   methods: {
-    debounceInput: debounce(function({ target: { value } }) {
-      this.$emit('changePage', 'main')
-      this.searchContent(value.trim())
-    }, 1000),
-
     changePage() {
       if (this.page === 'main') this.$emit('changePage', 'favourites')
       else this.$emit('changePage', 'main')
@@ -71,7 +61,7 @@ export default {
 
     toggleSearch() {
       this.isSearching = !this.isSearching
-      W.analytics("SEARCH_CLICK")
+      W && W.analytics("SEARCH_CLICK")
     },
   },
 
@@ -88,14 +78,19 @@ export default {
 </script>
 
 <style scoped>
-.header {
+.container {
   background: rgb(208,64,202);
   background: linear-gradient(90deg, rgba(208,64,202,1) 0%, rgba(0,192,255,1) 100%);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0px 10px;
 }
 
-.logo {
-  grid-area: logo;
+.left-side {
   display: flex;
+  justify-content: center;
   align-items: center;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -105,8 +100,16 @@ export default {
   user-select: none;
 }
 
-.logo-img {
-  margin-left: 15px;
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .logo-text {
@@ -114,86 +117,44 @@ export default {
   letter-spacing: 2px;
   font-size: 28px;
   color: #FFFFFF;
-  margin-left: 12.5px;
+  margin: 0px 0px 0px 10px;
   font-weight: bold;
 }
 
-/* img {
+img {
   width: 25px;
   height: 25px;
-} */
-
-.box {
-  /* height: 50px; */
-  display: grid;
-  grid-template-columns: auto 40px 40px;
-  grid-template-rows: 50px;
-  justify-self: stretch;
-  align-self: stretch;
-  grid-template-areas: 'logo bookmark search';
-  
 }
 
-.container-1 {
-  vertical-align: middle;
-  white-space: nowrap;
-  position: relative;
-  grid-area: search;
-  cursor: pointer;
-}
-
-.container-1 .search-icon {
-  position: absolute;
-  margin-left: 6px;
-  margin-top: 16px;
-  z-index: 1;
-  color: #FFFFFF;
-}
-
-.box input:focus,
-.box input:active {
-  outline: none;
-}
-
-.box input {
-  margin-top: 10px;
-  width: 300px;
-  height: 30px;
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  display: absolute;
-  color: #FFFFFF;
-  padding-left: 15px;
-  z-index: 10;
-}
-
-.box input::placeholder {
-  color: #FFFFFF;
-  opacity: 0.33;
-}
-
-.container-2 .icon {
-  color: #FFFFFF;
-  position: relative;
-  top: 30%;
-  margin-left: 10px;
-}
-
-.container-2 .icon img {
-  width: 19px;
-  height: 21px;
-} 
-
-.icon:hover, .icon:active {
+img:hover, img:active {
   color: #CC45CC;
   transition: color ease 0.5s;
 }
 
-
-.container-2 {
-  grid-area: bookmark;
+.button {
   cursor: pointer;
+}
+
+.search {
+  padding-left: 5px;
+}
+
+input:focus,
+input:active {
+  outline: none;
+}
+
+input {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #FFFFFF;
+  width: 300px;
+}
+
+input::placeholder {
+  color: #FFFFFF;
+  opacity: 0.33;
 }
 </style>
 

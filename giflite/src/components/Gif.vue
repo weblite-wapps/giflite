@@ -88,11 +88,11 @@ export default {
     },
     download() {
       this.downloaded = true;
-      W.analytics("DOWNLOAD_CLICK")
+      W && W.analytics("DOWNLOAD_CLICK")
     },
     expand() {
       this.showModal = true;
-      W.analytics("PREVIEW_CLICK")
+      W && W.analytics("PREVIEW_CLICK")
     }
   }
 };

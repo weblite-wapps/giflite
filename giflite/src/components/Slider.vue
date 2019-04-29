@@ -5,7 +5,7 @@
     </div>
 
     <div class="box expand-box button" @click="expand">
-      <img class="expand-icon button__inner" src="../assets/expand.svg">
+      <img class="expand-icon" src="../assets/expand.svg">
     </div>
 
     <div
@@ -93,6 +93,7 @@ export default {
 .expand-icon {
   width: 24px;
   height: 24px;
+  fill: green;
 }
 
 .slider {
