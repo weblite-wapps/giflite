@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// modules
 import debounce from 'debounce'
 
 export default {

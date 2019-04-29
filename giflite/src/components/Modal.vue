@@ -53,6 +53,7 @@
 </template>
 
 <script>
+// modules
 import * as R from "ramda";
 
 export default {

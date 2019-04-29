@@ -32,8 +32,10 @@
 </template>
 
 <script>
-import Input from "./Input" 
-const { W } = window;
+// lazy loading
+const Input = () => import("./Input")
+
+const { W } = window
 
 export default {
   name: 'Header',
@@ -62,16 +64,6 @@ export default {
     toggleSearch() {
       this.isSearching = !this.isSearching
       W && W.analytics("SEARCH_CLICK")
-    },
-  },
-
-  computed: {
-    someStyle() {
-      if (this.isSearching) {
-        return `grid-template-columns: auto 0px 40px;`
-      } else {
-        return `grid-template-columns: auto 40px 40px;`
-      }
     },
   },
 }

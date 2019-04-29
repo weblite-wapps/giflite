@@ -13,8 +13,10 @@
 </template>
 
 <script>
-import Gif from './Gif'
+// helpers
 import { calculateScale } from './../helper/functions/helperFunctions'
+// lazy loading
+const Gif = () => import('./Gif')
 
 export default {
   data() {

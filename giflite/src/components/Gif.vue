@@ -11,6 +11,7 @@
         :url="url"
         :parent="parent"
       />
+      
       <span class="download-icon" :class="{ isShowing: !downloaded, hidden: downloaded }">
         <img src="../assets/download.png">
       </span>
@@ -30,8 +31,11 @@
   </div>
 </template>
 <script>
+// components
 import Slider from "./Slider.vue";
-import Modal from "./Modal.vue";
+// lazy loading
+const Modal = () => import('./Modal.vue')
+// const
 const { W } = window;
 
 export default {

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header :page="page" :searchContent="searchContent" @changePage="changePage"/>
+
     <div class="content" v-if="searchedGifs.length || favouriteGifs.length">
       <Main
         v-if="page === 'main'"
@@ -18,24 +19,31 @@
         :changeUserLikes="changeUserLikes"
       />
     </div>
+
     <Loading v-else/>
   </div>
 </template>
 
 <script>
+// modules
 import * as R from "ramda";
-import webliteHandler from "./helper/functions/weblite.api";
+// helpers
 import {
   getTrendGifs,
   getSearchGifs,
   changeLikes,
   getAllFavourites
 } from "./helper/functions/requestHandler.js";
+import webliteHandler from "./helper/functions/weblite.api";
 import { removeGif } from "./helper/functions/helperFunctions";
-import Main from "./components/Main";
-import Favourites from "./components/Favourites";
-import Header from "./components/Header";
+// components
 import Loading from "./components/Loading";
+// lazy loading
+const Header = () => import('./components/Header')
+const Main = () => import('./components/Main')
+const Favourites = () => import('./components/Favourites')
+
+
 
 const { W } = window;
 export default {
@@ -135,7 +143,7 @@ body {
 }
 
 #app {
-  width: 350px;
+  width: 100%;
   background-color: white;
   height: 100vh;
   overflow: hidden;
