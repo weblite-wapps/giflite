@@ -26,26 +26,24 @@
 
 <script>
 // modules
-import * as R from "ramda";
+import * as R from 'ramda'
 // helpers
 import {
   getTrendGifs,
   getSearchGifs,
   changeLikes,
-  getAllFavourites
-} from "./helper/functions/requestHandler.js";
-import webliteHandler from "./helper/functions/weblite.api";
-import { removeGif } from "./helper/functions/helperFunctions";
+  getAllFavourites,
+} from './helper/functions/requestHandler.js'
+import webliteHandler from './helper/functions/weblite.api'
+import { removeGif } from './helper/functions/helperFunctions'
 // components
-import Loading from "./components/Loading";
+import Loading from './components/Loading'
 // lazy loading
 const Header = () => import('./components/Header')
 const Main = () => import('./components/Main')
 const Favourites = () => import('./components/Favourites')
 
-
-
-const { W } = window;
+const { W } = window
 export default {
   name: 'app',
 
@@ -111,7 +109,7 @@ export default {
       if (info.action === 'dislike') {
         this.favouriteGifs = removeGif(info.gifId, this.favouriteGifs)
       }
-      W && W.analytics(info.action === "dislike" ? "UN_BOOKMARK": "BOOKMARK")
+      W && W.analytics(info.action === 'dislike' ? 'UN_BOOKMARK' : 'BOOKMARK')
     },
 
     getFavourites() {
@@ -121,18 +119,18 @@ export default {
     },
 
     changePage(event) {
-      this.page = event;
-      W && W.analytics("CHANGE_PAGE", { to: this.page })
+      this.page = event
+      W && W.analytics('CHANGE_PAGE', { to: this.page })
     },
 
     loadMore() {
       if (this.searchQuery) {
-        this.searchContent(this.searchQuery, ++this.requestOffset);
-      } else this.getTrends(++this.requestOffset);
-      W && W.analytics("LOAD_MORE_CLICK")
-    }
-  }
-};
+        this.searchContent(this.searchQuery, ++this.requestOffset)
+      } else this.getTrends(++this.requestOffset)
+      W && W.analytics('LOAD_MORE_CLICK')
+    },
+  },
+}
 </script>
 
 <style>
