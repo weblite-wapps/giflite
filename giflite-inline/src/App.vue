@@ -27,14 +27,6 @@ export default {
   created() {
     if (W) webliteHandler(this)
     else this.init()
-    console.log('hello')
-  },
-
-  updated() {
-    console.log('wisid ', this.wisId)
-    console.log('gifInfos ', this.gifInfos)
-    console.log('gifId ', this.gifId)
-    console.log('userId ', this.userId)
   },
 
   methods: {
