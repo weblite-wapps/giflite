@@ -5,7 +5,6 @@
 </template>
 
 <script>
-const R = require('ramda')
 import Gif from './components/Gif'
 import { addToFav, getSingleGifData, saveToDb } from './helper/requestHandler'
 import webliteHandler from './helper/weblite.api'
