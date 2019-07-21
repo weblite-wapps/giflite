@@ -7,13 +7,15 @@
             <div class="modal-header">
               <slot name="header">
                 <button class="modal-default-button" @click="$emit('close')">
-                  <img src="../assets/close.png" alt="X">
+                  <img src="../assets/close.png" alt="X" />
                 </button>
               </slot>
             </div>
 
             <div class="modal-body">
-              <img :src="imgTagUrl" class="gif" alt>
+              <div id="gif-wrapper">
+                <img :src="imgTagUrl" class="gif" alt />
+              </div>
             </div>
 
             <div class="modal-footer">
@@ -24,7 +26,7 @@
                     class="bookmark icon"
                     @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
                   >
-                    <img src="../assets/bookmark.svg">
+                    <img src="../assets/bookmark.svg" />
                   </button>
                 </abbr>
 
@@ -34,13 +36,13 @@
                     class="unbookmark icon"
                     @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
                   >
-                    <img src="../assets/unbookmark.png">
+                    <img src="../assets/unbookmark.png" />
                   </button>
                 </abbr>
 
                 <abbr title="Send in chat">
                   <button class="send icon" @click="sendToChat(url)">
-                    <img src="../assets/send.svg">
+                    <img src="../assets/send.svg" />
                   </button>
                 </abbr>
               </slot>
@@ -86,8 +88,15 @@ export default {
 </script>
 
 <style scoped>
+#gif-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 0% 15%;
+  align-content: center;
+}
+
 .gif {
-  width: 340px;
+  width: 70%;
 }
 
 .icon {
@@ -106,7 +115,7 @@ export default {
   z-index: 9998;
   top: 0;
   left: 0;
-  width: 340px;
+  width: 100%;
   height: 100%;
   /* filter: blur(8px); */
   background-color: rgba(0, 0, 0, 0.7);
@@ -121,7 +130,7 @@ export default {
 }
 
 .modal-container {
-  width: 340px;
+  width: 100%;
   margin: 0px auto;
   /* padding: 20px 30px; */
   /* background-color: #fff; */
