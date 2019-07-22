@@ -59,6 +59,14 @@ import config from '../config'
 
 const { server } = config
 
+var modal = document.getElementsByClassName('modal-mask')
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none'
+  }
+}
+
 export default {
   props: {
     url: Object,
@@ -176,6 +184,8 @@ export default {
   display: block;
   height: 15vmin;
   width: 15vmin;
+  max-width: 70px;
+  max-height: 70px;
   padding: 15px;
   border-radius: 50%;
   display: flex;
@@ -197,6 +207,8 @@ export default {
 .bookmark img {
   width: 6vmin;
   height: 4vmin;
+  max-width: 15px;
+  max-height: 20px;
 }
 
 .send {
@@ -204,6 +216,8 @@ export default {
   display: block;
   height: 15vmin;
   width: 15vmin;
+  max-height: 70px;
+  max-width: 70px;
   padding: 15px;
   border-radius: 50%;
   display: flex;
