@@ -13,12 +13,12 @@
             </div>
 
             <div class="modal-body">
-              <div id="gif-wrapper">
+              <div class="gif-wrapper" @click.self="$emit('close')">
                 <img :src="imgTagUrl" class="gif" alt />
               </div>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" @click="$emit('close')">
               <slot name="footer">
                 <abbr title="Bookmark">
                   <button
@@ -96,7 +96,7 @@ export default {
 </script>
 
 <style scoped>
-#gif-wrapper {
+.gif-wrapper {
   width: 100%;
   height: 100%;
   padding: 0% 15%;
