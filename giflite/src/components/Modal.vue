@@ -174,8 +174,8 @@ export default {
 .bookmark {
   background: #b93ab4;
   display: block;
-  height: 55px;
-  width: 55px;
+  height: 15vmin;
+  width: 15vmin;
   padding: 15px;
   border-radius: 50%;
   display: flex;
@@ -195,15 +195,15 @@ export default {
 }
 
 .bookmark img {
-  width: 25px;
-  height: 20px;
+  width: 6vmin;
+  height: 4vmin;
 }
 
 .send {
   background: #02abe2;
   display: block;
-  height: 55px;
-  width: 55px;
+  height: 15vmin;
+  width: 15vmin;
   padding: 15px;
   border-radius: 50%;
   display: flex;
@@ -212,8 +212,8 @@ export default {
 }
 
 .send img {
-  width: 21px;
-  height: 18px;
+  width: 6vmin;
+  height: 4vmin;
 }
 
 .unbookmark {
