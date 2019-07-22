@@ -18,7 +18,7 @@
               </div>
             </div>
 
-            <div class="modal-footer" @click="$emit('close')">
+            <div class="modal-footer" @click.self="$emit('close')">
               <slot name="footer">
                 <abbr title="Bookmark">
                   <button
@@ -228,6 +228,8 @@ export default {
 .send img {
   width: 6vmin;
   height: 4vmin;
+  max-width: 30px;
+  max-height: 20px;
 }
 
 .unbookmark {
