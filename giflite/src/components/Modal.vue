@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <transition name="modal">
-      <div class="modal-mask">
+      <div class="modal-mask" @click.self="$emit('close')">
         <div class="modal-wrapper" @click.self="$emit('close')">
           <div class="modal-container">
             <div class="modal-header">
@@ -20,10 +20,11 @@
 
             <div class="modal-footer" @click.self="$emit('close')">
               <slot name="footer">
+                <!-- Buttons are here !!! -->
                 <abbr title="Bookmark">
                   <button
                     v-if="parent=== 'Main'"
-                    class="bookmark icon"
+                    class="changeButton bookmark icon"
                     @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
                   >
                     <img src="../assets/bookmark.svg" />
@@ -33,7 +34,7 @@
                 <abbr title="Unbookmark">
                   <button
                     v-if="parent=== 'Favourites'"
-                    class="unbookmark icon"
+                    class="changeButton unbookmark icon"
                     @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
                   >
                     <img src="../assets/unbookmark.png" />
@@ -41,10 +42,11 @@
                 </abbr>
 
                 <abbr title="Send in chat">
-                  <button class="send icon" @click="sendToChat(url)">
+                  <button class="changeButton send icon" @click="sendToChat(url)">
                     <img src="../assets/send.svg" />
                   </button>
                 </abbr>
+                <!-- Buttons end here !!! -->
               </slot>
             </div>
           </div>
@@ -58,14 +60,6 @@
 import config from '../config'
 
 const { server } = config
-
-var modal = document.getElementsByClassName('modal-mask')
-
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = 'none'
-  }
-}
 
 export default {
   props: {
@@ -179,6 +173,21 @@ export default {
   height: 20px;
 }
 
+.changeButton {
+  /* background: #b93ab4; */
+  display: block;
+  height: 15vmin;
+  width: 15vmin;
+  max-width: 70px;
+  max-height: 70px;
+  padding: 15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+
+/*
 .bookmark {
   background: #b93ab4;
   display: block;
@@ -192,13 +201,21 @@ export default {
   justify-content: center;
   border: none;
 }
+*/
 
-.bookmark:hover,
+.bookmark {
+  background: #b93ab4;
+}
+
+/*.bookmark:hover,
 .bookmark:active,
 .send:hover,
 .send:active,
 .unbookmark:hover,
-.unbookmark:active .modal-default-button:hover,
+.unbookmark:active */
+.changeButton:hover,
+.changeButton:active,
+.modal-default-button:hover,
 .modal-default-button:active {
   opacity: 0.75;
   transition: opacity ease 0.5s;
@@ -210,6 +227,7 @@ export default {
   max-width: 15px;
   max-height: 20px;
 }
+/*
 
 .send {
   background: #02abe2;
@@ -224,6 +242,11 @@ export default {
   justify-content: center;
   border: none;
 }
+*/
+
+.send {
+  background: #02abe2;
+}
 
 .send img {
   width: 6vmin;
@@ -231,7 +254,7 @@ export default {
   max-width: 30px;
   max-height: 20px;
 }
-
+/*
 .unbookmark {
   background: #41d36d;
   display: block;
@@ -244,8 +267,16 @@ export default {
   border: none;
 }
 
+*/
+
+.unbookmark {
+  background: #41d36d;
+}
+
 .unbookmark img {
-  width: 20px;
-  height: 24px;
+  width: 6vmin;
+  height: 4vmin;
+  max-width: 15px;
+  max-height: 20px;
 }
 </style>
