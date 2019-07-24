@@ -1,48 +1,52 @@
 <template>
   <div class="main">
     <transition name="modal">
-      <div class="modal-mask">
+      <div class="modal-mask" @click.self="$emit('close')">
         <div class="modal-wrapper" @click.self="$emit('close')">
           <div class="modal-container">
             <div class="modal-header">
               <slot name="header">
                 <button class="modal-default-button" @click="$emit('close')">
-                  <img src="../assets/close.png" alt="X">
+                  <img src="../assets/close.png" alt="X" />
                 </button>
               </slot>
             </div>
 
             <div class="modal-body">
-              <img :src="imgTagUrl" class="gif" alt>
+              <div class="gif-wrapper" @click.self="$emit('close')">
+                <img :src="imgTagUrl" class="gif" alt />
+              </div>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" @click.self="$emit('close')">
               <slot name="footer">
+                <!-- Buttons are here !!! -->
                 <abbr title="Bookmark">
                   <button
                     v-if="parent=== 'Main'"
-                    class="bookmark icon"
+                    class="changeButton bookmark icon"
                     @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'like' })"
                   >
-                    <img src="../assets/bookmark.svg">
+                    <img src="../assets/bookmark.svg" />
                   </button>
                 </abbr>
 
                 <abbr title="Unbookmark">
                   <button
                     v-if="parent=== 'Favourites'"
-                    class="unbookmark icon"
+                    class="changeButton unbookmark icon"
                     @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
                   >
-                    <img src="../assets/unbookmark.png">
+                    <img src="../assets/unbookmark.png" />
                   </button>
                 </abbr>
 
                 <abbr title="Send in chat">
-                  <button class="send icon" @click="sendToChat(url)">
-                    <img src="../assets/send.svg">
+                  <button class="changeButton send icon" @click="sendToChat(url)">
+                    <img src="../assets/send.svg" />
                   </button>
                 </abbr>
+                <!-- Buttons end here !!! -->
               </slot>
             </div>
           </div>
@@ -86,8 +90,15 @@ export default {
 </script>
 
 <style scoped>
+.gif-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 0% 15%;
+  align-content: center;
+}
+
 .gif {
-  width: 340px;
+  width: 70%;
 }
 
 .icon {
@@ -106,7 +117,7 @@ export default {
   z-index: 9998;
   top: 0;
   left: 0;
-  width: 340px;
+  width: 100%;
   height: 100%;
   /* filter: blur(8px); */
   background-color: rgba(0, 0, 0, 0.7);
@@ -121,7 +132,7 @@ export default {
 }
 
 .modal-container {
-  width: 340px;
+  width: 100%;
   margin: 0px auto;
   /* padding: 20px 30px; */
   /* background-color: #fff; */
@@ -162,11 +173,13 @@ export default {
   height: 20px;
 }
 
-.bookmark {
-  background: #b93ab4;
+.changeButton {
+  /* background: #b93ab4; */
   display: block;
-  height: 55px;
-  width: 55px;
+  height: 15vmin;
+  width: 15vmin;
+  max-width: 70px;
+  max-height: 70px;
   padding: 15px;
   border-radius: 50%;
   display: flex;
@@ -174,39 +187,74 @@ export default {
   border: none;
 }
 
-.bookmark:hover,
+/*
+.bookmark {
+  background: #b93ab4;
+  display: block;
+  height: 15vmin;
+  width: 15vmin;
+  max-width: 70px;
+  max-height: 70px;
+  padding: 15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+*/
+
+.bookmark {
+  background: #b93ab4;
+}
+
+/*.bookmark:hover,
 .bookmark:active,
 .send:hover,
 .send:active,
 .unbookmark:hover,
-.unbookmark:active .modal-default-button:hover,
+.unbookmark:active */
+.changeButton:hover,
+.changeButton:active,
+.modal-default-button:hover,
 .modal-default-button:active {
   opacity: 0.75;
   transition: opacity ease 0.5s;
 }
 
 .bookmark img {
-  width: 25px;
-  height: 20px;
+  width: 6vmin;
+  height: 4vmin;
+  max-width: 15px;
+  max-height: 20px;
 }
+/*
 
 .send {
   background: #02abe2;
   display: block;
-  height: 55px;
-  width: 55px;
+  height: 15vmin;
+  width: 15vmin;
+  max-height: 70px;
+  max-width: 70px;
   padding: 15px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   border: none;
 }
+*/
 
-.send img {
-  width: 21px;
-  height: 18px;
+.send {
+  background: #02abe2;
 }
 
+.send img {
+  width: 6vmin;
+  height: 4vmin;
+  max-width: 30px;
+  max-height: 20px;
+}
+/*
 .unbookmark {
   background: #41d36d;
   display: block;
@@ -219,8 +267,16 @@ export default {
   border: none;
 }
 
+*/
+
+.unbookmark {
+  background: #41d36d;
+}
+
 .unbookmark img {
-  width: 20px;
-  height: 24px;
+  width: 6vmin;
+  height: 4vmin;
+  max-width: 15px;
+  max-height: 20px;
 }
 </style>

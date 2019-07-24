@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :page="page" :searchContent="searchContent" @changePage="changePage"/>
+    <Header :page="page" :searchContent="searchContent" @changePage="changePage" />
 
     <div class="content" v-if="searchedGifs.length || favouriteGifs.length">
       <Main
@@ -20,7 +20,7 @@
       />
     </div>
 
-    <Loading v-else/>
+    <Loading v-else />
   </div>
 </template>
 
