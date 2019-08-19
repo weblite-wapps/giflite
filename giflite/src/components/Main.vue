@@ -18,10 +18,11 @@
 
 <script>
 // helpers
-import { calculateScale } from "./../helper/functions/helperFunctions";
+import { calculateScale } from './../helper/functions/helperFunctions'
 // lazy loading
 const Gif = () => import('./Gif')
 
+const width = document.body.clientWidth
 
 export default {
   props: {
@@ -66,7 +67,7 @@ export default {
   methods: {
     calculateRatios() {
       const gifsWidth = this.filteredGifs.map(({ width }) => parseInt(width))
-      this.ratios = calculateScale(gifsWidth)
+      this.ratios = calculateScale(gifsWidth, width - 11)
     },
   },
 }
