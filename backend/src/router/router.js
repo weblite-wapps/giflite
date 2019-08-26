@@ -20,8 +20,8 @@ router.get('/search/:info', ({ params: { info }, query: { offset } }, res) => {
 router.post('/changeLike', ({ body: { info } }, res) => {
   database
     .changeUserLikes(info)
-    .then(() => res.send('added to Favourites'))
-    .catch(console.log('we can not add to fav'))
+    .then(() => res.send('added to bookmarks'))
+    .catch(console.log('we can not add to bookmarks'))
 })
 
 router.post('/saveSentGif', ({ body: { info: { gifId, wisId } } }, res) => {
@@ -31,7 +31,7 @@ router.post('/saveSentGif', ({ body: { info: { gifId, wisId } } }, res) => {
     .catch(console.log('we can not save in sent'))
 })
 
-router.get('/load/favs/all/:userId', ({ params: { userId } }, res) => {
+router.get('/load/bookmarks/all/:userId', ({ params: { userId } }, res) => {
   database
     .getAllLikedGifs(userId)
     .then(likedGifsInDB => {
@@ -43,7 +43,7 @@ router.get('/load/favs/all/:userId', ({ params: { userId } }, res) => {
         reqToGiphyShowResTocli(giphyUrl, res)
       }
     })
-    .catch(console.log('cant load favs in db'))
+    .catch(console.log('cant load bookmarks in db'))
 })
 
 router.get('/load/single/:gifId', ({ params: { gifId } }, res) => {
