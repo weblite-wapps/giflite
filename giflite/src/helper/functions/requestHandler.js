@@ -35,9 +35,9 @@ export const changeLikes = info =>
     .then(res => res.body)
     .catch(logger)
 
-export const getAllFavourites = userId =>
+export const getAllBookmarks = userId =>
   request
-    .get(`${config.server}/load/favs/all/${userId}`)
+    .get(`${config.server}/load/bookmarks/all/${userId}`)
     .set('Access-Control-Allow-Origin', '*')
     .then(res => res.body)
     .then(filter)

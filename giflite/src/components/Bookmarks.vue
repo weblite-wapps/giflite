@@ -1,5 +1,5 @@
 <template>
-  <div class="favourites">
+  <div class="bookmarks">
     <Gif
       v-for="(item, index) in gifs"
       :key="item.smallUrl"
@@ -7,7 +7,7 @@
       :sendToChat="sendToChat"
       :changeUserLikes="changeUserLikes"
       :scale="ratios[index]"
-      parent="Favourites"
+      parent="Bookmarks"
     />
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   },
 
   props: {
-    getFavourites: Function,
+    getBookmarks: Function,
     gifs: Array,
     sendToChat: Function,
     changeUserLikes: Function,
@@ -37,7 +37,7 @@ export default {
   },
 
   created() {
-    this.getFavourites()
+    this.getBookmarks()
   },
 
   watch: {
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-.favourites {
+.bookmarks {
   margin: 0;
   display: flex;
   flex-direction: row;

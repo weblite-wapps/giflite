@@ -18,7 +18,7 @@
       />
       <img
         class="button"
-        v-if="!isSearching && page === 'favourites'"
+        v-if="!isSearching && page === 'bookmarks'"
         src="../assets/home.svg" 
         @click="changePage"
       />
@@ -57,7 +57,7 @@ export default {
 
   methods: {
     changePage() {
-      if (this.page === 'main') this.$emit('changePage', 'favourites')
+      if (this.page === 'main') this.$emit('changePage', 'bookmarks')
       else this.$emit('changePage', 'main')
     },
 

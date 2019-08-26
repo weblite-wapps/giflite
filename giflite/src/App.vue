@@ -2,7 +2,7 @@
   <div id="app">
     <Header :page="page" :searchContent="searchContent" @changePage="changePage" />
 
-    <div class="content" v-if="searchedGifs.length || favouriteGifs.length">
+    <div class="content" v-if="searchedGifs.length || bookmarkGifs.length">
       <Main
         v-if="page === 'main'"
         :gifs="searchedGifs"
@@ -11,11 +11,11 @@
         :loadMore="loadMore"
       />
 
-      <Favourites
-        v-if="page === 'favourites'"
-        :getFavourites="getFavourites"
+      <Bookmarks
+        v-if="page === 'bookmarks'"
+        :getBookmarks="getBookmarks"
         :sendToChat="sendToChat"
-        :gifs="favouriteGifs"
+        :gifs="bookmarkGifs"
         :changeUserLikes="changeUserLikes"
       />
     </div>
@@ -32,7 +32,7 @@ import {
   getTrendGifs,
   getSearchGifs,
   changeLikes,
-  getAllFavourites,
+  getAllBookmarks,
 } from './helper/functions/requestHandler.js'
 import webliteHandler from './helper/functions/weblite.api'
 import { removeGif } from './helper/functions/helperFunctions'
@@ -41,7 +41,7 @@ import Loading from './components/Loading'
 // lazy loading
 const Header = () => import('./components/Header')
 const Main = () => import('./components/Main')
-const Favourites = () => import('./components/Favourites')
+const Bookmarks = () => import('./components/Bookmarks')
 
 const { W } = window
 export default {
@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       searchedGifs: [],
-      favouriteGifs: [],
+      bookmarkGifs: [],
       userId: '',
       page: 'main',
       requestOffset: 0,
@@ -60,7 +60,7 @@ export default {
 
   components: {
     Main,
-    Favourites,
+    Bookmarks,
     Header,
     Loading,
   },
@@ -107,14 +107,14 @@ export default {
     changeUserLikes(info) {
       changeLikes({ ...info, userId: this.userId })
       if (info.action === 'dislike') {
-        this.favouriteGifs = removeGif(info.gifId, this.favouriteGifs)
+        this.bookmarkGifs = removeGif(info.gifId, this.bookmarkGifs)
       }
       W && W.analytics(info.action === 'dislike' ? 'UN_BOOKMARK' : 'BOOKMARK')
     },
 
-    getFavourites() {
-      getAllFavourites(this.userId).then(favouriteGifs => {
-        this.favouriteGifs = favouriteGifs
+    getBookmarks() {
+      getAllBookmarks(this.userId).then(bookmarkGifs => {
+        this.bookmarkGifs = bookmarkGifs
       })
     },
 

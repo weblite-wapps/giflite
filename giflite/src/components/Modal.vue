@@ -33,7 +33,7 @@
 
                 <abbr title="Unbookmark">
                   <button
-                    v-if="parent=== 'Favourites'"
+                    v-if="parent=== 'Bookmarks'"
                     class="changeButton unbookmark icon"
                     @click="changeUserLikes({ gifId: url.gifId, wisId: url.wisId ? url.wisId: '', action: 'dislike' })"
                   >

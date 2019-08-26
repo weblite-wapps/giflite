@@ -35,10 +35,10 @@ export default {
   },
   computed: {
     saveCircleStyle() {
-      return `display: ${this.parent === 'Favourites' ? 'none' : 'inline'}`
+      return `display: ${this.parent === 'Bookmarks' ? 'none' : 'inline'}`
     },
     isLikeButton() {
-      return this.parent === 'Favourites'
+      return this.parent === 'Bookmarks'
     },
   },
 }
